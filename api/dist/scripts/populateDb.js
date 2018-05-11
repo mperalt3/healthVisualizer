@@ -32,8 +32,7 @@ console.log('This script populates database');
 
 
 var mongoDB = 'mongodb://127.0.0.1/' + _db.databaseConfiguration.name;
-// const mongoDB = 'mongodb://127.0.0.1:27017/test'
-// const mongoDB = 'mongodb://127.0.0.1/tutorial';
+
 _mongoose2.default.connect(mongoDB);
 _mongoose2.default.Promise = global.Promise;
 var db = _mongoose2.default.connection;
@@ -74,15 +73,16 @@ async function clearModels() {
 
 async function loadDiabetesPrevalence() {
   console.log("loadDiabetesPrevalence");
-  var disease = await new _disease2.default({ name: "Obesity" });
-  await disease.save(function (err) {
+  var disease = await _disease2.default.findOneOrCreate({ name: "Obesity" }, function (err, result) {
     if (err) {
-      console.log('ERROR CREATING disease ' + disease);
-      return;
+      console.log(err);
     }
-    console.log('New disease: ' + disease);
+    console.log("findOneOrCreate callback");
+    console.log(result);
+    disease = result;
+    return result;
   });
-  diseases.push(disease);
+  console.log(disease);
   return;
 }
 

@@ -30,5 +30,14 @@ var diseaseSchema = new Schema({
   }
 });
 
+diseaseSchema.statics.findOneOrCreate = async function findOneOrCreate(condition, callback) {
+  var self = this;
+  await self.findOne(condition, function (err, result) {
+    return result ? callback(err, result) : self.create(condition, function (err, result) {
+      return callback(err, result);
+    });
+  });
+};
+
 var Disease = _mongoose2.default.model('Disease', diseaseSchema);
 exports.default = Disease;

@@ -42,5 +42,14 @@ var countySchema = new Schema({
   }
 });
 
+countySchema.statics.findOneOrCreate = function findOneOrCreate(condition, callback) {
+  var self = this;
+  self.findOne(condition, function (err, result) {
+    return result ? callback(err, result) : self.create(condition, function (err, result) {
+      return callback(err, result);
+    });
+  });
+};
+
 var County = _mongoose2.default.model('County', countySchema);
 exports.default = County;

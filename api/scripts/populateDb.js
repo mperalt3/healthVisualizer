@@ -41,15 +41,27 @@ async function clearModels(){
 
 async function loadDiabetesPrevalence(){
   console.log("loadDiabetesPrevalence")
-  let disease = await new Disease({name: "Obesity"});
-  await disease.save(function (err) {
-    if (err) {
-      console.log('ERROR CREATING disease ' + disease);
-      return
-    }
-    console.log('New disease: ' + disease);
-  });
-  diseases.push(disease);
+  let disease = await Disease.findOneOrCreate({name: "Obesity"}, (err, result)=>{
+    if (err){ console.log(err)}
+    console.log("findOneOrCreate callback")
+    console.log(result)
+    disease = result;
+    return result;
+  })
+  console.log(disease);
+  return;
+}
+
+async function loadDiabetesPrevalence2(){
+  console.log("loadDiabetesPrevalence")
+  let disease = await Disease.findOneOrCreate({name: "Obesity"}, (err, result)=>{
+    if (err){ console.log(err)}
+    console.log("findOneOrCreate callback")
+    console.log(result)
+    disease = result;
+    return result;
+  })
+  console.log(disease);
   return;
 }
 

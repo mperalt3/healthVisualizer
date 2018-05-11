@@ -19,5 +19,12 @@ let diseaseSchema = new Schema({
   }
 });
 
+diseaseSchema.statics.findOneOrCreate = async function findOneOrCreate(condition, callback) {
+    const self = this
+    await self.findOne(condition, (err, result) => {
+        return result ? callback(err, result) : self.create(condition, (err, result) => { return callback(err, result) })
+    })
+}
+
 const Disease = mongoose.model('Disease', diseaseSchema);
 export default Disease;

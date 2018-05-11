@@ -28,7 +28,6 @@ var app = express();
 //Set up default mongoose connection
 console.log(_db.databaseConfiguration.name);
 var mongoDB = 'mongodb://127.0.0.1/' + _db.databaseConfiguration.name;
-// const mongoDB = 'mongodb://127.0.0.1/tutorial';
 console.log(mongoDB);
 _mongoose2.default.connect(mongoDB, function (err) {
   if (err) throw err;

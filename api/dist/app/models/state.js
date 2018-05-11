@@ -30,5 +30,14 @@ var stateSchema = new Schema({
   }
 });
 
+stateSchema.statics.findOneOrCreate = function findOneOrCreate(condition, callback) {
+  var self = this;
+  self.findOne(condition, function (err, result) {
+    return result ? callback(err, result) : self.create(condition, function (err, result) {
+      return callback(err, result);
+    });
+  });
+};
+
 var State = _mongoose2.default.model('State', stateSchema);
 exports.default = State;
