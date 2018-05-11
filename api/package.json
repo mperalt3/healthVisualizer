@@ -4,7 +4,8 @@
   "private": true,
   "scripts": {
     "build": "rimraf dist/ && babel ./ --out-dir dist/ --ignore ./node_modules,./.babelrc,./package.json,./npm-debug.log --copy-files",
-    "start": "npm run build && node dist/bin/www"
+    "start": "npm run build && node dist/bin/www",
+    "devstart": "npm run build && nodemon dist/bin/www"
   },
   "author": {
     "name": "Macarena Peralta"
@@ -20,6 +21,7 @@
   "devDependencies": {
     "babel-cli": "^6.26.0",
     "babel-preset-es2015": "^6.24.1",
+    "nodemon": "^1.17.4",
     "rimraf": "^2.6.2"
   }
 }
