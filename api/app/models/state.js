@@ -19,12 +19,18 @@ let stateSchema = new Schema({
   }
 });
 
-stateSchema.statics.findOneOrCreate = function findOneOrCreate(condition, callback) {
-    const self = this
-    self.findOne(condition, (err, result) => {
-        return result ? callback(err, result) : self.create(condition, (err, result) => { return callback(err, result) })
-    })
+stateSchema.statics.findOneOrCreate = async function findOneOrCreate(condition) {
+    const self = this;
+    let result = await self.findOne(condition);
+    if (result){
+      return result;
+    }
+    else{
+      result = await self.create(condition);
+      return result;
+    }
 }
+
 
 const State = mongoose.model('State', stateSchema);
 export default State;

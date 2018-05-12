@@ -25,6 +25,12 @@ var countySchema = new Schema({
     lowercase: true
   },
 
+  fipsCode: {
+    type: String,
+    trim: true,
+    lowercase: true
+  },
+
   isFavorite: {
     type: Boolean,
     enum: [true, false],
@@ -42,13 +48,15 @@ var countySchema = new Schema({
   }
 });
 
-countySchema.statics.findOneOrCreate = function findOneOrCreate(condition, callback) {
+countySchema.statics.findOneOrCreate = async function findOneOrCreate(condition) {
   var self = this;
-  self.findOne(condition, function (err, result) {
-    return result ? callback(err, result) : self.create(condition, function (err, result) {
-      return callback(err, result);
-    });
-  });
+  var result = await self.findOne(condition);
+  if (result) {
+    return result;
+  } else {
+    result = await self.create(condition);
+    return result;
+  }
 };
 
 var County = _mongoose2.default.model('County', countySchema);

@@ -14,6 +14,12 @@ let countySchema = new Schema({
     lowercase: true
   },
 
+  fipsCode: {
+    type: String,
+    trim: true,
+    lowercase: true
+  },
+
   isFavorite: {
     type: Boolean,
     enum: [true, false],
@@ -31,11 +37,16 @@ let countySchema = new Schema({
   }
 });
 
-countySchema.statics.findOneOrCreate = function findOneOrCreate(condition, callback) {
-    const self = this
-    self.findOne(condition, (err, result) => {
-        return result ? callback(err, result) : self.create(condition, (err, result) => { return callback(err, result) })
-    })
+countySchema.statics.findOneOrCreate = async function findOneOrCreate(condition) {
+    const self = this;
+    let result = await self.findOne(condition);
+    if (result){
+      return result;
+    }
+    else{
+      result = await self.create(condition);
+      return result;
+    }
 }
 
 const County = mongoose.model('County', countySchema);

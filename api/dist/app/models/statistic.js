@@ -25,11 +25,11 @@ var statisticSchema = new Schema({
     required: true
   },
 
-  date: {
+  statisticDate: {
     Type: Date
   },
 
-  total_count: {
+  totalCount: {
     type: Number
   },
 

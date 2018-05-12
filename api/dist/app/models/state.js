@@ -30,13 +30,15 @@ var stateSchema = new Schema({
   }
 });
 
-stateSchema.statics.findOneOrCreate = function findOneOrCreate(condition, callback) {
+stateSchema.statics.findOneOrCreate = async function findOneOrCreate(condition) {
   var self = this;
-  self.findOne(condition, function (err, result) {
-    return result ? callback(err, result) : self.create(condition, function (err, result) {
-      return callback(err, result);
-    });
-  });
+  var result = await self.findOne(condition);
+  if (result) {
+    return result;
+  } else {
+    result = await self.create(condition);
+    return result;
+  }
 };
 
 var State = _mongoose2.default.model('State', stateSchema);
