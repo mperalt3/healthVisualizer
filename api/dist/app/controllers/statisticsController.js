@@ -21,7 +21,7 @@ exports.index = async function (req, res) {
       success: false
     });
   }
-  var statistics = await _statistic2.default.find({ countyId: id });
+  var statistics = await _statistic2.default.find({ countyId: id }).sort({ statisticDate: 1 });
   return res.status(200).send({
     msg: 'Ok',
     success: true,
