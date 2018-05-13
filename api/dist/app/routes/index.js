@@ -44,20 +44,4 @@ router.param('id', function (req, res, next, name) {
   next();
 });
 
-//This function validate any parameter called isFavorite value as true or false
-router.param('isFavorite', function (req, res, next, name) {
-  if (isFavorite === "true") {
-    var _favorite = true;
-  } else if (isFavorite === "false") {
-    var _favorite2 = false;
-  } else {
-    return res.status(400).send({
-      msg: 'Bad request. isFavorite is not valid',
-      success: false
-    });
-  }
-  req.isFavorite = favorite;
-  next();
-});
-
 exports.default = router;

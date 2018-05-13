@@ -44,18 +44,27 @@ exports.show = function (req, res) {
 
 // Update a County. Mark as favorite
 exports.update = function (req, res) {
-  var _req$params = req.params,
-      favorite = _req$params.favorite,
-      id = _req$params.id;
+  var id = req.params.id;
+  var isFavorite = req.body.isFavorite;
 
-  _county2.default.findOneAndUpdate({ _id: id }, { $set: { isFavorite: isFavorite } }, { new: true }, function (err, county) {
+  var favorite = '';
+  if (isFavorite && isFavorite === "true") {
+    favorite = true;
+  } else if (isFavorite && isFavorite === "false") {
+    favorite = false;
+  } else {
+    return res.status(400).send({
+      msg: 'Bad request. isFavorite is not valid',
+      success: false
+    });
+  }
+  _county2.default.findOneAndUpdate({ _id: id }, { $set: { isFavorite: favorite } }, { new: true }, function (err, county) {
     if (err) {
       return res.status(500).send({
         msg: 'county not found',
         success: false
       });
     }
-    console.log(county);
     return res.status(200).send({
       msg: 'Ok',
       success: true,

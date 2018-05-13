@@ -30,7 +30,7 @@ console.log(_db.databaseConfiguration.name);
 var mongoDB = 'mongodb://127.0.0.1/' + _db.databaseConfiguration.name;
 console.log(mongoDB);
 _mongoose2.default.connect(mongoDB, function (err) {
-  if (err) throw err;
+    if (err) throw err;
 });
 // Get Mongoose to use the global promise library
 _mongoose2.default.Promise = global.Promise;
@@ -40,7 +40,7 @@ var db = _mongoose2.default.connection;
 //Bind connection to error event (to get notification of connection errors)
 db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 db.once("open", function (callback) {
-  console.log("Connection succeeded.");
+    console.log("Connection succeeded.");
 });
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -56,18 +56,21 @@ app.use('/api/v1', _routes2.default);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
-  next(createError(404));
+    next(createError(404));
 });
 
 // error handler
 app.use(function (err, req, res, next) {
-  // set locals, only providing error in development
-  res.locals.message = err.message;
-  res.locals.error = req.app.get('env') === 'development' ? err : {};
+    // set locals, only providing error in development
+    res.locals.message = err.message;
+    res.locals.error = req.app.get('env') === 'development' ? err : {};
 
-  // render the error page
-  res.status(err.status || 500);
-  res.render('error');
+    // render the error page
+    res.status(err.status || 500);
+    res.send({
+        message: err.message,
+        error: err
+    });
 });
 
 module.exports = app;
