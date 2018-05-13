@@ -103,7 +103,6 @@ async function loadDiabetesPrevalence() {
     column = column + 3;
     var year = 0;
     while (column < fullDocument[row].length) {
-      console.log("Por hacer la stats de" + county.name);
       var stats = new _statistic2.default({
         countyId: county._id,
         diseaseId: disease._id,
@@ -121,7 +120,6 @@ async function loadDiabetesPrevalence() {
         if (err) {
           console.log(err);
         }
-        console.log(result);
       });
       column = column + 7;
       year++;
@@ -129,21 +127,6 @@ async function loadDiabetesPrevalence() {
     column = 0;
     row++;
   }
-  return;
-}
-
-async function loadDiabetesPrevalence2() {
-  console.log("loadDiabetesPrevalence");
-  var disease = await _disease2.default.findOneOrCreate({ name: "Obesity" }, function (err, result) {
-    if (err) {
-      console.log(err);
-    }
-    console.log("findOneOrCreate callback");
-    console.log(result);
-    disease = result;
-    return result;
-  });
-  console.log(disease);
   return;
 }
 

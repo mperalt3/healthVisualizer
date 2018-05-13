@@ -22,12 +22,6 @@ exports.index = async (req, res) => {
 // Display a State.
 exports.show = async (req, res) => {
   const { params: { id } } = req;
-  if (!id || !mongoose.Types.ObjectId.isValid(id)){
-    return res.status(400).send({
-      msg: 'Bad request. id is not valid',
-      success: false
-    });
-  }
   State.findById(id)
   .exec((err, state) => {
     if (err){

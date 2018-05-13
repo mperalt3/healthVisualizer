@@ -33,4 +33,15 @@ router.use('/diseases', _diseasesRoutes2.default);
 router.use('/states', _statesRoutes2.default);
 router.use('/statistics', _statisticsRoutes2.default);
 
+router.param('id', function (req, res, next, name) {
+  // id validation as mongo ObjectId
+  if (!mongoose.Types.ObjectId.isValid(id)) {
+    return res.status(400).send({
+      msg: 'Bad request. id is not valid',
+      success: false
+    });
+  }
+  next();
+});
+
 exports.default = router;

@@ -5,5 +5,4 @@ const router = express.Router();
 
 router.get('/:id', statisticsController.show);
 
-
 export default router;

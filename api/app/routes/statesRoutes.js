@@ -6,5 +6,4 @@ const router = express.Router();
 router.get('/', statesController.index);
 router.get('/:id', statesController.show);
 
-
 export default router;
