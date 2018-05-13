@@ -27,12 +27,6 @@ exports.index = function (req, res) {
 exports.show = function (req, res) {
   var id = req.params.id;
 
-  if (!id || !mongoose.Types.ObjectId.isValid(id)) {
-    return res.status(400).send({
-      msg: 'Bad request. id is not valid',
-      success: false
-    });
-  }
   _disease2.default.findById(id).exec(function (err, disease) {
     if (err) {
       return res.status(500).send({

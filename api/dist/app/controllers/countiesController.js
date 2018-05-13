@@ -25,12 +25,41 @@ exports.index = function (req, res) {
 
 // Display a County.
 exports.show = function (req, res) {
-  //Find one and populate with disease and stats
-  res.send('NOT IMPLEMENTED: County show');
+  var id = req.params.id;
+
+  _county2.default.findById(id).exec(function (err, county) {
+    if (err) {
+      return res.status(500).send({
+        msg: 'county not found',
+        success: false
+      });
+    }
+    return res.status(200).send({
+      msg: 'Ok',
+      success: true,
+      county: county
+    });
+  });
 };
 
-// Update a County.
+// Update a County. Mark as favorite
 exports.update = function (req, res) {
-  //Mark as favorite
-  res.send('NOT IMPLEMENTED: County update');
+  var _req$params = req.params,
+      favorite = _req$params.favorite,
+      id = _req$params.id;
+
+  _county2.default.findOneAndUpdate({ _id: id }, { $set: { isFavorite: isFavorite } }, { new: true }, function (err, county) {
+    if (err) {
+      return res.status(500).send({
+        msg: 'county not found',
+        success: false
+      });
+    }
+    console.log(county);
+    return res.status(200).send({
+      msg: 'Ok',
+      success: true,
+      county: county
+    });
+  });
 };
