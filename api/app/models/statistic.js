@@ -15,7 +15,7 @@ let statisticSchema = new Schema({
   },
 
   statisticDate: {
-    Type: Date
+    type: Date
   },
 
   totalCount: {

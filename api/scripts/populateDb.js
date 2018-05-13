@@ -55,7 +55,7 @@ async function loadDiabetesPrevalence(){
   let row = 2;
   let column = 0;
   while(row < fullDocument.length){
-    let state = await State.findOneOrCreate({name: fullDocument[row][column]}, returnResult);
+    let state = await State.findOneOrCreate({ name: fullDocument[row][column] }, returnResult);
     let county = await County.findOneOrCreate({
       fipsCode: fullDocument[row][column+1],
       name: fullDocument[row][column+2],
@@ -65,22 +65,22 @@ async function loadDiabetesPrevalence(){
     let year = 0;
     while(column < fullDocument[row].length){
       let stats = new Statistic({
-        countyId: county._id,
-        diseaseId: disease._id,
-        statisticDate: new Date(years[year]),
-        totalCount: fullDocument[row][column],
-        percent: fullDocument[row][column+1],
-        lowerConfidenceLimit: fullDocument[row][column+2],
-        upperConfidenceLimit: fullDocument[row][column+3],
-        ageAdjustedPercent: fullDocument[row][column+4],
-        ageLowerConfidenceLimit: fullDocument[row][column+5],
-        ageUpperConfidenceLimit: fullDocument[row][column+6],
+        countyId:       county._id,
+        diseaseId:      disease._id,
+        statisticDate:  new Date(years[year]),
+        totalCount:               fullDocument[row][column] != "No Data" ? fullDocument[row][column] : null,
+        percent:                  fullDocument[row][column + 1] != "No Data" ? fullDocument[row][column + 1] : null,
+        lowerConfidenceLimit:     fullDocument[row][column + 2] != "No Data" ? fullDocument[row][column + 2] : null,
+        upperConfidenceLimit:     fullDocument[row][column + 3] != "No Data" ? fullDocument[row][column + 3] : null,
+        ageAdjustedPercent:       fullDocument[row][column + 4] != "No Data" ? fullDocument[row][column + 4] : null,
+        ageLowerConfidenceLimit:  fullDocument[row][column + 5] != "No Data" ? fullDocument[row][column + 5] : null,
+        ageUpperConfidenceLimit:  fullDocument[row][column + 6] != "No Data" ? fullDocument[row][column + 6] : null,
         genderScope: "A"
       });
       stats.save((err, result)=>{
         if (err){ console.log(err) }
       })
-      column = column +7;
+      column = column + 7;
       year++;
     }
     column=0;
