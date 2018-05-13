@@ -2,8 +2,16 @@ import County from '../models/county';
 
 // Display list of all Counties, sorted by name.
 exports.index = function(req, res) {
-  County.find().sort({ name: -1 })
-  .exec((err, counties) => {
+  const { query: { isFavorite } } = req;
+  let query = '';
+  if (isFavorite && isFavorite === "true"){
+    query = County.find({ isFavorite: true }).sort({ name: 1 })
+  }else if (isFavorite && isFavorite === "false"){
+    query = County.find({ isFavorite: false }).sort({ name: 1 })
+  }else{
+    query = County.find().sort({ name: 1 })
+  }
+  query.exec((err, counties) => {
     if (err){
       res.status(500).send({
         msg: 'DB conection failed',

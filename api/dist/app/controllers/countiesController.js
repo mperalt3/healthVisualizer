@@ -8,7 +8,17 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 // Display list of all Counties, sorted by name.
 exports.index = function (req, res) {
-  _county2.default.find().sort({ name: -1 }).exec(function (err, counties) {
+  var isFavorite = req.query.isFavorite;
+
+  var query = '';
+  if (isFavorite && isFavorite === "true") {
+    query = _county2.default.find({ isFavorite: true }).sort({ name: 1 });
+  } else if (isFavorite && isFavorite === "false") {
+    query = _county2.default.find({ isFavorite: false }).sort({ name: 1 });
+  } else {
+    query = _county2.default.find().sort({ name: 1 });
+  }
+  query.exec(function (err, counties) {
     if (err) {
       res.status(500).send({
         msg: 'DB conection failed',

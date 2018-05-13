@@ -2,7 +2,7 @@ import Disease from '../models/disease';
 
 // Display list of all Diseases.
 exports.index = function(req, res) {
-  Disease.find().sort({ name: -1 })
+  Disease.find().sort({ name: 1 })
   .exec((err, diseases) => {
     if (err){
       res.status(500).send({

@@ -3,7 +3,7 @@ import State from '../models/state';
 
 // Display list of all States sorted by name.
 exports.index = async (req, res) => {
-  State.find().sort({ name: -1 })
+  State.find().sort({ name: 1 })
   .exec((err, states) => {
     if (err){
       res.status(500).send({
