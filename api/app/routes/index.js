@@ -1,9 +1,25 @@
-var express = require('express');
-var router = express.Router();
+import express from 'express';
+import counties from './countiesRoutes';
+import diseases from './diseasesRoutes';
+import states from './statesRoutes';
+import statistics from './statisticsRoutes';
 
-/* GET home page. */
-router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express' });
+const router = express.Router();
+
+router.use('/counties', counties);
+router.use('/diseases', diseases);
+router.use('/states', states);
+router.use('/statistics', statistics);
+
+// This function validate any parameter called id as a valid mongoose ObjectID
+router.param('id', function(req, res, next, name) {
+  if(!mongoose.Types.ObjectId.isValid(id)){
+    return res.status(400).send({
+      msg: 'Bad request. id is not valid',
+      success: false
+    });
+  }
+  next();
 });
 
-module.exports = router;
+export default router;
