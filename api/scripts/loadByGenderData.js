@@ -5,9 +5,9 @@ import Disease from '../app/models/disease';
 import State from '../app/models/state';
 import Statistic from '../app/models/statistic';
 
-// This function load data from excel with data from female and male.
+// This function load data from excel with data from female and male
 // params:
-// string filename: Relative path of the file.
+// string filename: Relative path of the file
 // string name: Name of the disease
 export async function loadByGenderData(filename, name){
   console.log("Loading " + name + " by gender...");

@@ -5,9 +5,9 @@ import Disease from '../app/models/disease';
 import State from '../app/models/state';
 import Statistic from '../app/models/statistic';
 
-// This function load data from excel with the general data estructure.
+// This function load data from excel with the general data estructure
 // params:
-// string filename: Relative path of the file.
+// string filename: Relative path of the file
 // string name: Name of the disease
 export async function loadGeneralData(filename, name){
   console.log("Loading " + name + " data...");

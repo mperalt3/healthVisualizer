@@ -10,7 +10,7 @@ import Statistic from '../app/models/statistic';
 import { loadGeneralData } from "./loadGeneralData";
 import { loadByGenderData } from "./loadByGenderData";
 
-// Open database conection
+// Open database connection
 const mongoDB = 'mongodb://127.0.0.1/' + databaseConfiguration.name;
 mongoose.connect(mongoDB);
 mongoose.Promise = global.Promise;
@@ -58,5 +58,5 @@ async.series([
     else {
         console.log('Database loaded successfully!');
     }
-    // mongoose.connection.close();
+    mongoose.connection.close();
 });
