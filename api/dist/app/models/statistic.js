@@ -33,6 +33,14 @@ var statisticSchema = new Schema({
     type: Number
   },
 
+  newCases: {
+    type: Number
+  },
+
+  ratePer1000: {
+    type: Number
+  },
+
   percent: {
     type: Number
   },
