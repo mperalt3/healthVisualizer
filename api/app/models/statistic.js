@@ -15,12 +15,20 @@ let statisticSchema = new Schema({
   },
 
   statisticDate: {
-    Type: Date
+    type: Date
   },
 
   totalCount: {
     type: Number
   },
+
+  newCases: {
+    type: Number
+  },
+
+  ratePer1000: {
+    type: Number
+  }, 
 
   percent: {
     type: Number

@@ -8,7 +8,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 // Display list of all Diseases.
 exports.index = function (req, res) {
-  _disease2.default.find().sort({ name: -1 }).exec(function (err, diseases) {
+  _disease2.default.find().sort({ name: 1 }).exec(function (err, diseases) {
     if (err) {
       res.status(500).send({
         msg: 'DB conection failed',
