@@ -47,10 +47,6 @@ db.once("open", function (callback) {
     console.log("Connection succeeded!. Listening in: ");
 });
 
-// view engine setup
-// app.set('views', path.join(__dirname, 'views'));
-// app.set('view engine', 'jade');
-
 // Middleware Setup.
 app.use((0, _morgan2.default)('dev'));
 app.use(_express2.default.json());

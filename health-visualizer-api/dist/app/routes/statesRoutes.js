@@ -8,7 +8,7 @@ var _express = require('express');
 
 var _express2 = _interopRequireDefault(_express);
 
-var _statesController = require('../controllers/statesController');
+var _statesController = require('../controllers/api/v1/statesController');
 
 var _statesController2 = _interopRequireDefault(_statesController);
 

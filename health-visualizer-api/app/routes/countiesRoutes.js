@@ -1,6 +1,6 @@
 import express from 'express';
-import countiesController  from '../controllers/countiesController';
-import statisticsController from '../controllers/statisticsController';
+import countiesController  from '../controllers/api/v1/countiesController';
+import statisticsController from '../controllers/api/v1/statisticsController';
 const router = express.Router();
 
 router.get('/', countiesController.index);

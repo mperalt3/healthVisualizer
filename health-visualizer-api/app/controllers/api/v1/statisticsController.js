@@ -1,5 +1,5 @@
-import Statistic from '../models/statistic';
-import County from '../models/county';
+import Statistic from '../../../models/statistic';
+import County from '../../../models/county';
 
 // Display a Statistics by County.
 exports.index = async function(req, res) {

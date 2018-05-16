@@ -8,7 +8,7 @@ var _express = require('express');
 
 var _express2 = _interopRequireDefault(_express);
 
-var _diseasesController = require('../controllers/diseasesController');
+var _diseasesController = require('../controllers/api/v1/diseasesController');
 
 var _diseasesController2 = _interopRequireDefault(_diseasesController);
 

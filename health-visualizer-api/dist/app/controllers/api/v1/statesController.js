@@ -4,7 +4,7 @@ var _mongoose = require('mongoose');
 
 var _mongoose2 = _interopRequireDefault(_mongoose);
 
-var _state = require('../models/state');
+var _state = require('../../../models/state');
 
 var _state2 = _interopRequireDefault(_state);
 

@@ -8,7 +8,7 @@ var _express = require('express');
 
 var _express2 = _interopRequireDefault(_express);
 
-var _statisticsController = require('../controllers/statisticsController');
+var _statisticsController = require('../controllers/api/v1/statisticsController');
 
 var _statisticsController2 = _interopRequireDefault(_statisticsController);
 

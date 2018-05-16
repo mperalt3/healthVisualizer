@@ -1,6 +1,6 @@
 'use strict';
 
-var _county = require('../models/county');
+var _county = require('../../../models/county');
 
 var _county2 = _interopRequireDefault(_county);
 

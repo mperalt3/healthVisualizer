@@ -1,6 +1,6 @@
 'use strict';
 
-var _disease = require('../models/disease');
+var _disease = require('../../../models/disease');
 
 var _disease2 = _interopRequireDefault(_disease);
 

@@ -8,10 +8,6 @@ var _mongoose = require('mongoose');
 
 var _mongoose2 = _interopRequireDefault(_mongoose);
 
-var _mongooseFindOrCreate = require('mongoose-find-or-create');
-
-var _mongooseFindOrCreate2 = _interopRequireDefault(_mongooseFindOrCreate);
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var Schema = _mongoose2.default.Schema;

@@ -6,8 +6,7 @@
     "build": "rimraf dist/ && babel ./ --out-dir dist/ --ignore ./node_modules,./.babelrc,./package.json,./npm-debug.log --copy-files",
     "start": "npm run build && node dist/bin/www",
     "devstart": "npm run build && nodemon dist/bin/www",
-    "seed": "npm run build && node dist/scripts/populateDb",
-    "seed2": "node scripts/testmongo"
+    "seed": "npm run build && node dist/scripts/populateDb"
   },
   "author": {
     "name": "Macarena Peralta"

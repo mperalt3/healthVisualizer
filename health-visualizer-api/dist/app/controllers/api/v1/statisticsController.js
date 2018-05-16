@@ -1,10 +1,10 @@
 'use strict';
 
-var _statistic = require('../models/statistic');
+var _statistic = require('../../../models/statistic');
 
 var _statistic2 = _interopRequireDefault(_statistic);
 
-var _county = require('../models/county');
+var _county = require('../../../models/county');
 
 var _county2 = _interopRequireDefault(_county);
 

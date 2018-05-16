@@ -1,5 +1,5 @@
 import express from 'express';
-import statesController  from '../controllers/statesController';
+import statesController  from '../controllers/api/v1/statesController';
 
 const router = express.Router();
 

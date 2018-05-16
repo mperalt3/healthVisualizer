@@ -1,4 +1,4 @@
-import County from '../models/county';
+import County from '../../../models/county';
 
 // Display list of all Counties, sorted by name.
 exports.index = function(req, res) {
