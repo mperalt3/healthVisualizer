@@ -20,6 +20,7 @@ let diseaseSchema = new Schema({
   }
 });
 
+// This asynchronous function look for a collection by the condition. If it is found is returned, othewise a new collection with the data in condition is created and returned.
 diseaseSchema.statics.findOneOrCreate = async function findOneOrCreate(condition) {
     const self = this;
     let result = await self.findOne(condition);
