@@ -44,7 +44,7 @@ var db = _mongoose2.default.connection;
 //Bind connection to error event (to get notification of connection errors)
 db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 db.once("open", function (callback) {
-    console.log("Connection succeeded!. Listening in: ");
+    console.log("Connection succeeded!");
 });
 
 // Middleware Setup.
@@ -74,6 +74,11 @@ app.use(function (err, req, res, next) {
         message: err.message,
         error: err
     });
+});
+
+// Listen port 8080
+app.listen(8080, function () {
+    console.log('\n...Ready on port 8080');
 });
 
 module.exports = app;
