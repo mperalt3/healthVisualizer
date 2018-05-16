@@ -31,9 +31,9 @@ var _statistic2 = _interopRequireDefault(_statistic);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-// This function load data from excel with the general data estructure.
+// This function load data from excel with the general data estructure
 // params:
-// string filename: Relative path of the file.
+// string filename: Relative path of the file
 // string name: Name of the disease
 async function loadGeneralData(filename, name) {
   console.log("Loading " + name + " data...");
