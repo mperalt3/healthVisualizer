@@ -1,1 +1,1 @@
-export const healthVisualizerApi = "https://localhost:3000/api/v1"
+export const healthVisualizerApi = "http://localhost:3000/api/v1"

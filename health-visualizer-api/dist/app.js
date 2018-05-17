@@ -30,6 +30,10 @@ var _routes = require('./app/routes');
 
 var _routes2 = _interopRequireDefault(_routes);
 
+var _cors = require('cors');
+
+var _cors2 = _interopRequireDefault(_cors);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var app = (0, _express2.default)();
@@ -53,6 +57,7 @@ app.use(_express2.default.json());
 app.use(_express2.default.urlencoded({ extended: false }));
 app.use((0, _cookieParser2.default)());
 app.use(_express2.default.static(_path2.default.join(__dirname, 'public')));
+app.use((0, _cors2.default)());
 
 // Routes Setup
 app.use('/api/v1', _routes2.default);
