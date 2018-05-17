@@ -1,7 +1,10 @@
 import { LIST_STATES } from "../constants/actionTypes";
 
 const initialState = {
-  counties: [],
+  counties: [
+    {_id: 1, name: "Chambers county"},
+    {_id: 2, name: "Clay county"}
+  ],
   states: [],
   diseases: []
 };
