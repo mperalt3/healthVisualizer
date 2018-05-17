@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { listCounties } from "../actions/index";
+import { getCounties } from "../services/countiesService"
 
 const mapDispatchToProps = dispatch => {
   return {
@@ -25,7 +26,9 @@ class ConnectedSearch extends Component {
   handleSubmit(event) {
     event.preventDefault();
     const { searchQuery } = this.state;
-    this.props.listCounties();
+    // this.props.listCounties();
+    const counties = getCounties();
+    console.log("handlesubmit:" + counties)
     this.setState({ searchQuery: "" });
   }
 
