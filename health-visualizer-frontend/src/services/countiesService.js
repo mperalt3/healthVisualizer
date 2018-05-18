@@ -9,8 +9,9 @@ export const  getCounties = () => {
     })
       .then((response) => {
         if (response.status === 200){
-          console.log(response.data);
-          return [{_id: 1, name: "county1"}, {_id: 2, name: "county2"}];
+          const { counties } = response.data;
+          console.log(counties);
+          return counties;
         }else{
           return [];
         }
