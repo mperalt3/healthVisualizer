@@ -8,7 +8,7 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <Search/>
+        <Search name="search pookie"/>
         <Menu/>
       </div>
     );

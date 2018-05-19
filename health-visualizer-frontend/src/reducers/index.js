@@ -16,9 +16,9 @@ const rootReducer = (state = initialState, action) => {
     case LIST_STATES:
       return { ...state,states: [...state.states, "Nuevo estado"] };
     case LIST_COUNTIES:
-      const counties = getCounties();
-      console.log("reducers counties:" + counties)
-      return { ...state, counties: [...state.counties, counties]}
+      console.log("reducer")
+      console.log(state)
+      return { ...state, counties: action.payload}
     default:
       return state;
   }

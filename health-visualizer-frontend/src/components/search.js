@@ -1,11 +1,11 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { listCounties } from "../actions/index";
+import { listCounties3 } from "../actions/index";
 // import { getCounties } from "../services/countiesService"
 
 const mapDispatchToProps = dispatch => {
   return {
-    listCounties: () => dispatch(listCounties())
+    listCounties: () => dispatch(listCounties3())
   };
 };
 
@@ -47,7 +47,7 @@ class ConnectedSearch extends Component {
           />
         </div>
         <button type="submit" className="btn btn-success btn-lg">
-          Search County
+          Search County {this.props.name}
         </button>
       </form>
     );

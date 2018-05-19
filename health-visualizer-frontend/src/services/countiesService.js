@@ -10,7 +10,9 @@ export const  getCounties = () => {
       .then((response) => {
         if (response.status === 200){
           const { counties } = response.data;
-          console.log(counties);
+          // console.log(counties);
+          // console.log(typeof(counties))
+          // console.log(counties[0]._id)
           return counties;
         }else{
           return [];
