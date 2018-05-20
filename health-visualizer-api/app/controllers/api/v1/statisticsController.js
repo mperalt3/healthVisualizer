@@ -4,7 +4,7 @@ import County from '../../../models/county';
 // Display a Statistics by County.
 exports.index = async function(req, res) {
   const { params: { id } } = req;
-  const county = await County.findById(id);
+  const county = await County.findById(id).populate({path: 'stateId', select: 'name'});
   if (!county){
     return res.status(500).send({
       msg: 'county not found',
@@ -15,8 +15,7 @@ exports.index = async function(req, res) {
   return res.status(200).send({
       msg: 'Ok',
       success: true,
-      county,
-      statistics
+      result : {county, statistics}
   });
 };
 

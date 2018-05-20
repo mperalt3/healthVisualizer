@@ -3,7 +3,7 @@ const Schema = mongoose.Schema;
 
 let countySchema = new Schema({
   stateId: {
-    type: Schema.Types.ObjectId,
+    type: Schema.ObjectId,
     ref: 'State',
     required: true,
   },

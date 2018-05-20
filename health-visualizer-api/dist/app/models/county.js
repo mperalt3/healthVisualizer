@@ -14,7 +14,7 @@ var Schema = _mongoose2.default.Schema;
 
 var countySchema = new Schema({
   stateId: {
-    type: Schema.Types.ObjectId,
+    type: Schema.ObjectId,
     ref: 'State',
     required: true
   },
