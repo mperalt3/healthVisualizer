@@ -14,8 +14,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 exports.index = async function (req, res) {
   var id = req.params.id;
 
-  var county = await _county2.default.findById(id).populate({
-    path: 'stateId', select: 'name' });
+  var county = await _county2.default.findById(id).populate({ path: 'stateId', select: 'name' });
   if (!county) {
     return res.status(500).send({
       msg: 'county not found',

@@ -8,7 +8,9 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 // Display list of all Counties, sorted by name.
 exports.index = function (req, res) {
-  var isFavorite = req.query.isFavorite;
+  var _req$query = req.query,
+      isFavorite = _req$query.isFavorite,
+      searchName = _req$query.searchName;
 
   var query = '';
   if (isFavorite && isFavorite === "true") {
@@ -17,6 +19,9 @@ exports.index = function (req, res) {
     query = _county2.default.find({ isFavorite: false }).sort({ name: 1 });
   } else {
     query = _county2.default.find().sort({ name: 1 });
+  }
+  if (searchName) {
+    query.find({ name: { "$regex": searchName.toLowerCase(), "$options": "i" } });
   }
   query.exec(function (err, counties) {
     if (err) {

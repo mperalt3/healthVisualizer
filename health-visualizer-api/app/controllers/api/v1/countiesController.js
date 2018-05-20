@@ -2,7 +2,7 @@ import County from '../../../models/county';
 
 // Display list of all Counties, sorted by name.
 exports.index = function(req, res) {
-  const { query: { isFavorite } } = req;
+  const { query: { isFavorite, searchName } } = req;
   let query = '';
   if (isFavorite && isFavorite === "true"){
     query = County.find({ isFavorite: true }).sort({ name: 1 })
@@ -10,6 +10,9 @@ exports.index = function(req, res) {
     query = County.find({ isFavorite: false }).sort({ name: 1 })
   }else{
     query = County.find().sort({ name: 1 })
+  }
+  if (searchName){
+    query.find({ name:  { "$regex": searchName.toLowerCase(), "$options": "i" }  })
   }
   query.exec((err, counties) => {
     if (err){
