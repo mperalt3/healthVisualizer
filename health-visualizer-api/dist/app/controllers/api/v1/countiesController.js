@@ -25,9 +25,6 @@ exports.index = function (req, res) {
   if (searchName) {
     query.find({ name: { "$regex": searchName.toLowerCase(), "$options": "i" } });
   }
-  if (limit && offset) {
-    query.skip(parseInt(offset)).limit(parseInt(limit));
-  }
   query.exec(function (err, counties) {
     if (err) {
       return res.status(500).send({
@@ -35,10 +32,18 @@ exports.index = function (req, res) {
         success: false
       });
     }
+    var result = counties;
+    console.log(offset);
+    console.log(limit);
+    if (offset && limit) {
+
+      result = counties.slice(parseInt(offset), parseInt(limit) + parseInt(offset));
+    }
     return res.status(200).send({
       msg: 'Ok',
       success: true,
-      counties: counties
+      total: counties.length,
+      counties: result
     });
   });
 };
