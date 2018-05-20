@@ -10,7 +10,9 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 exports.index = function (req, res) {
   var _req$query = req.query,
       isFavorite = _req$query.isFavorite,
-      searchName = _req$query.searchName;
+      searchName = _req$query.searchName,
+      offset = _req$query.offset,
+      limit = _req$query.limit;
 
   var query = '';
   if (isFavorite && isFavorite === "true") {
@@ -23,14 +25,17 @@ exports.index = function (req, res) {
   if (searchName) {
     query.find({ name: { "$regex": searchName.toLowerCase(), "$options": "i" } });
   }
+  if (limit && offset) {
+    query.skip(parseInt(offset)).limit(parseInt(limit));
+  }
   query.exec(function (err, counties) {
     if (err) {
-      res.status(500).send({
+      return res.status(500).send({
         msg: 'DB conection failed',
         success: false
       });
     }
-    res.status(200).send({
+    return res.status(200).send({
       msg: 'Ok',
       success: true,
       counties: counties

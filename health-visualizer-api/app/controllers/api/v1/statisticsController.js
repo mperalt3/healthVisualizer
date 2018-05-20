@@ -11,7 +11,7 @@ exports.index = async function(req, res) {
       success: false
     });
   }
-  const statistics = await Statistic.find({ countyId: id }).sort({ statisticDate: 1});
+  const statistics = await Statistic.find({ countyId: id }).populate({path: 'diseaseId', select: 'name'}).sort({ statisticDate: 1});
   return res.status(200).send({
       msg: 'Ok',
       success: true,

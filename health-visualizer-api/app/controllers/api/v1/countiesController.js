@@ -2,7 +2,7 @@ import County from '../../../models/county';
 
 // Display list of all Counties, sorted by name.
 exports.index = function(req, res) {
-  const { query: { isFavorite, searchName } } = req;
+  const { query: { isFavorite, searchName, offset, limit} } = req;
   let query = '';
   if (isFavorite && isFavorite === "true"){
     query = County.find({ isFavorite: true }).sort({ name: 1 })
@@ -14,14 +14,17 @@ exports.index = function(req, res) {
   if (searchName){
     query.find({ name:  { "$regex": searchName.toLowerCase(), "$options": "i" }  })
   }
+  if (limit && offset){
+    query.skip(parseInt(offset)).limit(parseInt(limit))
+  }
   query.exec((err, counties) => {
     if (err){
-      res.status(500).send({
+      return res.status(500).send({
         msg: 'DB conection failed',
         success: false
       });
     }
-    res.status(200).send({
+    return res.status(200).send({
         msg: 'Ok',
         success: true,
         counties
