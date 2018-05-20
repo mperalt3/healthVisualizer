@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import CountyOption from "./countyOption";
+import Paginator from "./paginator";
 
 const mapStateToProps = state => {
   return { counties: state.counties };
@@ -24,6 +25,7 @@ class ConnectedMenu extends Component {
         {counties.map(el => (
           <CountyOption county={el}/>
         ))}
+        <Paginator/>
         </div>
       }
       { !counties &&
