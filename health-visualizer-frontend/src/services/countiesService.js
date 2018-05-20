@@ -16,7 +16,7 @@ export const  getCounties = () => {
   }
 
 export const  getCounty = (countyId) => {
-  return Base(`/counties/${countyId}`, {
+  return Base(`/counties/${countyId}/statistics`, {
     method: 'GET'
   })
     .then((response) => {
