@@ -5,15 +5,16 @@ import { LIST_STATES,
         LIST_COUNTY_STATS,
         LIST_COUNTY,
         MARK_COUNTY_FAVORITE,
-        MARK_COUNTY_NON_FAVORITE
+        MARK_COUNTY_NON_FAVORITE,
+        UPDATE_SEARCH_NAME
       } from "../constants/actionTypes";
 import { getCounties, getCounty } from "../services/countiesService"
 
 
-function actionListCounties(counties) {
+function actionListCounties(result) {
   return {
     type: LIST_COUNTIES,
-    payload: counties
+    payload: result
   };
 }
 
@@ -27,7 +28,7 @@ function actionListCounty(county) {
 export const listCounties = (searchName, limit, offset) => {
   return function (dispatch) {
     return getCounties(searchName, limit, offset).then(
-      counties => dispatch(actionListCounties(counties))
+      result => dispatch(actionListCounties(result))
     )
   }
 }
@@ -39,6 +40,9 @@ export const listCounty = (countyId) => {
     )
   }
 }
+
+export const updateSearchName = (searchName) => ({ type: UPDATE_SEARCH_NAME, payload: searchName });
+
 
 export const listDiseases = () => ({ type: LIST_DISEASES });
 export const listStates = () => (

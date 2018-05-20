@@ -28,7 +28,7 @@ exports.index = function(req, res) {
     return res.status(200).send({
         msg: 'Ok',
         success: true,
-        total: counties.length,
+        totalCounties: counties.length,
         counties: result
     });
   });

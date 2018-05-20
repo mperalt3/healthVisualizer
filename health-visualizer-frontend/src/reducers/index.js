@@ -1,4 +1,4 @@
-import { LIST_STATES,
+import { UPDATE_SEARCH_NAME,
           LIST_COUNTIES,
           LIST_COUNTY
  } from "../constants/actionTypes";
@@ -10,15 +10,17 @@ const initialState = {
   ],
   states: [],
   diseases: [],
-  currentCounty: {}
+  currentCounty: {},
+  totalCounties: 0,
+  searchName: ''
 };
 
 const rootReducer = (state = initialState, action) => {
   switch (action.type) {
-    case LIST_STATES:
-      return { ...state,states: [...state.states, "Nuevo estado"] };
+    case UPDATE_SEARCH_NAME:
+      return { ...state, searchName: action.payload };
     case LIST_COUNTIES:
-      return { ...state, counties: action.payload}
+      return { ...state, counties: action.payload.counties, totalCounties: action.payload.totalCounties}
     case LIST_COUNTY:
       return { ...state, currentCounty: action.payload}
     default:

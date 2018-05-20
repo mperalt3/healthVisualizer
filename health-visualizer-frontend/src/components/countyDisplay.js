@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import FontAwesome from 'react-fontawesome';
 
 const mapStateToProps = state => {
-  return { county: state.currentCounty };
+  return { currentCounty: state.currentCounty };
 };
 
 class ConnectedCountyDisplay extends Component {
@@ -13,16 +13,16 @@ class ConnectedCountyDisplay extends Component {
   }
 
   render(){
-    const { county } = this.props;
+    const { currentCounty } = this.props;
     console.log("countyDisplay ")
-    console.log(county)
+    console.log(currentCounty)
     return (
       <div>
-      {county &&
+      {currentCounty &&
         <div>
-          <h2>{county.name}</h2>
-          <h3>{county.fipsCode}</h3>
-          {county.isFavorite &&
+          <h2>{currentCounty.county.name}</h2>
+          <h3>{currentCounty.county.fipsCode}</h3>
+          {currentCounty.county.isFavorite &&
             <span><FontAwesome
             className='fas fa-heart'
             name='heart'
@@ -30,7 +30,7 @@ class ConnectedCountyDisplay extends Component {
           }
         </div>
       }
-      { !county &&
+      { !currentCounty &&
         <h2>Choose a county to see it's health info</h2>
       }
       </div>

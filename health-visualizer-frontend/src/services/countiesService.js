@@ -12,8 +12,8 @@ export const  getCounties = (searchName, limit, offset) => {
   })
     .then((response) => {
       if (response.status === 200){
-        const { counties } = response.data;
-        return counties;
+        const { counties, totalCounties } = response.data;
+        return { counties, totalCounties };
       }else{
         return [];
       }
@@ -27,9 +27,9 @@ export const  getCounty = (countyId) => {
   })
     .then((response) => {
       if (response.status === 200){
-        const { county } = response.data;
-        console.log(county)
-        return county;
+        const { result } = response.data;
+        console.log(result)
+        return result;
       }else{
         return {};
       }
