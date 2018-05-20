@@ -7,9 +7,16 @@ import Search from "./search";
 class App extends Component {
   render() {
     return (
-      <div className="App">
-        <Search name="search pookie"/>
-        <Menu/>
+      <div className="App container">
+        <div className="row">
+          <div className="col-md-4 col-xs-12">
+            <Search/>
+            <Menu/>
+          </div>
+          <div className="col-md-4 col-xs-12">
+            <p>Info of county here</p>
+          </div>
+        </div>
       </div>
     );
   }

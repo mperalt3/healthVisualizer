@@ -47,7 +47,7 @@ class ConnectedSearch extends Component {
           />
         </div>
         <button type="submit" className="btn btn-success btn-lg">
-          Search County {this.props.name}
+          Search County
         </button>
       </form>
     );
