@@ -1,14 +1,16 @@
 import { LIST_STATES,
-          LIST_COUNTIES
+          LIST_COUNTIES,
+          LIST_COUNTY
  } from "../constants/actionTypes";
-import { getCounties } from "../services/countiesService"
+
 const initialState = {
   counties: [
     {_id: 1, name: "Chambers county"},
     {_id: 2, name: "Clay county"}
   ],
   states: [],
-  diseases: []
+  diseases: [],
+  currentCounty: {}
 };
 
 const rootReducer = (state = initialState, action) => {
@@ -16,9 +18,9 @@ const rootReducer = (state = initialState, action) => {
     case LIST_STATES:
       return { ...state,states: [...state.states, "Nuevo estado"] };
     case LIST_COUNTIES:
-      console.log("reducer")
-      console.log(state)
       return { ...state, counties: action.payload}
+    case LIST_COUNTY:
+      return { ...state, currentCounty: action.payload}
     default:
       return state;
   }

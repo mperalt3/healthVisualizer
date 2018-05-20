@@ -3,6 +3,7 @@ import logo from '../assets/images/logo.svg';
 import '../assets/stylesheets/App.css';
 import Menu from "./menu";
 import Search from "./search";
+import CountyDisplay from "./countyDisplay";
 
 class App extends Component {
   render() {
@@ -14,7 +15,7 @@ class App extends Component {
             <Menu/>
           </div>
           <div className="col-md-4 col-xs-12">
-            <p>Info of county here</p>
+            <CountyDisplay />
           </div>
         </div>
       </div>
