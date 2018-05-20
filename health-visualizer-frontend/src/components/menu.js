@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import CountyOption from "./countyOption";
 
 const mapStateToProps = state => {
   return { counties: state.counties };
@@ -11,22 +12,6 @@ class ConnectedMenu extends Component {
     this.state = {};
   }
 
-  // renderCounties(counties){
-  //   let result = "";
-  //   if (counties){
-  //     counties.forEach(county => {
-  //       result << <ul className="list-group list-group-flush">
-  //       {counties.map(el => (
-  //         <li className="list-group-item" key={el._id}>
-  //         {el.name}
-  //         </li>
-  //       ))}
-  //       </ul>
-  //     });
-  //   }
-  //   return result;
-  // }
-
 
   render(){
     const { counties } = this.props;
@@ -37,9 +22,7 @@ class ConnectedMenu extends Component {
       {counties &&
         <div>
         {counties.map(el => (
-          <li className="list-group-item" key={el._id}>
-          {el.name}
-          </li>
+          <CountyOption county={el}/>
         ))}
         </div>
       }

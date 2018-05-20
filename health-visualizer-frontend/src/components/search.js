@@ -1,11 +1,10 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { listCounties3 } from "../actions/index";
-// import { getCounties } from "../services/countiesService"
+import { listCounties } from "../actions/index";
 
 const mapDispatchToProps = dispatch => {
   return {
-    listCounties: () => dispatch(listCounties3())
+    listCounties: () => dispatch(listCounties())
   };
 };
 
@@ -27,8 +26,6 @@ class ConnectedSearch extends Component {
     event.preventDefault();
     const { searchQuery } = this.state;
     this.props.listCounties();
-    // const counties = getCounties();
-    // console.log("handlesubmit:" + counties)
     this.setState({ searchQuery: "" });
   }
 
@@ -37,7 +34,7 @@ class ConnectedSearch extends Component {
     return (
       <form onSubmit={this.handleSubmit}>
         <div className="form-group">
-          <label htmlFor="searchQuery">Name</label>
+          <label htmlFor="searchQuery">County's name</label>
           <input
             type="text"
             className="form-control"
@@ -47,7 +44,7 @@ class ConnectedSearch extends Component {
           />
         </div>
         <button type="submit" className="btn btn-success btn-lg">
-          Search County
+          Search
         </button>
       </form>
     );
