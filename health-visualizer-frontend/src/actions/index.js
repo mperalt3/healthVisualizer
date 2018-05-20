@@ -24,9 +24,9 @@ function actionListCounty(county) {
   };
 }
 
-export const listCounties = () => {
+export const listCounties = (searchName, limit, offset) => {
   return function (dispatch) {
-    return getCounties().then(
+    return getCounties(searchName, limit, offset).then(
       counties => dispatch(actionListCounties(counties))
     )
   }

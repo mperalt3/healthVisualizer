@@ -4,7 +4,7 @@ import { listCounties } from "../actions/index";
 
 const mapDispatchToProps = dispatch => {
   return {
-    listCounties: () => dispatch(listCounties())
+    listCounties: (searchName, limit, offset) => dispatch(listCounties(searchName, limit, offset))
   };
 };
 
@@ -25,7 +25,7 @@ class ConnectedSearch extends Component {
   handleSubmit(event) {
     event.preventDefault();
     const { searchQuery } = this.state;
-    this.props.listCounties();
+    this.props.listCounties(searchQuery, 10, 0);
     this.setState({ searchQuery: "" });
   }
 

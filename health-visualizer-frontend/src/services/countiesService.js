@@ -1,8 +1,14 @@
 import Base from './base';
 
-export const  getCounties = () => {
+export const  getCounties = (searchName, limit, offset) => {
+  let params = {
+    limit: limit,
+    offset: offset
+  };
+  if (searchName) { params.searchName = searchName }
   return Base(`/counties`, {
-    method: 'GET'
+    method: 'GET',
+    params: params
   })
     .then((response) => {
       if (response.status === 200){

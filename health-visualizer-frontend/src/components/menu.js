@@ -10,12 +10,15 @@ const mapStateToProps = state => {
 class ConnectedMenu extends Component {
   constructor(){
     super();
-    this.state = {};
+    this.state = {
+      elementsByPage: 10
+    };
   }
 
 
   render(){
     const { counties } = this.props;
+    const { elementsByPage } = this.state;
     console.log("menu ")
     console.log(counties)
     return (
@@ -25,7 +28,7 @@ class ConnectedMenu extends Component {
         {counties.map(el => (
           <CountyOption county={el}/>
         ))}
-        <Paginator/>
+        <Paginator totalCount={counties.length} elementsByPage={elementsByPage}/>
         </div>
       }
       { !counties &&

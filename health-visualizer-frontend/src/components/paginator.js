@@ -1,28 +1,36 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import ReactPaginate from 'react-paginate';
+import { listCounties } from "../actions/index";
 
-// const mapStateToProps = state => {
-//   return { counties: state.counties };
-// };
+const mapDispatchToProps = dispatch => {
+  return {
+    listCounties: (searchName, limit, offset) => dispatch(listCounties(searchName, limit, offset))
+  };
+};
 
-class Paginator extends Component {
+class ConnectedPaginator extends Component {
   constructor(){
     super();
     this.state = {
-      totalPages: 3,
+      currentPage: 1,
+      pageCount: 1,
       offset: 0
     };
+    this.handlePageClick = this.handlePageClick.bind(this);
+  }
+
+  componentDidMount(){
+    const { totalCount, elementsByPage } = this.props;
+    let pageCount = Math.ceil(totalCount / elementsByPage);
+    this.setState({ pageCount: pageCount });
   }
 
   handlePageClick(data) {
+    const { elementsByPage } = this.props;
     console.log(data)
-    // let selected = data.selected;
-    // let offset = Math.ceil(selected * this.props.perPage);
-    //
-    // this.setState({offset: offset}, () => {
-    //   this.loadCommentsFromServer();
-    // });
+    let offset = elementsByPage * parseInt(data.selected) + elementsByPage;
+    this.props.listCounties(null, elementsByPage, offset);
   };
 
   render(){
@@ -47,5 +55,5 @@ class Paginator extends Component {
 }
 
 
-// const Menu = connect(mapStateToProps, null)(ConnectedMenu);
+const Paginator = connect(null, mapDispatchToProps)(ConnectedPaginator);
 export default Paginator;
