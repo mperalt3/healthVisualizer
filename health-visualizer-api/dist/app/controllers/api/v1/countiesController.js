@@ -33,16 +33,13 @@ exports.index = function (req, res) {
       });
     }
     var result = counties;
-    console.log(offset);
-    console.log(limit);
     if (offset && limit) {
-
       result = counties.slice(parseInt(offset), parseInt(limit) + parseInt(offset));
     }
     return res.status(200).send({
       msg: 'Ok',
       success: true,
-      total: counties.length,
+      totalCounties: counties.length,
       counties: result
     });
   });

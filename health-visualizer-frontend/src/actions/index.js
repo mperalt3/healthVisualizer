@@ -6,7 +6,8 @@ import { LIST_STATES,
         LIST_COUNTY,
         MARK_COUNTY_FAVORITE,
         MARK_COUNTY_NON_FAVORITE,
-        UPDATE_SEARCH_NAME
+        UPDATE_SEARCH_NAME,
+        SET_ELEMENTS_BY_PAGE
       } from "../constants/actionTypes";
 import { getCounties, getCounty } from "../services/countiesService"
 
@@ -42,6 +43,8 @@ export const listCounty = (countyId) => {
 }
 
 export const updateSearchName = (searchName) => ({ type: UPDATE_SEARCH_NAME, payload: searchName });
+export const setElementsByPage = (elementsByPage) => ({ type: SET_ELEMENTS_BY_PAGE, payload: elementsByPage });
+
 
 
 export const listDiseases = () => ({ type: LIST_DISEASES });

@@ -2,23 +2,35 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import CountyOption from "./countyOption";
 import Paginator from "./paginator";
+import { setElementsByPage, listCounties } from "../actions/index";
 
 const mapStateToProps = state => {
   return { counties: state.counties };
 };
 
+const mapDispatchToProps = dispatch => {
+  return {
+    listCounties: (searchName, limit, offset) => dispatch(listCounties(searchName, limit, offset)),
+    setElementsByPage: (elementsByPage) => dispatch(setElementsByPage(elementsByPage))
+  };
+};
+
 class ConnectedMenu extends Component {
   constructor(){
     super();
-    this.state = {
-      elementsByPage: 10
-    };
+    this.state = { };
   }
 
+  componentDidMount(){
+    console.log("Montando menu")
+    const elementsByPage = 10;
+    this.props.setElementsByPage(elementsByPage);
+    this.props.listCounties(null, elementsByPage, 0);
+    console.log("Menu montado")
+  }
 
   render(){
     const { counties } = this.props;
-    const { elementsByPage } = this.state;
     console.log("menu ")
     console.log(counties)
     return (
@@ -28,7 +40,7 @@ class ConnectedMenu extends Component {
         {counties.map(el => (
           <CountyOption county={el}/>
         ))}
-        <Paginator totalCount={counties.length} elementsByPage={elementsByPage}/>
+        <Paginator />
         </div>
       }
       { !counties &&
@@ -40,5 +52,5 @@ class ConnectedMenu extends Component {
 }
 
 
-const Menu = connect(mapStateToProps, null)(ConnectedMenu);
+const Menu = connect(mapStateToProps, mapDispatchToProps)(ConnectedMenu);
 export default Menu;
