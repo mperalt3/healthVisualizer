@@ -1,9 +1,19 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import FontAwesome from 'react-fontawesome';
+import { listDiseases } from "../actions/index";
 
 const mapStateToProps = state => {
-  return { currentCounty: state.currentCounty };
+  return {
+    currentCounty: state.currentCounty,
+    diseases: state.diseases
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    listDiseases: () => dispatch(listDiseases()),
+  };
 };
 
 class ConnectedCountyDisplay extends Component {
@@ -12,8 +22,12 @@ class ConnectedCountyDisplay extends Component {
     this.state = {};
   }
 
+  componentDidMount(){
+    this.props.listDiseases();
+  }
+
   render(){
-    const { currentCounty } = this.props;
+    const { currentCounty, diseases } = this.props;
     return (
       <div>
       {currentCounty &&
@@ -26,6 +40,12 @@ class ConnectedCountyDisplay extends Component {
             name='heart'
           /></span>
           }
+          <div>
+          Diseases
+          {diseases.map(el => (
+            <li key={el._id}>{el.name}</li>
+          ))}
+          </div>
         </div>
       }
       { !currentCounty &&
@@ -37,5 +57,5 @@ class ConnectedCountyDisplay extends Component {
 }
 
 
-const CountyDisplay = connect(mapStateToProps, null)(ConnectedCountyDisplay);
+const CountyDisplay = connect(mapStateToProps, mapDispatchToProps)(ConnectedCountyDisplay);
 export default CountyDisplay;

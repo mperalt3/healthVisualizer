@@ -25,8 +25,8 @@ class ConnectedCountyOption extends Component {
   render() {
     const { county } = this.props;
     return (
-      <div className="option" key={county._id} onClick={this.handleClick} >
-      <span>{county.name}</span> - 
+      <div className="option" key={county.fipsCode} onClick={this.handleClick} >
+      <span>{county.name}</span> -
       <span>{county.stateId.name}</span>
       {county.isFavorite &&
         <span><FontAwesome

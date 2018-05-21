@@ -1,6 +1,6 @@
 import Base from './base';
 
-// Consume healVisualizerApi getCounties. Support search, pagination and mark as favorite
+// Consume healVisualizerApi counties index. Support search, pagination and mark as favorite
 export const  getCounties = (searchName, isFavorite, limit, offset) => {
   let params = {
     limit: limit,
@@ -23,7 +23,7 @@ export const  getCounties = (searchName, isFavorite, limit, offset) => {
     .catch((err) => console.log(err));
   }
 
-// Consume healVisualizerApi getCounty by countyId with statistics
+// Consume healVisualizerApi counties show by countyId with statistics
 export const  getCounty = (countyId) => {
   return Base(`/counties/${countyId}/statistics`, {
     method: 'GET'
@@ -31,7 +31,6 @@ export const  getCounty = (countyId) => {
     .then((response) => {
       if (response.status === 200){
         const { result } = response.data;
-        console.log(result)
         return result;
       }else{
         return {};

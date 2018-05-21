@@ -2,7 +2,8 @@ import { UPDATE_SEARCH_NAME,
           UPDATE_IS_FAVORITE,
           SET_ELEMENTS_BY_PAGE,
           LIST_COUNTIES,
-          LIST_COUNTY
+          LIST_COUNTY,
+          LIST_DISEASES
  } from "../constants/actionTypes";
 
 const initialState = {
@@ -28,6 +29,8 @@ const rootReducer = (state = initialState, action) => {
       return { ...state, counties: action.payload.counties, totalCounties: action.payload.totalCounties}
     case LIST_COUNTY:
       return { ...state, currentCounty: action.payload}
+    case LIST_DISEASES:
+      return { ...state, diseases: action.payload}
     default:
       return state;
   }
