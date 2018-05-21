@@ -38,3 +38,22 @@ export const  getCounty = (countyId) => {
     })
     .catch((err) => console.log(err));
 }
+
+// Consume healVisualizerApi counties update by countyId
+export const  updateCounty = (countyId, isFavorite) => {
+  return Base(`/counties/${countyId}`, {
+    method: 'PUT',
+    data: {
+      isFavorite: isFavorite
+    }
+  })
+    .then((response) => {
+      if (response.status === 200){
+        const { county } = response.data;
+        return county;
+      }else{
+        return {};
+      }
+    })
+    .catch((err) => console.log(err));
+}

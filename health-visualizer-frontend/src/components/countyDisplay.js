@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import FontAwesome from 'react-fontawesome';
-import { listDiseases } from "../actions/index";
+import { listDiseases, markAsFavorite, markAsNonFavorite, listCounties } from "../actions/index";
 
 const mapStateToProps = state => {
   return {
@@ -13,6 +13,9 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     listDiseases: () => dispatch(listDiseases()),
+    markAsFavorite: (countyId) => dispatch(markAsFavorite(countyId)),
+    markAsNonFavorite: (countyId) => dispatch(markAsNonFavorite(countyId)),
+    listCounties: (searchName, isFavorite, limit, offset) => dispatch(listCounties(searchName, isFavorite, limit, offset))
   };
 };
 
@@ -20,10 +23,22 @@ class ConnectedCountyDisplay extends Component {
   constructor(){
     super();
     this.state = {};
+    this.handleFavoriteButtonClick = this.handleFavoriteButtonClick.bind(this);
   }
 
   componentDidMount(){
     this.props.listDiseases();
+  }
+
+  handleFavoriteButtonClick(event){
+    event.preventDefault();
+    const { currentCounty, searchName, isFavorite, elementsByPage } = this.props;
+    if (event.target.id === "markFavoriteButton"){
+      this.props.markAsFavorite(currentCounty.county._id);
+    }else{
+      this.props.markAsNonFavorite(currentCounty.county._id);
+    }
+    this.props.listCounties(searchName, isFavorite, elementsByPage, 0);
   }
 
   render(){
@@ -41,6 +56,10 @@ class ConnectedCountyDisplay extends Component {
           /></span>
           }
           <div>
+          <div>
+            <button id="markFavoriteButton" onClick={this.handleFavoriteButtonClick}> Mark as favorite </button>
+            <button id="markNonFavoriteButton" onClick={this.handleFavoriteButtonClick}> Mark as non favorite </button>
+          </div>
           Diseases
           {diseases.map(el => (
             <li key={el._id}>{el.name}</li>

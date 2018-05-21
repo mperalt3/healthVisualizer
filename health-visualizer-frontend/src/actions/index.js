@@ -7,7 +7,7 @@ import {  LIST_DISEASES,
           UPDATE_IS_FAVORITE,
           SET_ELEMENTS_BY_PAGE
       } from "../constants/actionTypes";
-import { getCounties, getCounty } from "../services/countiesService"
+import { getCounties, getCounty, updateCounty } from "../services/countiesService"
 import { getDiseases } from "../services/diseasesService"
 
 // Update searchName, isFavorite and elementsByPage in store in order to be available for any component at any time.
@@ -15,7 +15,7 @@ export const updateSearchName = (searchName) => ({ type: UPDATE_SEARCH_NAME, pay
 export const updateIsFavorite = (isFavorite) => ({ type: UPDATE_IS_FAVORITE, payload: isFavorite });
 export const setElementsByPage = (elementsByPage) => ({ type: SET_ELEMENTS_BY_PAGE, payload: elementsByPage });
 
-// Return a plain object as action for the reducer after async calls. Actions listDiseases, listCounties and lisCounty
+// Return a plain object as action for the reducer after async calls. Actions: markAsFavorite, markAsNonFavorite, listDiseases, listCounties and lisCounty
 function actionListCounties(result) {
   return {
     type: LIST_COUNTIES,
@@ -34,6 +34,20 @@ function actionListDiseases(diseases) {
   return {
     type: LIST_DISEASES,
     payload: diseases
+  };
+}
+
+function actionMarkAsFavorite(isFavorite) {
+  return {
+    type: MARK_COUNTY_FAVORITE,
+    payload: isFavorite
+  };
+}
+
+function actionMarkAsNonFavorite(county) {
+  return {
+    type: MARK_COUNTY_NON_FAVORITE,
+    payload: county
   };
 }
 
@@ -64,6 +78,20 @@ export const listDiseases = () => {
   }
 }
 
+// Async function that waits results from Counties Service. Update county as favorite.
+export const markAsFavorite = (countyId) => {
+  return function (dispatch) {
+    return updateCounty(countyId, true).then(
+      county => dispatch(actionMarkAsFavorite(county))
+    )
+  }
+}
 
-export const markAsFavorite = (countyId) => ({ type: MARK_COUNTY_FAVORITE, payload: countyId });
-export const markAsNonFavorite = (countyId) => ({ type: MARK_COUNTY_NON_FAVORITE, payload: countyId });
+// Async function that waits results from Counties Service. Update county as non favorite.
+export const markAsNonFavorite = (countyId) => {
+  return function (dispatch) {
+    return updateCounty(countyId, false).then(
+      county => dispatch(actionMarkAsFavorite(county))
+    )
+  }
+}
