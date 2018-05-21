@@ -39,7 +39,7 @@ class ConnectedPaginator extends Component {
 
     return (
       <div>
-      <div>total de datos: {totalCounties ? totalCounties : "nada"}</div>
+      <div>Datos encontrados: {totalCounties ? totalCounties : "nada"}</div>
       <ReactPaginate previousLabel={"previous"}
                        nextLabel={"next"}
                        breakLabel={<a href="">...</a>}

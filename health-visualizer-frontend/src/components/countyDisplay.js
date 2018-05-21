@@ -14,8 +14,6 @@ class ConnectedCountyDisplay extends Component {
 
   render(){
     const { currentCounty } = this.props;
-    console.log("countyDisplay ")
-    console.log(currentCounty)
     return (
       <div>
       {currentCounty &&

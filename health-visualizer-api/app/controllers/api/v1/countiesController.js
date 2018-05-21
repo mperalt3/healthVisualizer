@@ -5,11 +5,11 @@ exports.index = function(req, res) {
   const { query: { isFavorite, searchName, offset, limit} } = req;
   let query = '';
   if (isFavorite && isFavorite === "true"){
-    query = County.find({ isFavorite: true }).sort({ name: 1 })
+    query = County.find({ isFavorite: true }).sort({ name: 1 }).populate({path: 'stateId', select: 'name'})
   }else if (isFavorite && isFavorite === "false"){
-    query = County.find({ isFavorite: false }).sort({ name: 1 })
+    query = County.find({ isFavorite: false }).sort({ name: 1 }).populate({path: 'stateId', select: 'name'})
   }else{
-    query = County.find().sort({ name: 1 })
+    query = County.find().sort({ name: 1 }).populate({path: 'stateId', select: 'name'})
   }
   if (searchName){
     query.find({ name:  { "$regex": searchName.toLowerCase(), "$options": "i" }  })

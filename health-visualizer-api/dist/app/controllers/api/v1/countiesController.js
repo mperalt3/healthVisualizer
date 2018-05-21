@@ -16,11 +16,11 @@ exports.index = function (req, res) {
 
   var query = '';
   if (isFavorite && isFavorite === "true") {
-    query = _county2.default.find({ isFavorite: true }).sort({ name: 1 });
+    query = _county2.default.find({ isFavorite: true }).sort({ name: 1 }).populate({ path: 'stateId', select: 'name' });
   } else if (isFavorite && isFavorite === "false") {
-    query = _county2.default.find({ isFavorite: false }).sort({ name: 1 });
+    query = _county2.default.find({ isFavorite: false }).sort({ name: 1 }).populate({ path: 'stateId', select: 'name' });
   } else {
-    query = _county2.default.find().sort({ name: 1 });
+    query = _county2.default.find().sort({ name: 1 }).populate({ path: 'stateId', select: 'name' });
   }
   if (searchName) {
     query.find({ name: { "$regex": searchName.toLowerCase(), "$options": "i" } });

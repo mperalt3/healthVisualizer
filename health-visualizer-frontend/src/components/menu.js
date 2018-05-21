@@ -34,7 +34,6 @@ class ConnectedMenu extends Component {
 
   render(){
     const { counties } = this.props;
-    console.log(counties)
     return (
       <div>
       {counties &&
