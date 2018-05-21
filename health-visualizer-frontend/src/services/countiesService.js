@@ -1,9 +1,10 @@
 import Base from './base';
 
-export const  getCounties = (searchName, limit, offset) => {
+export const  getCounties = (searchName, isFavorite, limit, offset) => {
   let params = {
     limit: limit,
-    offset: offset
+    offset: offset,
+    isFavorite: isFavorite
   };
   if (searchName) { params.searchName = searchName }
   return Base(`/counties`, {

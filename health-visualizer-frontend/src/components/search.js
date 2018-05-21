@@ -4,13 +4,17 @@ import { listCounties, updateSearchName } from "../actions/index";
 
 const mapDispatchToProps = dispatch => {
   return {
-    listCounties: (searchName, limit, offset) => dispatch(listCounties(searchName, limit, offset)),
+    listCounties: (searchName, isFavorite, limit, offset) => dispatch(listCounties(searchName, isFavorite, limit, offset)),
     updateSearchName : (searchName) => dispatch(updateSearchName(searchName))
   };
 };
 
 const mapStateToProps = state => {
-  return { searchName: state.searchName };
+  return {
+    searchName: state.searchName,
+    isFavorite: state.isFavorite,
+    elementsByPage: state.elementsByPage
+  };
 };
 
 class ConnectedSearch extends Component {
@@ -30,8 +34,8 @@ class ConnectedSearch extends Component {
 
   handleSubmit(event) {
     event.preventDefault();
-    const { searchName } = this.props;
-    this.props.listCounties(searchName, 10, 0);
+    const { searchName, isFavorite, elementsByPage } = this.props;
+    this.props.listCounties(searchName, isFavorite,  elementsByPage, 0);
   }
 
   render() {

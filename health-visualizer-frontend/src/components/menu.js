@@ -2,16 +2,19 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import CountyOption from "./countyOption";
 import Paginator from "./paginator";
-import { setElementsByPage, listCounties } from "../actions/index";
+import { setElementsByPage, listCounties, updateIsFavorite } from "../actions/index";
 
 const mapStateToProps = state => {
-  return { counties: state.counties };
+  return {
+    counties: state.counties
+  };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
-    listCounties: (searchName, limit, offset) => dispatch(listCounties(searchName, limit, offset)),
-    setElementsByPage: (elementsByPage) => dispatch(setElementsByPage(elementsByPage))
+    listCounties: (searchName, isFavorite, limit, offset) => dispatch(listCounties(searchName, isFavorite, limit, offset)),
+    setElementsByPage: (elementsByPage) => dispatch(setElementsByPage(elementsByPage)),
+    updateIsFavorite: (isFavorite) => dispatch(updateIsFavorite(isFavorite))
   };
 };
 
@@ -22,16 +25,15 @@ class ConnectedMenu extends Component {
   }
 
   componentDidMount(){
-    console.log("Montando menu")
     const elementsByPage = 10;
+    const isFavorite = false;
     this.props.setElementsByPage(elementsByPage);
-    this.props.listCounties(null, elementsByPage, 0);
-    console.log("Menu montado")
+    this.props.listCounties(null, isFavorite, elementsByPage, 0);
+    this.props.updateIsFavorite(isFavorite);
   }
 
   render(){
     const { counties } = this.props;
-    console.log("menu ")
     console.log(counties)
     return (
       <div>
