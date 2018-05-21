@@ -1,3 +1,4 @@
+// Export action types names as constants to avoid typo errors
 export const LIST_DISEASES = "LIST_DISEASES";
 export const LIST_COUNTIES = "LIST_COUNTIES";
 export const LIST_COUNTY = "LIST_COUNTY";

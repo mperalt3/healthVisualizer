@@ -15,6 +15,7 @@ const initialState = {
   isFavorite: false
 };
 
+// App principal reducer
 const rootReducer = (state = initialState, action) => {
   switch (action.type) {
     case UPDATE_SEARCH_NAME:

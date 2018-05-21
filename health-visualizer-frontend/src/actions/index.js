@@ -9,10 +9,12 @@ import {  LIST_DISEASES,
       } from "../constants/actionTypes";
 import { getCounties, getCounty } from "../services/countiesService"
 
+// Update searchName, isFavorite and elementsByPage in store in order to be available for any component at any time.
 export const updateSearchName = (searchName) => ({ type: UPDATE_SEARCH_NAME, payload: searchName });
 export const updateIsFavorite = (isFavorite) => ({ type: UPDATE_IS_FAVORITE, payload: isFavorite });
 export const setElementsByPage = (elementsByPage) => ({ type: SET_ELEMENTS_BY_PAGE, payload: elementsByPage });
 
+// Return a plain object as action for the reducer after async calls. Actions listCounties and lisCounty
 function actionListCounties(result) {
   return {
     type: LIST_COUNTIES,
@@ -27,6 +29,7 @@ function actionListCounty(county) {
   };
 }
 
+// Async function that waits results from Counties Service. Get all counties.
 export const listCounties = (searchName, isFavorite, limit, offset) => {
   return function (dispatch) {
     return getCounties(searchName, isFavorite, limit, offset).then(
@@ -35,6 +38,7 @@ export const listCounties = (searchName, isFavorite, limit, offset) => {
   }
 }
 
+// Async function that waits results from Counties Service. Get a specific county and it's statistics.
 export const listCounty = (countyId) => {
   return function (dispatch) {
     return getCounty(countyId).then(
