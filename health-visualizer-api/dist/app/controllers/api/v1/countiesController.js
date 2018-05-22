@@ -66,6 +66,7 @@ exports.show = function (req, res) {
 
 // Update a County. Mark as favorite
 exports.update = function (req, res) {
+  console.log(res);
   var id = req.params.id;
   var isFavorite = req.body.isFavorite;
 
@@ -92,5 +93,5 @@ exports.update = function (req, res) {
       success: true,
       county: county
     });
-  });
+  }).populate({ path: 'stateId', select: 'name' });
 };

@@ -55,6 +55,7 @@ exports.show = function(req, res) {
 
 // Update a County. Mark as favorite
 exports.update = function(req, res) {
+  console.log(res)
   const { params: { id } } = req;
   const { body: { isFavorite } } = req;
   let favorite = '';
@@ -78,5 +79,5 @@ exports.update = function(req, res) {
         success: true,
         county
     });
-  });
+  }).populate({path: 'stateId', select: 'name'});
 };

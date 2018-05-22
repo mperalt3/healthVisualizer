@@ -41,10 +41,12 @@ export const  getCounty = (countyId) => {
 
 // Consume healVisualizerApi counties update by countyId
 export const  updateCounty = (countyId, isFavorite) => {
+  console.log(countyId)
+  console.log(isFavorite.toString())
   return Base(`/counties/${countyId}`, {
     method: 'PUT',
     data: {
-      isFavorite: isFavorite
+      isFavorite: isFavorite.toString()
     }
   })
     .then((response) => {
@@ -52,6 +54,7 @@ export const  updateCounty = (countyId, isFavorite) => {
         const { county } = response.data;
         return county;
       }else{
+        console.log(response)
         return {};
       }
     })

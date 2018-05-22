@@ -34,9 +34,9 @@ const rootReducer = (state = initialState, action) => {
     case LIST_DISEASES:
       return { ...state, diseases: action.payload};
     case MARK_COUNTY_FAVORITE:
-      return { ...state, currentCounty: { isFavorite: action.payload.isFavorite }};
+      return { ...state, currentCounty: { county: action.payload, statistics: state.currentCounty.statistics }};
     case MARK_COUNTY_NON_FAVORITE:
-      return { ...state, currentCounty: { isFavorite: action.payload.isFavorite }};
+      return { ...state, currentCounty: { county: action.payload, statistics: state.currentCounty.statistics }};
     default:
       return state;
   }
