@@ -1,5 +1,6 @@
 import { UPDATE_SEARCH_NAME,
           UPDATE_IS_FAVORITE,
+          UPDATE_OFFSET,
           SET_ELEMENTS_BY_PAGE,
           LIST_COUNTIES,
           LIST_COUNTY,
@@ -15,7 +16,8 @@ const initialState = {
   totalCounties: 0,
   searchName: '',
   elementsByPage: 1,
-  isFavorite: false
+  isFavorite: false,
+  offset: 0
 };
 
 // App principal reducer
@@ -25,6 +27,8 @@ const rootReducer = (state = initialState, action) => {
       return { ...state, searchName: action.payload };
     case UPDATE_IS_FAVORITE:
       return { ...state, isFavorite: action.payload };
+    case UPDATE_OFFSET:
+      return { ...state, offset: action.payload };
     case SET_ELEMENTS_BY_PAGE:
       return { ...state, elementsByPage: action.payload };
     case LIST_COUNTIES:

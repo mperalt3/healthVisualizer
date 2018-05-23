@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import ReactPaginate from 'react-paginate';
-import { listCounties } from "../actions/index";
+import { listCounties, updateOffset } from "../actions/index";
 
 const mapStateToProps = state => {
   return {
@@ -14,7 +14,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    listCounties: (searchName, isFavorite, limit, offset) => dispatch(listCounties(searchName, isFavorite, limit, offset))
+    listCounties: (searchName, isFavorite, limit, offset) => dispatch(listCounties(searchName, isFavorite, limit, offset)),
+    updateOffset: (offset) => dispatch(updateOffset(offset))
   };
 };
 
@@ -30,6 +31,7 @@ class ConnectedPaginator extends Component {
   handlePageClick(data) {
     const { elementsByPage, isFavorite, searchName, totalCounties } = this.props;
     let offset = elementsByPage * parseInt(data.selected);
+    this.props.updateOffset(offset);
     this.props.listCounties(searchName, isFavorite, elementsByPage, offset);
   };
 

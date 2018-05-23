@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import CountyOption from "./countyOption";
 import Paginator from "./paginator";
-import { setElementsByPage, listCounties, updateIsFavorite } from "../actions/index";
+import { setElementsByPage, listCounties, updateIsFavorite, updateOffset } from "../actions/index";
 
 const mapStateToProps = state => {
   return {
@@ -14,7 +14,8 @@ const mapDispatchToProps = dispatch => {
   return {
     listCounties: (searchName, isFavorite, limit, offset) => dispatch(listCounties(searchName, isFavorite, limit, offset)),
     setElementsByPage: (elementsByPage) => dispatch(setElementsByPage(elementsByPage)),
-    updateIsFavorite: (isFavorite) => dispatch(updateIsFavorite(isFavorite))
+    updateIsFavorite: (isFavorite) => dispatch(updateIsFavorite(isFavorite)),
+    updateOffset: (offset) => dispatch(updateOffset(offset))
   };
 };
 
@@ -30,6 +31,7 @@ class ConnectedMenu extends Component {
     this.props.setElementsByPage(elementsByPage);
     this.props.listCounties(null, isFavorite, elementsByPage, 0);
     this.props.updateIsFavorite(isFavorite);
+    this.props.updateOffset(0);
   }
 
   render(){

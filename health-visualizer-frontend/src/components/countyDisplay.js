@@ -6,16 +6,19 @@ import { listDiseases, markAsFavorite, markAsNonFavorite, listCounties } from ".
 const mapStateToProps = state => {
   return {
     currentCounty: state.currentCounty,
-    diseases: state.diseases
+    diseases: state.diseases,
+    searchName: state.searchName,
+    elementsByPage: state.elementsByPage,
+    isFavorite: state.isFavorite,
+    offset: state.offset
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
     listDiseases: () => dispatch(listDiseases()),
-    markAsFavorite: (countyId) => dispatch(markAsFavorite(countyId)),
-    markAsNonFavorite: (countyId) => dispatch(markAsNonFavorite(countyId)),
-    listCounties: (searchName, isFavorite, limit, offset) => dispatch(listCounties(searchName, isFavorite, limit, offset))
+    markAsFavorite: (countyId, searchName, isFavorite, elementsByPage, offset) => dispatch(markAsFavorite(countyId, searchName, isFavorite, elementsByPage, offset)),
+    markAsNonFavorite: (countyId, searchName, isFavorite, elementsByPage, offset) => dispatch(markAsNonFavorite(countyId, searchName, isFavorite, elementsByPage, offset))
   };
 };
 
@@ -32,13 +35,17 @@ class ConnectedCountyDisplay extends Component {
 
   handleFavoriteButtonClick(event){
     event.preventDefault();
-    const { currentCounty, searchName, isFavorite, elementsByPage } = this.props;
+    const { currentCounty, searchName, isFavorite, elementsByPage, offset } = this.props;
+    console.log(event.target.id)
+    console.log("searchName:" + searchName)
+    console.log("isFavorite:" +isFavorite)
+    console.log("elementsByPage:" +elementsByPage)
+    console.log("offset:" +offset)
     if (event.target.id === "markFavoriteButton"){
-      this.props.markAsFavorite(currentCounty.county._id);
+      this.props.markAsFavorite(currentCounty.county._id, searchName, isFavorite, elementsByPage, offset);
     }else{
-      this.props.markAsNonFavorite(currentCounty.county._id);
+      this.props.markAsNonFavorite(currentCounty.county._id, searchName, isFavorite, elementsByPage, offset);
     }
-    this.props.listCounties(searchName, isFavorite, elementsByPage, 0);
   }
 
   render(){

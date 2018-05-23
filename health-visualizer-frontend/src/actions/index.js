@@ -5,14 +5,16 @@ import {  LIST_DISEASES,
           MARK_COUNTY_NON_FAVORITE,
           UPDATE_SEARCH_NAME,
           UPDATE_IS_FAVORITE,
+          UPDATE_OFFSET,
           SET_ELEMENTS_BY_PAGE
       } from "../constants/actionTypes";
 import { getCounties, getCounty, updateCounty } from "../services/countiesService"
 import { getDiseases } from "../services/diseasesService"
 
-// Update searchName, isFavorite and elementsByPage in store in order to be available for any component at any time.
+// Update searchName, isFavorite, offset and elementsByPage in store in order to be available for any component at any time.
 export const updateSearchName = (searchName) => ({ type: UPDATE_SEARCH_NAME, payload: searchName });
 export const updateIsFavorite = (isFavorite) => ({ type: UPDATE_IS_FAVORITE, payload: isFavorite });
+export const updateOffset = (offset) => ({ type: UPDATE_OFFSET, payload: offset });
 export const setElementsByPage = (elementsByPage) => ({ type: SET_ELEMENTS_BY_PAGE, payload: elementsByPage });
 
 // Return a plain object as action for the reducer after async calls. Actions: markAsFavorite, markAsNonFavorite, listDiseases, listCounties and lisCounty
@@ -79,19 +81,27 @@ export const listDiseases = () => {
 }
 
 // Async function that waits results from Counties Service. Update county as favorite.
-export const markAsFavorite = (countyId) => {
+export const markAsFavorite = (countyId, searchName, isFavorite, elementsByPage, offset) => {
   return function (dispatch) {
+    console.log(searchName)
+    console.log(isFavorite)
+    console.log(elementsByPage)
+    console.log(offset)
     return updateCounty(countyId, true).then(
       county => dispatch(actionMarkAsFavorite(county))
+    ).then(
+      () => dispatch(listCounties(searchName, isFavorite, elementsByPage, offset))
     )
   }
 }
 
 // Async function that waits results from Counties Service. Update county as non favorite.
-export const markAsNonFavorite = (countyId) => {
+export const markAsNonFavorite = (countyId, searchName, isFavorite, elementsByPage, offset) => {
   return function (dispatch) {
     return updateCounty(countyId, false).then(
       county => dispatch(actionMarkAsFavorite(county))
+    ).then (
+      () => dispatch(listCounties(searchName, isFavorite, elementsByPage, offset))
     )
   }
 }
