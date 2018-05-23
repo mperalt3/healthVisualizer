@@ -8,14 +8,12 @@ export const  getCounties = (searchName, isFavorite, limit, offset) => {
   };
   if (searchName) { params.searchName = searchName }
   if (isFavorite) { params.isFavorite = isFavorite }
-  console.log("Buscar counties")
   return Base(`/counties`, {
     method: 'GET',
     params: params
   })
     .then((response) => {
       if (response.status === 200){
-        console.log("counties encontrados")
         const { counties, totalCounties } = response.data;
         return { counties, totalCounties };
       }else{
@@ -43,7 +41,6 @@ export const  getCounty = (countyId) => {
 
 // Consume healVisualizerApi counties update by countyId
 export const  updateCounty = (countyId, isFavorite) => {
-  console.log("Actualizar condado")
   return Base(`/counties/${countyId}`, {
     method: 'PUT',
     data: {
@@ -53,10 +50,8 @@ export const  updateCounty = (countyId, isFavorite) => {
     .then((response) => {
       if (response.status === 200){
         const { county } = response.data;
-        console.log("condado actualizado")
         return county;
       }else{
-        console.log(response)
         return {};
       }
     })

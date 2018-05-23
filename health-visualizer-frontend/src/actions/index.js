@@ -39,10 +39,10 @@ function actionListDiseases(diseases) {
   };
 }
 
-function actionMarkAsFavorite(isFavorite) {
+function actionMarkAsFavorite(county) {
   return {
     type: MARK_COUNTY_FAVORITE,
-    payload: isFavorite
+    payload: county
   };
 }
 
@@ -83,10 +83,6 @@ export const listDiseases = () => {
 // Async function that waits results from Counties Service. Update county as favorite.
 export const markAsFavorite = (countyId, searchName, isFavorite, elementsByPage, offset) => {
   return function (dispatch) {
-    console.log(searchName)
-    console.log(isFavorite)
-    console.log(elementsByPage)
-    console.log(offset)
     return updateCounty(countyId, true).then(
       county => dispatch(actionMarkAsFavorite(county))
     ).then(

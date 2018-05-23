@@ -36,11 +36,6 @@ class ConnectedCountyDisplay extends Component {
   handleFavoriteButtonClick(event){
     event.preventDefault();
     const { currentCounty, searchName, isFavorite, elementsByPage, offset } = this.props;
-    console.log(event.target.id)
-    console.log("searchName:" + searchName)
-    console.log("isFavorite:" +isFavorite)
-    console.log("elementsByPage:" +elementsByPage)
-    console.log("offset:" +offset)
     if (event.target.id === "markFavoriteButton"){
       this.props.markAsFavorite(currentCounty.county._id, searchName, isFavorite, elementsByPage, offset);
     }else{
