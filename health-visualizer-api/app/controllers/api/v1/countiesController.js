@@ -2,26 +2,34 @@ import County from '../../../models/county';
 
 // Display list of all Counties, sorted by name.
 exports.index = function(req, res) {
-  const { query: { isFavorite } } = req;
+  const { query: { isFavorite, searchName, offset, limit} } = req;
   let query = '';
   if (isFavorite && isFavorite === "true"){
-    query = County.find({ isFavorite: true }).sort({ name: 1 })
+    query = County.find({ isFavorite: true }).sort({ name: 1 }).populate({path: 'stateId', select: 'name'})
   }else if (isFavorite && isFavorite === "false"){
-    query = County.find({ isFavorite: false }).sort({ name: 1 })
+    query = County.find({ isFavorite: false }).sort({ name: 1 }).populate({path: 'stateId', select: 'name'})
   }else{
-    query = County.find().sort({ name: 1 })
+    query = County.find().sort({ name: 1 }).populate({path: 'stateId', select: 'name'})
+  }
+  if (searchName){
+    query.find({ name:  { "$regex": searchName.toLowerCase(), "$options": "i" }  })
   }
   query.exec((err, counties) => {
     if (err){
-      res.status(500).send({
+      return res.status(500).send({
         msg: 'DB conection failed',
         success: false
       });
     }
-    res.status(200).send({
+    let result = counties;
+    if (offset && limit) {
+      result = counties.slice(parseInt(offset), parseInt(limit) + parseInt(offset));
+    }
+    return res.status(200).send({
         msg: 'Ok',
         success: true,
-        counties
+        totalCounties: counties.length,
+        counties: result
     });
   });
 };
@@ -70,5 +78,5 @@ exports.update = function(req, res) {
         success: true,
         county
     });
-  });
+  }).populate({path: 'stateId', select: 'name'});
 };

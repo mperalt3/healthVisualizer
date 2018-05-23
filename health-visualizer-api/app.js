@@ -6,6 +6,7 @@ import logger from 'morgan';
 import { databaseConfiguration } from './config/db';
 import mongoose from 'mongoose';
 import router from './app/routes';
+import cors from 'cors';
 
 let app = express();
 
@@ -28,6 +29,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(cors());
 
 // Routes Setup
 app.use('/api/v1', router);

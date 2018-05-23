@@ -14,19 +14,18 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 exports.index = async function (req, res) {
   var id = req.params.id;
 
-  var county = await _county2.default.findById(id);
+  var county = await _county2.default.findById(id).populate({ path: 'stateId', select: 'name' });
   if (!county) {
     return res.status(500).send({
       msg: 'county not found',
       success: false
     });
   }
-  var statistics = await _statistic2.default.find({ countyId: id }).sort({ statisticDate: 1 });
+  var statistics = await _statistic2.default.find({ countyId: id }).populate({ path: 'diseaseId', select: 'name' }).sort({ statisticDate: 1 });
   return res.status(200).send({
     msg: 'Ok',
     success: true,
-    county: county,
-    statistics: statistics
+    result: { county: county, statistics: statistics }
   });
 };
 

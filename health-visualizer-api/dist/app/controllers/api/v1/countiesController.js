@@ -8,27 +8,39 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 // Display list of all Counties, sorted by name.
 exports.index = function (req, res) {
-  var isFavorite = req.query.isFavorite;
+  var _req$query = req.query,
+      isFavorite = _req$query.isFavorite,
+      searchName = _req$query.searchName,
+      offset = _req$query.offset,
+      limit = _req$query.limit;
 
   var query = '';
   if (isFavorite && isFavorite === "true") {
-    query = _county2.default.find({ isFavorite: true }).sort({ name: 1 });
+    query = _county2.default.find({ isFavorite: true }).sort({ name: 1 }).populate({ path: 'stateId', select: 'name' });
   } else if (isFavorite && isFavorite === "false") {
-    query = _county2.default.find({ isFavorite: false }).sort({ name: 1 });
+    query = _county2.default.find({ isFavorite: false }).sort({ name: 1 }).populate({ path: 'stateId', select: 'name' });
   } else {
-    query = _county2.default.find().sort({ name: 1 });
+    query = _county2.default.find().sort({ name: 1 }).populate({ path: 'stateId', select: 'name' });
+  }
+  if (searchName) {
+    query.find({ name: { "$regex": searchName.toLowerCase(), "$options": "i" } });
   }
   query.exec(function (err, counties) {
     if (err) {
-      res.status(500).send({
+      return res.status(500).send({
         msg: 'DB conection failed',
         success: false
       });
     }
-    res.status(200).send({
+    var result = counties;
+    if (offset && limit) {
+      result = counties.slice(parseInt(offset), parseInt(limit) + parseInt(offset));
+    }
+    return res.status(200).send({
       msg: 'Ok',
       success: true,
-      counties: counties
+      totalCounties: counties.length,
+      counties: result
     });
   });
 };
@@ -54,6 +66,7 @@ exports.show = function (req, res) {
 
 // Update a County. Mark as favorite
 exports.update = function (req, res) {
+  console.log(res);
   var id = req.params.id;
   var isFavorite = req.body.isFavorite;
 
@@ -80,5 +93,5 @@ exports.update = function (req, res) {
       success: true,
       county: county
     });
-  });
+  }).populate({ path: 'stateId', select: 'name' });
 };

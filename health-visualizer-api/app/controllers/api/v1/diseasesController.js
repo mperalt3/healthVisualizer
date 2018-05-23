@@ -5,12 +5,12 @@ exports.index = function(req, res) {
   Disease.find().sort({ name: 1 })
   .exec((err, diseases) => {
     if (err){
-      res.status(500).send({
+      return res.status(500).send({
         msg: 'DB conection failed',
         success: false
       });
     }
-    res.status(200).send({
+    return res.status(200).send({
         msg: 'Ok',
         success: true,
         diseases

@@ -14,12 +14,12 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 exports.index = async function (req, res) {
   _state2.default.find().sort({ name: 1 }).exec(function (err, states) {
     if (err) {
-      res.status(500).send({
+      return res.status(500).send({
         msg: 'DB conection failed',
         success: false
       });
     }
-    res.status(200).send({
+    return res.status(200).send({
       msg: 'Ok',
       success: true,
       states: states

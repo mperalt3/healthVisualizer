@@ -1,10 +1,19 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { listCounties } from "../actions/index";
+import { listCounties, updateSearchName } from "../actions/index";
 
 const mapDispatchToProps = dispatch => {
   return {
-    listCounties: () => dispatch(listCounties())
+    listCounties: (searchName, isFavorite, limit, offset) => dispatch(listCounties(searchName, isFavorite, limit, offset)),
+    updateSearchName : (searchName) => dispatch(updateSearchName(searchName))
+  };
+};
+
+const mapStateToProps = state => {
+  return {
+    searchName: state.searchName,
+    isFavorite: state.isFavorite,
+    elementsByPage: state.elementsByPage
   };
 };
 
@@ -12,44 +21,44 @@ class ConnectedSearch extends Component {
   constructor() {
     super();
     this.state = {
-      searchQuery: ""
+      searchName: ""
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   handleChange(event) {
-    this.setState({ [event.target.id]: event.target.value });
+    this.setState({ searchName: event.target.value })
+    this.props.updateSearchName(event.target.value);
   }
 
   handleSubmit(event) {
     event.preventDefault();
-    const { searchQuery } = this.state;
-    this.props.listCounties();
-    this.setState({ searchQuery: "" });
+    const { searchName, isFavorite, elementsByPage } = this.props;
+    this.props.listCounties(searchName, isFavorite,  elementsByPage, 0);
   }
 
   render() {
-    const { searchQuery } = this.state;
+    const { searchName } = this.state;
     return (
       <form onSubmit={this.handleSubmit}>
         <div className="form-group">
-          <label htmlFor="searchQuery">Name</label>
+          <label htmlFor="searchName">County's name</label>
           <input
             type="text"
             className="form-control"
-            id="searchQuery"
-            value={searchQuery}
+            id="searchName"
+            value={searchName}
             onChange={this.handleChange}
           />
         </div>
         <button type="submit" className="btn btn-success btn-lg">
-          Search County
+          Search
         </button>
       </form>
     );
   }
 }
 
-const Search = connect(null, mapDispatchToProps)(ConnectedSearch);
+const Search = connect(mapStateToProps, mapDispatchToProps)(ConnectedSearch);
 export default Search;
