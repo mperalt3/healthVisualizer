@@ -5,21 +5,29 @@ import Menu from "./menu";
 import MenuNav from "./menuNav";
 import Search from "./search";
 import CountyDisplay from "./countyDisplay";
+import Nav from "./nav";
 
 class App extends Component {
   render() {
     return (
-      <div className="App container">
-        <div className="row">
-          <div className="col-md-4 col-xs-12">
-            <Search />
-            <MenuNav />
-            <Menu />
-          </div>
-          <div className="col-md-4 col-xs-12">
+      <div className="App">
+        <Nav/>
+        <div class="collapse navbar-collapse navbar-ex1-collapse  ">
+                <ul class="nav navbar-nav side-nav">
+                    <li class="active">
+                        <a href="index.html"><i class="fa fa-fw fa-dashboard"></i> Dashboard</a>
+                    </li>
+                    <Search />
+                    <MenuNav />
+                    <Menu />
+                </ul>
+            </div>
+
+
+          <div className="container-fluid">
             <CountyDisplay />
           </div>
-        </div>
+
       </div>
     );
   }
