@@ -12,22 +12,19 @@ class App extends Component {
     return (
       <div className="App">
         <Nav/>
-        <div class="collapse navbar-collapse navbar-ex1-collapse  ">
-                <ul class="nav navbar-nav side-nav">
-                    <li class="active">
-                        <a href="index.html"><i class="fa fa-fw fa-dashboard"></i> Dashboard</a>
-                    </li>
-                    <Search />
-                    <MenuNav />
-                    <Menu />
-                </ul>
+        <div className="container container-fluid">
+          <div className="row row-fluid">
+            <div className="col-md-3 align-self-start">
+              <a href="index.html"><i className="fa fa-fw fa-dashboard"></i> Dashboard</a>
+              <Search />
+              <MenuNav />
+              <Menu />
             </div>
-
-
-          <div className="container-fluid">
-            <CountyDisplay />
+            <div id="page-wrapper">
+              <CountyDisplay />
+            </div>
           </div>
-
+        </div>
       </div>
     );
   }
