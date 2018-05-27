@@ -42,19 +42,21 @@ class ConnectedSearch extends Component {
     const { searchName } = this.state;
     return (
       <form onSubmit={this.handleSubmit}>
-        <div className="form-group">
-          <label htmlFor="searchName">County's name</label>
+        <div className="input-group">
           <input
             type="text"
             className="form-control"
             id="searchName"
+            placeholder= "County's name"
             value={searchName}
             onChange={this.handleChange}
           />
+          <div class="input-group-btn">
+            <button class="btn btn-primary" type="submit">
+              <span class="glyphicon glyphicon-search"></span>
+            </button>
+          </div>
         </div>
-        <button type="submit" className="btn btn-success btn-lg">
-          Search
-        </button>
       </form>
     );
   }

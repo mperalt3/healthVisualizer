@@ -37,7 +37,7 @@ class ConnectedMenu extends Component {
   render(){
     const { counties } = this.props;
     return (
-      <div>
+      <div className="list-group">
       {counties &&
         <div>
         {counties.map(el => (

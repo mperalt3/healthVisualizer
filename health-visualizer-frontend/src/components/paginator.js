@@ -41,14 +41,13 @@ class ConnectedPaginator extends Component {
 
     return (
       <div>
-      <div>Datos encontrados: {totalCounties ? totalCounties : "nada"}</div>
-      <ReactPaginate previousLabel={"previous"}
-                       nextLabel={"next"}
+      <ReactPaginate previousLabel={"<"}
+                       nextLabel={">"}
                        breakLabel={<a href="">...</a>}
                        breakClassName={"break-me"}
                        pageCount={pageCount}
-                       marginPagesDisplayed={2}
-                       pageRangeDisplayed={5}
+                       marginPagesDisplayed={1}
+                       pageRangeDisplayed={3}
                        onPageChange={this.handlePageClick}
                        containerClassName={"pagination"}
                        subContainerClassName={"pages pagination"}

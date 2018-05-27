@@ -14,12 +14,6 @@ class App extends Component {
         <Nav/>
         <div className="container container-fluid">
           <div className="row row-fluid">
-            <div className="col-md-3 align-self-start">
-              <a href="index.html"><i className="fa fa-fw fa-dashboard"></i> Dashboard</a>
-              <Search />
-              <MenuNav />
-              <Menu />
-            </div>
             <div id="page-wrapper">
               <CountyDisplay />
             </div>

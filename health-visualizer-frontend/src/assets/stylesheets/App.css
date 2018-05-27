@@ -8,7 +8,7 @@
 
 body {
     margin-top: 100px;
-    background-color: #222;
+    background-color: #fff;
 }
 
 @media(min-width:768px) {
@@ -35,6 +35,15 @@ body {
 .navbar-inverse {
     background-color: #2a3f54;
   }
+
+.navbar-brand>a{
+  color: #fff;
+}
+
+.navbar-inverse .navbar-nav>.active>a{
+    color: #fff;
+    background-color: ##1abb9c;
+}
 
 @media(min-width:768px) {
     #wrapper {
@@ -70,7 +79,7 @@ body {
 .top-nav>.open>a:hover,
 .top-nav>.open>a:focus {
     color: #fff;
-    background-color: #000;
+    background-color: #2a3f54;
 }
 
 .top-nav>.open>.dropdown-menu {
@@ -120,9 +129,9 @@ ul.alert-dropdown {
     .side-nav {
         position: fixed;
         top: 51px;
-        left: 225px;
-        width: 225px;
-        margin-left: -225px;
+        left: 300px;
+        width: 300px;
+        margin-left: -300px;
         border: none;
         border-radius: 0;
         overflow-y: auto;
@@ -133,7 +142,7 @@ ul.alert-dropdown {
     }
 
     .side-nav>li>a {
-        width: 225px;
+        width: 300px;
     }
 
     .side-nav li a:hover,
@@ -158,6 +167,42 @@ ul.alert-dropdown {
     color: #fff;
 }
 
+.option {
+  cursor: pointer;
+  background-color: #f5f5f5;
+}
+
+.option:hover {
+  background-color: #c5c7cb;
+}
+
+.option-county{
+  font-variant: all-small-caps;
+  font-weight: 600;
+  color: #777;
+  font-size: large;
+}
+
+.option-state{
+  font-variant: all-small-caps;
+  color: #999;
+  padding: 5px;
+}
+
+.option-map{
+  padding: 5px;
+  color: #999;
+}
+
+.option-heart{
+  float: right;
+  color: #e84b39;
+}
+
+.list-group-item:first-child {
+    border-top-left-radius: 0px;
+    border-top-right-radius: 0px;
+}
 /* Flot Chart Containers */
 
 .flot-chart {
