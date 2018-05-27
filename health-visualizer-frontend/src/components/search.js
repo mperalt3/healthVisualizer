@@ -51,9 +51,9 @@ class ConnectedSearch extends Component {
             value={searchName}
             onChange={this.handleChange}
           />
-          <div class="input-group-btn">
-            <button class="btn btn-primary" type="submit">
-              <span class="glyphicon glyphicon-search"></span>
+          <div className="input-group-btn">
+            <button className="btn btn-primary" type="submit">
+              <span className="glyphicon glyphicon-search"></span>
             </button>
           </div>
         </div>

@@ -36,12 +36,12 @@ class ConnectedMenuNav extends Component {
 
   render() {
     return (
-      <ul class="nav nav-tabs">
-        <li class="nav-item">
-          <a id="all" class="nav-link active" href="#" onClick={this.handleClickOption}>All</a>
+      <ul className="nav nav-tabs">
+        <li className="nav-item">
+          <a id="all" className="nav-link active" href="#" onClick={this.handleClickOption}>All</a>
         </li>
-        <li class="nav-item">
-          <a id="favorites" class="nav-link" href="#" onClick={this.handleClickOption}>Favorites</a>
+        <li className="nav-item">
+          <a id="favorites" className="nav-link" href="#" onClick={this.handleClickOption}>Favorites</a>
         </li>
       </ul>
     );

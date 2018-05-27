@@ -46,21 +46,26 @@ class ConnectedCountyDisplay extends Component {
   render(){
     const { currentCounty, diseases } = this.props;
     return (
-      <div>
+      <div id="page-wrapper">
+      <div className="container-fluid">
+      <div className="row">
+          <div className="col-lg-12">
+              <h1 className="page-header">
+                  Dashboard <small>Statistics Overview</small>
+              </h1>
+          </div>
+      </div>
       {currentCounty &&
-        <div class="container-fluid">
-        <div class="row">
-                  <div class="col-lg-12">
-                      <h1 class="page-header">
-                          Dashboard <small>Statistics Overview</small>
-                      </h1>
-                      <ol class="breadcrumb">
-                          <li class="active">
-                              <i class="fa fa-dashboard"></i> Dashboard
-                          </li>
-                      </ol>
-                  </div>
-              </div>
+        <div>
+          <div className="row">
+            <div className="col-lg-12">
+              <ol className="breadcrumb">
+                  <li className="active">
+                      <i className="fa fa-dashboard"></i> Dashboard
+                  </li>
+              </ol>
+            </div>
+          </div>
               <div class="row">
                     <div class="col-lg-3 col-md-6">
                         <div class="panel panel-primary">
@@ -170,10 +175,20 @@ class ConnectedCountyDisplay extends Component {
           ))}
           </div>
         </div>
+
       }
       { !currentCounty &&
-        <h2>Choose a county to see it's health info</h2>
+        <div class="jumbotron">
+          <h1 class="display-4">Choose a USA County</h1>
+          <p class="lead">This site gather information about indicators that affect the methabolic syndrome. These indicators are obesity, diabetes prevalance and physical inactivity by county of the United States.</p>
+          <hr class="my-4"/>
+          <p>Choose the county of your interest to see graphic information of these indicators. </p>
+          <p class="lead">
+            <a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a>
+          </p>
+        </div>
       }
+      </div>
       </div>
     )
   }

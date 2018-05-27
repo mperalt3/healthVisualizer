@@ -30,7 +30,7 @@ class ConnectedCountyOption extends Component {
       <span className="option-map">
         <FontAwesome
         className='fal fa-map-marker'
-        name='heart'
+        name='map-marker'
       />
       </span>
       <span className="option-state">{county.stateId.name}</span>
