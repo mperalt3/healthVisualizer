@@ -2,8 +2,15 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import FontAwesome from 'react-fontawesome';
 import { DirectLink, Element , Events, animateScroll as scroll, scrollSpy, scroller } from 'react-scroll'
+import { updateVisibleLanding } from "../actions/index";
 
-class Landing extends Component {
+const mapDispatchToProps = dispatch => {
+  return {
+    updateVisibleLanding: (visibleLanding) => dispatch(updateVisibleLanding(visibleLanding))
+  };
+};
+
+class ConnectedLanding extends Component {
   constructor(){
     super();
     this.state = {};
@@ -25,7 +32,7 @@ class Landing extends Component {
     if (event.target.id == "learn more"){
       this.scrollToAbout();
     }else{
-
+      this.props.updateVisibleLanding(false);
     }
 
   }
@@ -78,5 +85,5 @@ class Landing extends Component {
   }
 }
 
-
+const Landing = connect(null, mapDispatchToProps)(ConnectedLanding);
 export default Landing;

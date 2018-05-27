@@ -4,17 +4,29 @@ import FontAwesome from 'react-fontawesome';
 import Search from "./search";
 import MenuNav from "./menuNav";
 import Menu from "./menu";
+import { updateVisibleLanding } from "../actions/index";
 
+const mapDispatchToProps = dispatch => {
+  return {
+    updateVisibleLanding: (visibleLanding) => dispatch(updateVisibleLanding(visibleLanding))
+  };
+};
 
-class Nav extends Component {
+class ConnectedNav extends Component {
   constructor(){
     super();
     this.state = {};
+    this.handleClickAbout = this.handleClickAbout.bind(this);
+  }
+
+  handleClickAbout(event){
+    event.preventDefault();
+    this.props.updateVisibleLanding(true);
   }
 
   render(){
     return (
-      
+
       <nav className="navbar navbar-inverse navbar-fixed-top" role="navigation">
 
           <div className="navbar-header">
@@ -29,7 +41,7 @@ class Nav extends Component {
 
           <ul className="nav navbar-right top-nav">
               <li className="dropdown">
-                  <a href="#" className="dropdown-toggle" data-toggle="dropdown"><i className="fa fa-question-circle"></i> About </a>
+                  <a href="#" className="dropdown-toggle" data-toggle="dropdown" onClick={this.handleClickAbout}><i className="fa fa-question-circle"></i> About </a>
               </li>
               <li className="dropdown">
                   <a href="#" className="dropdown-toggle" data-toggle="dropdown"><i className="fa fa-database"></i> Data Source </a>
@@ -53,5 +65,5 @@ class Nav extends Component {
   }
 }
 
-
+const Nav = connect(null, mapDispatchToProps)(ConnectedNav);
 export default Nav;
