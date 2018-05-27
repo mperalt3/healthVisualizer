@@ -242,9 +242,11 @@ ul.alert-dropdown {
   margin-right: 10px;
 }
 
-.landing-link:hover{
-  background-color: #26657d;
-  border-color: #26657d;
+.landing-link:hover,
+.landing-link:active,
+.landing-link:focus{
+  background-color: #508595;
+  border-color: #508595;
 }
 
 .landing-external-link{
