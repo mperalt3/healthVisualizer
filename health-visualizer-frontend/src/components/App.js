@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
-import { connect } from "react-redux";
+import { connect } from 'react-redux';
 import logo from '../assets/images/logo.svg';
 import '../assets/stylesheets/App.css';
-import CountyDisplay from "./countyDisplay";
+import CountyDisplay from './countyDisplay';
 import Nav from './nav';
 import Landing from './landing'
-import { updateVisibleLanding } from "../actions/index";
+import { updateVisibleLanding } from '../actions/index';
 
 const mapStateToProps = state => {
   return {
@@ -32,7 +32,7 @@ class ConnectedApp extends Component {
   render() {
     return (
       <div className="App">
-        {this.props.visibleLanding && <Landing />}
+          {this.props.visibleLanding && <Landing />}
         <div id="wrapper">
           <Nav/>
           <CountyDisplay />

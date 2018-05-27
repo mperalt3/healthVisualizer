@@ -183,9 +183,6 @@ class ConnectedCountyDisplay extends Component {
           <p class="lead">This site gather information about indicators that affect the methabolic syndrome. These indicators are obesity, diabetes prevalance and physical inactivity by county of the United States.</p>
           <hr class="my-4"/>
           <p>Choose the county of your interest to see graphic information of these indicators. </p>
-          <p class="lead">
-            <a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a>
-          </p>
         </div>
       }
       </div>

@@ -15,6 +15,7 @@ class ConnectedLanding extends Component {
     super();
     this.state = {};
     this.handleClick = this.handleClick.bind(this);
+    this.handleClickUp = this.handleClickUp.bind(this);
   }
 
   componentDidMount(){
@@ -34,7 +35,11 @@ class ConnectedLanding extends Component {
     }else{
       this.props.updateVisibleLanding(false);
     }
+  }
 
+  handleClickUp(event){
+    event.preventDefault();
+    this.scrollToTop();
   }
 
   scrollToTop() {
@@ -55,7 +60,7 @@ class ConnectedLanding extends Component {
 
   render(){
     return (
-      <div className="landing">
+      <div className="landing" >
         <div className="landing-section" id="welcome">
           <h1> Welcome to Health Visualizer </h1>
           <p> This site display information about indicators that affect metabolic syndrome </p>
@@ -78,7 +83,13 @@ class ConnectedLanding extends Component {
             name='globe'
           /></h2>
           <p> The data used for the health visulizer come from... </p>
-          <a href="" className="btn btn-info btn-lg landing-external-link">Learn more</a>
+          <a href="" className="btn btn-info btn-lg landing-external-link">Go to Data Source</a>
+        </div>
+        <div className="up-arrow" id="up">
+          <a  onClick={this.handleClickUp} ><FontAwesome
+            className='fa fa-arrow-up'
+            name='arrow-up'
+          /></a>
         </div>
       </div>
     )
