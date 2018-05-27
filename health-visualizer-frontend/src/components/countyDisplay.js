@@ -1,7 +1,9 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import ReactHighcharts from 'react-highcharts';
 import FontAwesome from 'react-fontawesome';
 import { listDiseases, markAsFavorite, markAsNonFavorite, listCounties } from "../actions/index";
+import Chart from './chart'
 
 const mapStateToProps = state => {
   return {
@@ -22,10 +24,23 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
+let config = {
+  chart: {
+    type: 'column'
+  },
+  xAxis: {
+    categories: []
+  },
+  series: []
+};
+
+
 class ConnectedCountyDisplay extends Component {
   constructor(){
     super();
-    this.state = {};
+    this.state = {
+      config: {}
+    };
     this.handleFavoriteButtonClick = this.handleFavoriteButtonClick.bind(this);
   }
 
@@ -45,6 +60,81 @@ class ConnectedCountyDisplay extends Component {
 
   render(){
     const { currentCounty, diseases } = this.props;
+    // let config = {
+    //   xAxis: {
+    //     categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+    //   },
+    //   series: [{
+    //     type: 'column',
+    //     data: [29.9, 71.5, 106.4, 129.2, 144.0, 176.0, 135.6, 148.5, 216.4, 194.1, 295.6, 454.4]
+    //   }]
+    // };
+    if(this.props.currentCounty){
+      const { statistics } = this.props.currentCounty;
+      let diabetesStats = statistics.filter((statistic) => statistic.diseaseId.name === "physical inactivity" );
+      console.log(diabetesStats)
+      let years = [];
+      let totalSerieM = [];
+      let percentSerieM = [];
+      let totalSerieF = [];
+      let percentSerieF = [];
+      let totalSerieA = [];
+      let percentSerieA = [];
+      diabetesStats.forEach(function(stat){
+        let year = (new Date(stat.statisticDate)).getUTCFullYear();
+        console.log(year)
+        if (years.findIndex((element) => element === year) === -1) {
+          years.push(year);
+        }
+      });
+      years.forEach(function(year){
+        console.log(year)
+        let statA = diabetesStats.find(element => (new Date(element.statisticDate)).getUTCFullYear() === year && element.genderScope === "A" )
+        if (statA){
+          totalSerieA.push(statA.totalCount);
+          percentSerieA.push(statA.percent);
+        }else{
+          totalSerieA.push(0);
+          percentSerieA.push(0);
+        }
+        let statF = diabetesStats.find(element => (new Date(element.statisticDate)).getUTCFullYear() === year && element.genderScope == "F" )
+        console.log(statF)
+        if (statF){
+          totalSerieF.push(statF.totalCount);
+          percentSerieF.push(statF.percent);
+        }else{
+          totalSerieF.push(0);
+          percentSerieF.push(0);
+        }
+        let statM = diabetesStats.find(element => (new Date(element.statisticDate)).getUTCFullYear() === year && element.genderScope == "M" )
+        if (statM){
+          totalSerieM.push(statM.totalCount);
+          percentSerieM.push(statM.percent);
+        }else{
+          totalSerieM.push(0);
+          percentSerieM.push(0);
+        }
+      });
+      console.log(totalSerieA)
+      console.log(totalSerieM)
+      console.log(totalSerieF)
+      config = {
+        xAxis: {
+          categories: years
+        },
+        series: [{
+          type: 'column',
+          data: totalSerieA
+        }, {
+          type: 'column',
+          data: totalSerieM
+        },{
+          type: 'column',
+          data: totalSerieF
+        }]
+      };
+    }
+
     return (
       <div id="page-wrapper">
       <div className="container-fluid">
@@ -65,6 +155,31 @@ class ConnectedCountyDisplay extends Component {
                   </li>
               </ol>
             </div>
+          </div>
+          <div className="row">
+            <h2>{currentCounty.county.name}</h2>
+            <div>
+              {currentCounty.county.stateId.name}
+              {currentCounty.county.isFavorite &&
+                <span><FontAwesome
+                className='fas fa-heart'
+                name='heart'
+              />
+                <button id="markNonFavoriteButton" onClick={this.handleFavoriteButtonClick}> Mark as non favorite </button>
+                </span>
+              }
+              {!currentCounty.county.isFavorite &&
+                <span><FontAwesome
+                className='fas fa-heart'
+                name='heart'
+              />
+              <button id="markFavoriteButton" onClick={this.handleFavoriteButtonClick}> Mark as favorite </button>
+              </span>
+              }
+            </div>
+          </div>
+          <div className="row">
+            <ReactHighcharts config={config}/>
           </div>
               <div class="row">
                     <div class="col-lg-3 col-md-6">
