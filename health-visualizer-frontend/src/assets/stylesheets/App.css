@@ -203,6 +203,74 @@ ul.alert-dropdown {
     border-top-left-radius: 0px;
     border-top-right-radius: 0px;
 }
+/* Landing */
+
+.landing{
+  background-color: white;
+  position: absolute;
+  z-index: 10000;
+  width: 100%;
+  height: 100%;
+}
+
+.landing-section{
+  height: 600px;
+  text-align: center;
+  padding-top: 200px;
+}
+
+.landing-section>h1{
+  font-size: 3.5em;
+  font-weight: 400;
+  line-height: 1.2;
+}
+
+.landing-section>h2{
+  font-size: 2.2em;
+  font-weight: 600;
+}
+
+
+.landing-section>p{
+  font-size: 1.25em;
+  font-weight: 400;
+}
+
+.landing-link{
+  background-color: #1abb9c;
+  border-color: #1abb9c;
+  margin-right: 10px;
+}
+
+.landing-link:hover{
+  background-color: #26657d;
+  border-color: #26657d;
+}
+
+.landing-external-link{
+  background-color: #F7F7F7;
+  border-color: #F7F7F7;
+  color: #584f4f;
+}
+
+.landing-external-link:hover{
+  background-color: #ccc;
+  border-color: #ccc;
+}
+
+#welcome{
+  background-color: #2a3f54;
+  color: #fff
+}
+
+#about{
+  background-color: #bec5c8;
+}
+
+#source{
+  background-color: #1abb9c;
+  color: #fff;
+}
 /* Flot Chart Containers */
 
 .flot-chart {
