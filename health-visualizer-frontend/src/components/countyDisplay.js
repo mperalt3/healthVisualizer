@@ -30,9 +30,10 @@ class ConnectedCountyDisplay extends Component {
   constructor(){
     super();
     this.state = {
-      config: {}
+      currentDiseaseName: "physical inactivity"
     };
     this.handleFavoriteButtonClick = this.handleFavoriteButtonClick.bind(this);
+    this.handleDiseaseClick = this.handleDiseaseClick.bind(this);
   }
 
   componentDidMount(){
@@ -49,13 +50,21 @@ class ConnectedCountyDisplay extends Component {
     }
   }
 
+  handleDiseaseClick(event){
+    event.preventDefault();
+    this.setState({currentDiseaseName: event.target.id});
+  }
+
   render(){
     const { currentCounty, diseases } = this.props;
-    let config = {};
+    const { currentDiseaseName } = this.state;
+    let diseasesCharts = {};
     if(this.props.currentCounty){
       const { statistics } = this.props.currentCounty;
-      let diseaseStats = statistics.filter((statistic) => statistic.diseaseId.name === "physical inactivity" );
-      config = generateCharts(diseaseStats);
+      diseases.forEach(function(disease){
+        let diseaseStats = statistics.filter((statistic) => statistic.diseaseId.name === disease.name );
+        diseasesCharts[disease.name] = generateCharts(diseaseStats);
+      });
     }
 
     return (
@@ -106,7 +115,18 @@ class ConnectedCountyDisplay extends Component {
               </div>
             </div>
           </div>
-          <DiseaseDisplay propsDataCharts={config} diseaseName={"physical inactivity"} />
+          <div className="row">
+            <div class="col-lg-12  diseases-nav">
+              <ul class="nav nav-tabs">
+              {diseases.map(el => (
+                <li class="nav-item" key={el._id}>
+                  <a class={`nav-link ${el.name === currentDiseaseName ? 'disease-active' : ''}`} href="#" id={el.name} onClick={this.handleDiseaseClick}>{el.name}</a>
+                </li>
+              ))}
+              </ul>
+            </div>
+          </div>
+          <DiseaseDisplay propsDataCharts={diseasesCharts[currentDiseaseName]} diseaseName={currentDiseaseName} />
         </div>
       }
       { !currentCounty &&

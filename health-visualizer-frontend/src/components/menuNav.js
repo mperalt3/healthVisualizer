@@ -12,7 +12,8 @@ const mapDispatchToProps = dispatch => {
 const mapStateToProps = state => {
   return {
     elementsByPage: state.elementsByPage,
-    searchName: state.searchName
+    searchName: state.searchName,
+    isFavorite: state.isFavorite
   };
 };
 
@@ -35,13 +36,14 @@ class ConnectedMenuNav extends Component {
   }
 
   render() {
+    const { isFavorite } = this.props;
     return (
       <ul className="nav nav-tabs">
         <li className="nav-item">
-          <a id="all" className="nav-link active" href="#" onClick={this.handleClickOption}>All</a>
+          <a id="all" class={`nav-link ${!isFavorite ? 'menuNav-active' : ''}`} href="#" onClick={this.handleClickOption}>All</a>
         </li>
         <li className="nav-item">
-          <a id="favorites" className="nav-link" href="#" onClick={this.handleClickOption}>Favorites</a>
+          <a id="favorites" class={`nav-link ${isFavorite ? 'menuNav-active' : ''}`} href="#" onClick={this.handleClickOption}>Favorites</a>
         </li>
       </ul>
     );

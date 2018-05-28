@@ -167,6 +167,11 @@ ul.alert-dropdown {
     color: #fff;
 }
 
+.menuNav-active{
+  text-decoration: none;
+  background-color: #eee;
+}
+
 .option {
   cursor: pointer;
   background-color: #f5f5f5;
@@ -316,18 +321,31 @@ ul.alert-dropdown {
 }
 .red-heart{
   color: #e84b39;
-  font-size:3em;
+  font-size:2.5em;
 }
 .red-heart:hover{
   color: #999;
-  font-size:3em;
 }
 .gray-heart{
   color: #ccc;
-  font-size:3em;
+  font-size:2.5em;
 }
 .gray-heart:hover{
   color: #e84b3982;
+}
+.diseases-nav>.nav-tabs>li>a:hover {
+    border-color: #316e8f #316e8f #ddd;
+}
+.diseases-nav>.nav>li>a:focus,
+.diseases-nav>.nav>li>a:hover {
+    text-decoration: none;
+    background-color: #316e8f;
+    color: #fff;
+}
+.disease-active{
+  text-decoration: none;
+  background-color: #316e8f;
+  color: #fff;
 }
 
 /* Flot Chart Containers */
