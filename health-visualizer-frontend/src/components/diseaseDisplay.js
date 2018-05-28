@@ -79,7 +79,7 @@ class DiseaseDisplay extends Component {
                             />
                             </div>
                             <div class="col-xs-9 text-right">
-                                <div class="huge">{dataCharts.averageM}</div>
+                                <div class="huge">{isNaN(dataCharts.averageM) ? "No data available" : dataCharts.averageM}</div>
                                 <div>Male Average</div>
                             </div>
                         </div>
@@ -103,7 +103,7 @@ class DiseaseDisplay extends Component {
                             />
                             </div>
                             <div class="col-xs-9 text-right">
-                                <div class="huge">{dataCharts.averageF}</div>
+                                <div class="huge">{isNaN(dataCharts.averageF) ? "No data available" : dataCharts.averageF}</div>
                                 <div>Female Average</div>
                             </div>
                         </div>
@@ -126,9 +126,16 @@ class DiseaseDisplay extends Component {
                   name='chart'
                 /> Cases percent female vs male</h3>
               </div>
+              {isNaN(dataCharts.averageM) &&
+              <div class="panel-body">
+                No data available
+              </div>
+              }
+              {!isNaN(dataCharts.averageM) &&
               <div class="panel-body">
                 <ReactHighcharts config={dataCharts.averagePercentChart}/>
               </div>
+              }
             </div>
           </div>
           <div class="col-lg-7">

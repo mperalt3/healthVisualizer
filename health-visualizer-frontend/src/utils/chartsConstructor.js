@@ -40,10 +40,10 @@ export const generateCharts = (diseaseStats) => {
     serieArray.forEach(function (serie){
       let stat = diseaseStats.find(element => (new Date(element.statisticDate)).getUTCFullYear() === year && element.genderScope === serie );
       if (stat){
-        series[serie].totalCount.push(stat.totalCount);
-        series[serie].sum += stat.totalCount;
+        series[serie].totalCount.push(stat.totalCount ? stat.totalCount : stat.newCases);
+        series[serie].sum += stat.totalCount ? stat.totalCount : stat.newCases;
         series[serie].count += 1;
-        series[serie].percent.push(stat.percent);
+        series[serie].percent.push(stat.percent ? stat.percent : stat.ratePer1000);
       }else{
         series[serie].totalCount.push(0);
         series[serie].percent.push(0);
