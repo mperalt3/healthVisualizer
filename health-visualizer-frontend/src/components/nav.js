@@ -44,14 +44,16 @@ class ConnectedNav extends Component {
                   <a href="#" className="dropdown-toggle" data-toggle="dropdown" onClick={this.handleClickAbout}><i className="fa fa-question-circle"></i> About </a>
               </li>
               <li className="dropdown">
-                  <a href="https://www.cdc.gov/diabetes/data/countydata/countydataindicators.html" className="dropdown-toggle" data-toggle="dropdown"><i className="fa fa-database"></i> Data Source </a>
+                  <a href="https://www.cdc.gov/diabetes/data/countydata/countydataindicators.html" className="dropdown-toggle" data-toggle="tooltip"
+                  data-placement="bottom"
+                  title="Go to CDC web"><i className="fa fa-database"></i> Data Source </a>
               </li>
           </ul>
 
           <div className="collapse navbar-collapse navbar-ex1-collapse">
               <ul className="nav navbar-nav side-nav">
                   <li className="active">
-                      <a href="index.html"><i className="fa fa-fw fa-bar-chart-o"></i> Dashboard</a>
+                      <a href="index.html"><i class="fa fa-fw fa-dashboard"></i> Dashboard</a>
                   </li>
                   <MenuNav />
                   <Search />

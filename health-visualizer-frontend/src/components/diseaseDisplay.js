@@ -15,6 +15,11 @@ class DiseaseDisplay extends Component {
   constructor(){
     super();
     this.state = {};
+    this.handleClick= this.handleClick.bind(this);
+  }
+
+  handleClick(event){
+    event.preventDefault();
   }
 
   render(){
@@ -34,7 +39,7 @@ class DiseaseDisplay extends Component {
             <div class="col-lg-12">
               <div class="panel panel-default">
                 <div class="panel-heading">
-                  <h3 class="panel-title"><i class="fa fa-bar-chart-o fa-fw"></i>Total Cases</h3>
+                  <h3 class="panel-title"><i class="fa fa-bar-chart-o fa-fw"></i>Total Cases by year</h3>
                 </div>
                 <div class="panel-body">
                   <ReactHighcharts config={dataCharts.totalCountChart}/>
@@ -55,13 +60,13 @@ class DiseaseDisplay extends Component {
                             </div>
                             <div class="col-xs-9 text-right">
                                 <div class="huge">{dataCharts.averageA}</div>
-                                <div>Total Average</div>
+                                <div>Cases by year</div>
                             </div>
                         </div>
                     </div>
-                    <a href="#">
+                    <a href="#" onClick={this.handleClick}>
                         <div class="panel-footer">
-                            <span class="pull-left">Cases by year</span>
+                            <span class="pull-left">Total average</span>
 
                             <div class="clearfix"></div>
                         </div>
@@ -80,13 +85,13 @@ class DiseaseDisplay extends Component {
                             </div>
                             <div class="col-xs-9 text-right">
                                 <div class="huge">{isNaN(dataCharts.averageM) ? "No data available" : dataCharts.averageM}</div>
-                                <div>Male Average</div>
+                                <div>Cases by year</div>
                             </div>
                         </div>
                     </div>
-                    <a href="#">
+                    <a href="#" onClick={this.handleClick}>
                         <div class="panel-footer">
-                            <span class="pull-left">Cases by year</span>
+                            <span class="pull-left">Male average</span>
                             <div class="clearfix"></div>
                         </div>
                     </a>
@@ -104,13 +109,13 @@ class DiseaseDisplay extends Component {
                             </div>
                             <div class="col-xs-9 text-right">
                                 <div class="huge">{isNaN(dataCharts.averageF) ? "No data available" : dataCharts.averageF}</div>
-                                <div>Female Average</div>
+                                <div>Cases by year</div>
                             </div>
                         </div>
                     </div>
-                    <a href="#">
+                    <a href="#" onClick={this.handleClick}>
                         <div class="panel-footer">
-                            <span class="pull-left">Cases by year</span>
+                            <span class="pull-left">Female average</span>
                             <div class="clearfix"></div>
                         </div>
                     </a>
@@ -121,10 +126,7 @@ class DiseaseDisplay extends Component {
           <div class="col-lg-5">
             <div class="panel panel-default">
               <div class="panel-heading">
-                <h3 class="panel-title"><FontAwesome
-                  className='fas fa-chart fa-chart-pie"'
-                  name='chart'
-                /> Cases percent female vs male</h3>
+                <h3 class="panel-title"><i class="fa fa-bar-chart-o fa-fw"></i> Female vs Male percentage of cases</h3>
               </div>
               {isNaN(dataCharts.averageM) &&
               <div class="panel-body">
@@ -144,7 +146,7 @@ class DiseaseDisplay extends Component {
                 <h3 class="panel-title"><FontAwesome
                   className='fa fa-bar-chart-o fa-fw"'
                   name='chart'
-                /> Percent by year</h3>
+                /> Percentage by year</h3>
               </div>
               <div class="panel-body">
                 <ReactHighcharts config={dataCharts.percentChart}/>

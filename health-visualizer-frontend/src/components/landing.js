@@ -63,7 +63,10 @@ class ConnectedLanding extends Component {
       <div className="landing" >
         <div className="landing-section" id="welcome">
           <h1> Welcome to Health Visualizer </h1>
-          <p> This site display information about indicators that affect metabolic syndrome </p>
+          <p> Health Visulizer dashboard allows you to navigate through indicators on the health of the United States population over the past few years.</p>
+          <p> These indicators are direct factors or consequences of the metabolic syndrome.</p>
+          <p> You will compare information from year to year, gender by gender, or even select
+            what data seems more important for others to view with the "mark as a favorite" option </p>
           <div>
             <a href="" className="btn btn-info btn-lg landing-link" id="getting started" onClick={this.handleClick} >Getting started</a>
             <a href="" className="btn btn-info btn-lg landing-link" id="learn more" onClick={this.handleClick}>Learn more</a>
@@ -75,14 +78,17 @@ class ConnectedLanding extends Component {
             className='fas fa-heartbeat'
             name='heartbeat'
           /> What is the metabolic syndrome? </h2>
-          <p> the metabolic syndrome is... </p>
+          <p> The metabolic syndrome is a set of conditions that occur together, but even one, can increase the risk of serious diseases such as diabetes,
+          heart attacks and strokes.</p>
+          <p> The importance of understanding what this syndrome is, is to prevent diseases that are the main causes of death today </p>
         </div>
         <div className="landing-section" id="source">
-          <h2> Where it comes the data? <FontAwesome
+          <h2> Where the data comes from? <FontAwesome
             className='fal fa-map-globe'
             name='globe'
           /></h2>
-          <p> The data used for the health visulizer come from... </p>
+          <p> The Centers for Disease Control and Prevention (CDC) of USA has per-country indicators since 2004 and up until 2013. </p>
+          <p>With Health Visualizer you can explore the data easier, but you can still find all the information on it's webpage. </p>
           <a href="https://www.cdc.gov/diabetes/data/countydata/countydataindicators.html" className="btn btn-info btn-lg landing-external-link">Go to CDC</a>
         </div>
         <div className="up-arrow" id="up">
