@@ -5,7 +5,7 @@ import FontAwesome from 'react-fontawesome';
 import { listDiseases, markAsFavorite, markAsNonFavorite, listCounties } from "../actions/index";
 import { generateCharts } from '../utils/chartsConstructor'
 import DiseaseDisplay from './diseaseDisplay';
-import Chart from './chart'
+
 
 const mapStateToProps = state => {
   return {

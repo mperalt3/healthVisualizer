@@ -83,7 +83,7 @@ class ConnectedLanding extends Component {
             name='globe'
           /></h2>
           <p> The data used for the health visulizer come from... </p>
-          <a href="" className="btn btn-info btn-lg landing-external-link">Go to Data Source</a>
+          <a href="https://www.cdc.gov/diabetes/data/countydata/countydataindicators.html" className="btn btn-info btn-lg landing-external-link">Go to CDC</a>
         </div>
         <div className="up-arrow" id="up">
           <a  onClick={this.handleClickUp} ><FontAwesome
