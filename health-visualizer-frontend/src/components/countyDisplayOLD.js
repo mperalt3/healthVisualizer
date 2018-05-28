@@ -3,7 +3,6 @@ import { connect } from "react-redux";
 import ReactHighcharts from 'react-highcharts';
 import FontAwesome from 'react-fontawesome';
 import { listDiseases, markAsFavorite, markAsNonFavorite, listCounties } from "../actions/index";
-import { generateCharts } from '../utils/chartsConstructor'
 import Chart from './chart'
 
 const mapStateToProps = state => {
@@ -26,9 +25,9 @@ const mapDispatchToProps = dispatch => {
 };
 
 let config ={
-  totalCountChart: { chart: { type: 'column' }, xAxis: { categories: [] }, series: [], title: {text: ''} },
-  percentChart: { chart: { type: 'column' }, xAxis: { categories: [] }, series: [], title: {text: ''} },
-  averagePercentChart: { chart: { type: 'column' }, xAxis: { categories: [] }, series: [], title: {text: ''} },
+  totalCount: { chart: { type: 'column' }, xAxis: { categories: [] }, series: [], title: {text: ''} },
+  percent: { chart: { type: 'column' }, xAxis: { categories: [] }, series: [], title: {text: ''} },
+  averages: { chart: { type: 'column' }, xAxis: { categories: [] }, series: [], title: {text: ''} },
   averageA: 0,
   averageM: 0,
   averageF: 0
@@ -57,13 +56,134 @@ class ConnectedCountyDisplay extends Component {
     }
   }
 
+  getConfigData(diseaseStats){
+    let years = [];
+    let serieArray = ["A", "M", "F"];
+    let series = {
+      "A": {
+        totalCount: [],
+        percent: [],
+        sum: 0,
+        count: 0
+      },
+      "M": {
+        totalCount: [],
+        percent: [],
+        sum: 0,
+        count: 0
+      },
+      "F": {
+        totalCount: [],
+        percent: [],
+        sum: 0,
+        count: 0
+      }
+    }
+    diseaseStats.forEach(function(stat){
+      let year = (new Date(stat.statisticDate)).getUTCFullYear();
+      if (years.findIndex((element) => element === year) === -1) {
+        years.push(year);
+      }
+    });
+    years.forEach(function(year){
+      serieArray.forEach(function (serie){
+        let stat = diseaseStats.find(element => (new Date(element.statisticDate)).getUTCFullYear() === year && element.genderScope === serie );
+        if (stat){
+          series[serie].totalCount.push(stat.totalCount);
+          series[serie].sum += stat.totalCount;
+          series[serie].count += 1;
+          series[serie].percent.push(stat.percent);
+        }else{
+          series[serie].totalCount.push(0);
+          series[serie].percent.push(0);
+        }
+      })
+    });
+    console.log(series)
+    let averageA = (series.A.sum / series.A.count)
+    let averageM = (series.M.sum / series.M.count)
+    let averageF = (series.F.sum / series.F.count)
+    let percentM = 100*(averageM /(averageM+averageF))
+    let percentF = 100*(averageF /(averageM+averageF))
+    return {
+      totalCount:{
+        chart:{
+          type: 'area'
+        },
+        xAxis: {
+          categories: years
+        },
+        series: [{
+          type: 'column',
+          data: series.A.totalCount,
+          name: 'All',
+          color: '#3199dc'
+        }, {
+          type: 'column',
+          data: series.M.totalCount,
+          name: 'Male',
+          color: '#1abb9c'
+        },{
+          type: 'column',
+          data: series.F.totalCount,
+          name: 'Female',
+          color: '#9b59b6'
+        }],
+        title: {text: ''}
+      },
+      percent:{
+        xAxis: {
+          categories: years
+        },
+        series: [{
+          data: series.A.percent,
+          name: 'All',
+          color: '#3199dc'
+        }, {
+          data: series.M.percent,
+          name: 'Male',
+          color: '#1abb9c'
+        },{
+          data: series.F.percent,
+          name: 'Female',
+          color: '#9b59b6'
+        }],
+        title: {text: ''}
+      },
+      averages: {
+        chart: {
+          plotBackgroundColor: null,
+          plotBorderWidth: null,
+          plotShadow: false,
+          type: 'pie'
+        },
+        series: [{
+        data: [ {
+            name: 'Male',
+            color: '#1abb9c',
+            y: percentM,
+            z: 2
+        }, {
+            name: 'Female',
+            color: '#9b59b6',
+            y: percentF,
+            z: 1
+        }]
+    }],
+        title: {text: ''}},
+      averageA: averageA,
+      averageM: averageM,
+      averageF: averageF
+    };
+  }
+
   render(){
     const { currentCounty, diseases } = this.props;
 
     if(this.props.currentCounty){
       const { statistics } = this.props.currentCounty;
       let diseaseStats = statistics.filter((statistic) => statistic.diseaseId.name === "physical inactivity" );
-      config = generateCharts(diseaseStats);
+      config = this.getConfigData(diseaseStats);
     }
 
     return (
@@ -128,7 +248,7 @@ class ConnectedCountyDisplay extends Component {
                   <h3 class="panel-title"><i class="fa fa-bar-chart-o fa-fw"></i> Disease Chart</h3>
                 </div>
                 <div class="panel-body">
-                  <ReactHighcharts config={config.totalCountChart}/>
+                  <ReactHighcharts config={config.totalCount}/>
                 </div>
               </div>
             </div>
@@ -218,7 +338,7 @@ class ConnectedCountyDisplay extends Component {
                 /> Disease average female vs male</h3>
               </div>
               <div class="panel-body">
-                <ReactHighcharts config={config.averagePercentChart}/>
+                <ReactHighcharts config={config.averages}/>
               </div>
             </div>
           </div>
@@ -231,7 +351,7 @@ class ConnectedCountyDisplay extends Component {
                 /> Disease Percent chart</h3>
               </div>
               <div class="panel-body">
-                <ReactHighcharts config={config.percentChart}/>
+                <ReactHighcharts config={config.percent}/>
               </div>
             </div>
           </div>
