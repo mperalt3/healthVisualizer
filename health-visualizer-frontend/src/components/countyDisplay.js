@@ -24,15 +24,13 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
-let config = {
-  chart: {
-    type: 'column'
-  },
-  xAxis: {
-    categories: []
-  },
-  series: []
-};
+let config ={
+  totalCount: { chart: { type: 'column' }, xAxis: { categories: [] }, series: [], title: {text: ''} },
+  percent: { chart: { type: 'column' }, xAxis: { categories: [] }, series: [], title: {text: ''} },
+  averageA: 0,
+  averageM: 0,
+  averageF: 0
+}
 
 
 class ConnectedCountyDisplay extends Component {
@@ -58,81 +56,100 @@ class ConnectedCountyDisplay extends Component {
     }
   }
 
-  render(){
-    const { currentCounty, diseases } = this.props;
-    // let config = {
-    //   xAxis: {
-    //     categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
-    //   },
-    //   series: [{
-    //     type: 'column',
-    //     data: [29.9, 71.5, 106.4, 129.2, 144.0, 176.0, 135.6, 148.5, 216.4, 194.1, 295.6, 454.4]
-    //   }]
-    // };
-    if(this.props.currentCounty){
-      const { statistics } = this.props.currentCounty;
-      let diabetesStats = statistics.filter((statistic) => statistic.diseaseId.name === "physical inactivity" );
-      console.log(diabetesStats)
-      let years = [];
-      let totalSerieM = [];
-      let percentSerieM = [];
-      let totalSerieF = [];
-      let percentSerieF = [];
-      let totalSerieA = [];
-      let percentSerieA = [];
-      diabetesStats.forEach(function(stat){
-        let year = (new Date(stat.statisticDate)).getUTCFullYear();
-        console.log(year)
-        if (years.findIndex((element) => element === year) === -1) {
-          years.push(year);
-        }
-      });
-      years.forEach(function(year){
-        console.log(year)
-        let statA = diabetesStats.find(element => (new Date(element.statisticDate)).getUTCFullYear() === year && element.genderScope === "A" )
-        if (statA){
-          totalSerieA.push(statA.totalCount);
-          percentSerieA.push(statA.percent);
+  getConfigData(diseaseStats){
+    let years = [];
+    let serieArray = ["A", "M", "F"];
+    let series = {
+      "A": {
+        totalCount: [],
+        percent: [],
+        sum: 0,
+        count: 0
+      },
+      "M": {
+        totalCount: [],
+        percent: [],
+        sum: 0,
+        count: 0
+      },
+      "F": {
+        totalCount: [],
+        percent: [],
+        sum: 0,
+        count: 0
+      }
+    }
+    diseaseStats.forEach(function(stat){
+      let year = (new Date(stat.statisticDate)).getUTCFullYear();
+      if (years.findIndex((element) => element === year) === -1) {
+        years.push(year);
+      }
+    });
+    years.forEach(function(year){
+      serieArray.forEach(function (serie){
+        let stat = diseaseStats.find(element => (new Date(element.statisticDate)).getUTCFullYear() === year && element.genderScope === serie );
+        if (stat){
+          series[serie].totalCount.push(stat.totalCount);
+          series[serie].sum += stat.totalCount;
+          series[serie].count += 1;
+          series[serie].percent.push(stat.percent);
         }else{
-          totalSerieA.push(0);
-          percentSerieA.push(0);
+          series[serie].totalCount.push(0);
+          series[serie].percent.push(0);
         }
-        let statF = diabetesStats.find(element => (new Date(element.statisticDate)).getUTCFullYear() === year && element.genderScope == "F" )
-        console.log(statF)
-        if (statF){
-          totalSerieF.push(statF.totalCount);
-          percentSerieF.push(statF.percent);
-        }else{
-          totalSerieF.push(0);
-          percentSerieF.push(0);
-        }
-        let statM = diabetesStats.find(element => (new Date(element.statisticDate)).getUTCFullYear() === year && element.genderScope == "M" )
-        if (statM){
-          totalSerieM.push(statM.totalCount);
-          percentSerieM.push(statM.percent);
-        }else{
-          totalSerieM.push(0);
-          percentSerieM.push(0);
-        }
-      });
-      console.log(totalSerieA)
-      console.log(totalSerieM)
-      console.log(totalSerieF)
-      config = {
+      })
+    });
+    console.log(series)
+    return {
+      totalCount:{
         xAxis: {
           categories: years
         },
         series: [{
           type: 'column',
-          data: totalSerieA
+          data: series.A.totalCount,
+          name: 'All'
         }, {
           type: 'column',
-          data: totalSerieM
+          data: series.M.totalCount,
+          name: 'Male'
         },{
           type: 'column',
-          data: totalSerieF
+          data: series.F.totalCount,
+          name: 'Female'
         }]
-      };
+      },
+      percent:{
+        xAxis: {
+          categories: years
+        },
+        series: [{
+          type: 'column',
+          data: series.A.percent,
+          name: 'All'
+        }, {
+          type: 'column',
+          data: series.M.percent,
+          name: 'Male'
+        },{
+          type: 'column',
+          data: series.F.percent,
+          name: 'Female'
+        }]
+      },
+      averageA: (series.A.sum / series.A.count),
+      averageM: (series.M.sum / series.M.count),
+      averageF: (series.F.sum / series.F.count)
+    };
+  }
+
+  render(){
+    const { currentCounty, diseases } = this.props;
+
+    if(this.props.currentCounty){
+      const { statistics } = this.props.currentCounty;
+      let diseaseStats = statistics.filter((statistic) => statistic.diseaseId.name === "physical inactivity" );
+      config = this.getConfigData(diseaseStats);
     }
 
     return (
@@ -179,118 +196,97 @@ class ConnectedCountyDisplay extends Component {
             </div>
           </div>
           <div className="row">
-            <ReactHighcharts config={config}/>
+            <ReactHighcharts config={config.totalCount}/>
           </div>
-              <div class="row">
-                    <div class="col-lg-3 col-md-6">
-                        <div class="panel panel-primary">
-                            <div class="panel-heading">
-                                <div class="row">
-                                    <div class="col-xs-3">
-                                        <i class="fa fa-comments fa-5x"></i>
-                                    </div>
-                                    <div class="col-xs-9 text-right">
-                                        <div class="huge">26</div>
-                                        <div>New Comments!</div>
-                                    </div>
-                                </div>
+          <div class="row">
+            <div class="col-lg-3 col-md-6">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <div class="row">
+                            <div class="col-xs-3">
+                                <i class="fa fa-comments fa-5x"></i>
                             </div>
-                            <a href="#">
-                                <div class="panel-footer">
-                                    <span class="pull-left">View Details</span>
-                                    <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
-                                    <div class="clearfix"></div>
-                                </div>
-                            </a>
+                            <div class="col-xs-9 text-right">
+                                <div class="huge">{config.averageA}</div>
+                                <div>Total Average</div>
+                            </div>
                         </div>
                     </div>
-                    <div class="col-lg-3 col-md-6">
-                        <div class="panel panel-green">
-                            <div class="panel-heading">
-                                <div class="row">
-                                    <div class="col-xs-3">
-                                        <i class="fa fa-tasks fa-5x"></i>
-                                    </div>
-                                    <div class="col-xs-9 text-right">
-                                        <div class="huge">12</div>
-                                        <div>New Tasks!</div>
-                                    </div>
-                                </div>
-                            </div>
-                            <a href="#">
-                                <div class="panel-footer">
-                                    <span class="pull-left">View Details</span>
-                                    <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
-                                    <div class="clearfix"></div>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-6">
-                        <div class="panel panel-yellow">
-                            <div class="panel-heading">
-                                <div class="row">
-                                    <div class="col-xs-3">
-                                        <i class="fa fa-shopping-cart fa-5x"></i>
-                                    </div>
-                                    <div class="col-xs-9 text-right">
-                                        <div class="huge">124</div>
-                                        <div>New Orders!</div>
-                                    </div>
-                                </div>
-                            </div>
-                            <a href="#">
-                                <div class="panel-footer">
-                                    <span class="pull-left">View Details</span>
-                                    <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
-                                    <div class="clearfix"></div>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-6">
-                        <div class="panel panel-red">
-                            <div class="panel-heading">
-                                <div class="row">
-                                    <div class="col-xs-3">
-                                        <i class="fa fa-support fa-5x"></i>
-                                    </div>
-                                    <div class="col-xs-9 text-right">
-                                        <div class="huge">13</div>
-                                        <div>Support Tickets!</div>
-                                    </div>
-                                </div>
-                            </div>
-                            <a href="#">
-                                <div class="panel-footer">
-                                    <span class="pull-left">View Details</span>
-                                    <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
-                                    <div class="clearfix"></div>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-          <h2>{currentCounty.county.name}</h2>
-          <h3>{currentCounty.county.fipsCode}</h3>
-          {currentCounty.county.isFavorite &&
-            <span><FontAwesome
-            className='fas fa-heart'
-            name='heart'
-          /></span>
-          }
-          <div>
-          <div>
-            <button id="markFavoriteButton" onClick={this.handleFavoriteButtonClick}> Mark as favorite </button>
-            <button id="markNonFavoriteButton" onClick={this.handleFavoriteButtonClick}> Mark as non favorite </button>
-          </div>
-          Diseases
-          {diseases.map(el => (
-            <li key={el._id}>{el.name}</li>
-          ))}
-          </div>
-        </div>
+                    <a href="#">
+                        <div class="panel-footer">
+                            <span class="pull-left">All</span>
 
+                            <div class="clearfix"></div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6">
+                <div class="panel panel-green">
+                    <div class="panel-heading">
+                        <div class="row">
+                            <div class="col-xs-3">
+                                <i class="fa fa-tasks fa-5x"></i>
+                            </div>
+                            <div class="col-xs-9 text-right">
+                                <div class="huge">{config.averageM}</div>
+                                <div>Average</div>
+                            </div>
+                        </div>
+                    </div>
+                    <a href="#">
+                        <div class="panel-footer">
+                            <span class="pull-left">Male</span>
+                            <div class="clearfix"></div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6">
+                <div class="panel panel-yellow">
+                    <div class="panel-heading">
+                        <div class="row">
+                            <div class="col-xs-3">
+                                <i class="fa fa-shopping-cart fa-5x"></i>
+                            </div>
+                            <div class="col-xs-9 text-right">
+                                <div class="huge">{config.averageF}</div>
+                                <div>Average</div>
+                            </div>
+                        </div>
+                    </div>
+                    <a href="#">
+                        <div class="panel-footer">
+                            <span class="pull-left">Female</span>
+                            <div class="clearfix"></div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6">
+                <div class="panel panel-red">
+                    <div class="panel-heading">
+                        <div class="row">
+                            <div class="col-xs-3">
+                                <i class="fa fa-support fa-5x"></i>
+                            </div>
+                            <div class="col-xs-9 text-right">
+                                <div class="huge">13</div>
+                                <div>Support Tickets!</div>
+                            </div>
+                        </div>
+                    </div>
+                    <a href="#">
+                        <div class="panel-footer">
+                            <span class="pull-left">View Details</span>
+                            <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                            <div class="clearfix"></div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+        </div>
       }
       { !currentCounty &&
         <div class="jumbotron">
