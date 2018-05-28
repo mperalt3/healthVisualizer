@@ -4,6 +4,7 @@ import ReactHighcharts from 'react-highcharts';
 import FontAwesome from 'react-fontawesome';
 import { listDiseases, markAsFavorite, markAsNonFavorite, listCounties } from "../actions/index";
 import { generateCharts } from '../utils/chartsConstructor'
+import DiseaseDisplay from './diseaseDisplay';
 import Chart from './chart'
 
 const mapStateToProps = state => {
@@ -24,15 +25,6 @@ const mapDispatchToProps = dispatch => {
     markAsNonFavorite: (countyId, searchName, isFavorite, elementsByPage, offset) => dispatch(markAsNonFavorite(countyId, searchName, isFavorite, elementsByPage, offset))
   };
 };
-
-let config ={
-  totalCountChart: { chart: { type: 'column' }, xAxis: { categories: [] }, series: [], title: {text: ''} },
-  percentChart: { chart: { type: 'column' }, xAxis: { categories: [] }, series: [], title: {text: ''} },
-  averagePercentChart: { chart: { type: 'column' }, xAxis: { categories: [] }, series: [], title: {text: ''} },
-  averageA: 0,
-  averageM: 0,
-  averageF: 0
-}
 
 class ConnectedCountyDisplay extends Component {
   constructor(){
@@ -59,7 +51,7 @@ class ConnectedCountyDisplay extends Component {
 
   render(){
     const { currentCounty, diseases } = this.props;
-
+    let config = {};
     if(this.props.currentCounty){
       const { statistics } = this.props.currentCounty;
       let diseaseStats = statistics.filter((statistic) => statistic.diseaseId.name === "physical inactivity" );
@@ -114,128 +106,7 @@ class ConnectedCountyDisplay extends Component {
               </div>
             </div>
           </div>
-          <div className="row">
-            <div class="col-lg-12">
-              <div className="disease-title">
-                <h3>Disease Name</h3>
-              </div>
-            </div>
-          </div>
-          <div className="row">
-            <div class="col-lg-12">
-              <div class="panel panel-default">
-                <div class="panel-heading">
-                  <h3 class="panel-title"><i class="fa fa-bar-chart-o fa-fw"></i> Disease Chart</h3>
-                </div>
-                <div class="panel-body">
-                  <ReactHighcharts config={config.totalCountChart}/>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-lg-4 col-md-6">
-                <div class="panel panel-primary">
-                    <div class="panel-heading">
-                        <div class="row">
-                            <div class="col-xs-3">
-                              <FontAwesome
-                                className='fas fa-users fa-4x'
-                                name='users'
-                              />
-                            </div>
-                            <div class="col-xs-9 text-right">
-                                <div class="huge">{config.averageA}</div>
-                                <div>Total Average</div>
-                            </div>
-                        </div>
-                    </div>
-                    <a href="#">
-                        <div class="panel-footer">
-                            <span class="pull-left">Cases by year</span>
-
-                            <div class="clearfix"></div>
-                        </div>
-                    </a>
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-6">
-                <div class="panel panel-green">
-                    <div class="panel-heading">
-                        <div class="row">
-                            <div class="col-xs-3">
-                            <FontAwesome
-                              className='fas fa-mars fa-4x'
-                              name='mars'
-                            />
-                            </div>
-                            <div class="col-xs-9 text-right">
-                                <div class="huge">{config.averageM}</div>
-                                <div>Male Average</div>
-                            </div>
-                        </div>
-                    </div>
-                    <a href="#">
-                        <div class="panel-footer">
-                            <span class="pull-left">Cases by year</span>
-                            <div class="clearfix"></div>
-                        </div>
-                    </a>
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-6">
-                <div class="panel panel-purple">
-                    <div class="panel-heading">
-                        <div class="row">
-                            <div class="col-xs-3">
-                            <FontAwesome
-                              className='fas fa-venus fa-4x'
-                              name='venus'
-                            />
-                            </div>
-                            <div class="col-xs-9 text-right">
-                                <div class="huge">{config.averageF}</div>
-                                <div>Female Average</div>
-                            </div>
-                        </div>
-                    </div>
-                    <a href="#">
-                        <div class="panel-footer">
-                            <span class="pull-left">Cases by year</span>
-                            <div class="clearfix"></div>
-                        </div>
-                    </a>
-                </div>
-            </div>
-        </div>
-        <div className="row">
-          <div class="col-lg-5">
-            <div class="panel panel-default">
-              <div class="panel-heading">
-                <h3 class="panel-title"><FontAwesome
-                  className='fas fa-chart fa-chart-pie"'
-                  name='chart'
-                /> Disease average female vs male</h3>
-              </div>
-              <div class="panel-body">
-                <ReactHighcharts config={config.averagePercentChart}/>
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-7">
-            <div class="panel panel-default">
-              <div class="panel-heading">
-                <h3 class="panel-title"><FontAwesome
-                  className='fa fa-bar-chart-o fa-fw"'
-                  name='chart'
-                /> Disease Percent chart</h3>
-              </div>
-              <div class="panel-body">
-                <ReactHighcharts config={config.percentChart}/>
-              </div>
-            </div>
-          </div>
-        </div>
+          <DiseaseDisplay propsDataCharts={config} diseaseName={"physical inactivity"} />
         </div>
       }
       { !currentCounty &&
