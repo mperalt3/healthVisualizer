@@ -27,11 +27,11 @@ const mapDispatchToProps = dispatch => {
 let config ={
   totalCount: { chart: { type: 'column' }, xAxis: { categories: [] }, series: [], title: {text: ''} },
   percent: { chart: { type: 'column' }, xAxis: { categories: [] }, series: [], title: {text: ''} },
+  averages: { chart: { type: 'column' }, xAxis: { categories: [] }, series: [], title: {text: ''} },
   averageA: 0,
   averageM: 0,
   averageF: 0
 }
-
 
 class ConnectedCountyDisplay extends Component {
   constructor(){
@@ -100,46 +100,80 @@ class ConnectedCountyDisplay extends Component {
       })
     });
     console.log(series)
+    let averageA = (series.A.sum / series.A.count)
+    let averageM = (series.M.sum / series.M.count)
+    let averageF = (series.F.sum / series.F.count)
+    let percentM = 100*(averageM /(averageM+averageF))
+    let percentF = 100*(averageF /(averageM+averageF))
     return {
       totalCount:{
+        chart:{
+          type: 'area'
+        },
         xAxis: {
           categories: years
         },
         series: [{
           type: 'column',
           data: series.A.totalCount,
-          name: 'All'
+          name: 'All',
+          color: '#3199dc'
         }, {
           type: 'column',
           data: series.M.totalCount,
-          name: 'Male'
+          name: 'Male',
+          color: '#1abb9c'
         },{
           type: 'column',
           data: series.F.totalCount,
-          name: 'Female'
-        }]
+          name: 'Female',
+          color: '#9b59b6'
+        }],
+        title: {text: ''}
       },
       percent:{
         xAxis: {
           categories: years
         },
         series: [{
-          type: 'column',
           data: series.A.percent,
-          name: 'All'
+          name: 'All',
+          color: '#3199dc'
         }, {
-          type: 'column',
           data: series.M.percent,
-          name: 'Male'
+          name: 'Male',
+          color: '#1abb9c'
         },{
-          type: 'column',
           data: series.F.percent,
-          name: 'Female'
-        }]
+          name: 'Female',
+          color: '#9b59b6'
+        }],
+        title: {text: ''}
       },
-      averageA: (series.A.sum / series.A.count),
-      averageM: (series.M.sum / series.M.count),
-      averageF: (series.F.sum / series.F.count)
+      averages: {
+        chart: {
+          plotBackgroundColor: null,
+          plotBorderWidth: null,
+          plotShadow: false,
+          type: 'pie'
+        },
+        series: [{
+        data: [ {
+            name: 'Male',
+            color: '#1abb9c',
+            y: percentM,
+            z: 2
+        }, {
+            name: 'Female',
+            color: '#9b59b6',
+            y: percentF,
+            z: 1
+        }]
+    }],
+        title: {text: ''}},
+      averageA: averageA,
+      averageM: averageM,
+      averageF: averageF
     };
   }
 
@@ -158,53 +192,77 @@ class ConnectedCountyDisplay extends Component {
       <div className="row">
           <div className="col-lg-12">
               <h1 className="page-header">
-                  Dashboard <small>Statistics Overview</small>
+              Dashboard <small>Statistics Overview</small>
               </h1>
           </div>
       </div>
       {currentCounty &&
         <div>
           <div className="row">
-            <div className="col-lg-12">
-              <ol className="breadcrumb">
-                  <li className="active">
-                      <i className="fa fa-dashboard"></i> Dashboard
-                  </li>
-              </ol>
-            </div>
-          </div>
-          <div className="row">
-            <h2>{currentCounty.county.name}</h2>
-            <div>
-              {currentCounty.county.stateId.name}
-              {currentCounty.county.isFavorite &&
-                <span><FontAwesome
-                className='fas fa-heart'
-                name='heart'
-              />
-                <button id="markNonFavoriteButton" onClick={this.handleFavoriteButtonClick}> Mark as non favorite </button>
+            <div class="col-lg-12">
+              <div className="panel county-pannel">
+                <span className="favorite-pannel">
+                  {currentCounty.county.isFavorite &&
+                    <span >
+                      <FontAwesome
+                        className='fas fa-heart red-heart'
+                        name='heart'
+                        id="markNonFavoriteButton"
+                        onClick={this.handleFavoriteButtonClick}
+                        data-toggle="tooltip"
+                        data-placement="right"
+                        title="Mark as non favorite"
+                      />
+                    </span>
+                  }
+                  {!currentCounty.county.isFavorite &&
+                    <span >
+                      <FontAwesome
+                        className='fas fa-heart gray-heart'
+                        name='heart'
+                        id="markFavoriteButton"
+                        onClick={this.handleFavoriteButtonClick}
+                        data-toggle="tooltip"
+                        data-placement="right"
+                        title="Mark as favorite!"
+                      />
+                    </span>
+                  }
                 </span>
-              }
-              {!currentCounty.county.isFavorite &&
-                <span><FontAwesome
-                className='fas fa-heart'
-                name='heart'
-              />
-              <button id="markFavoriteButton" onClick={this.handleFavoriteButtonClick}> Mark as favorite </button>
-              </span>
-              }
+                <h2>{currentCounty.county.name}</h2>
+                <span className="state-name">{currentCounty.county.stateId.name}</span>
+              </div>
             </div>
           </div>
           <div className="row">
-            <ReactHighcharts config={config.totalCount}/>
+            <div class="col-lg-12">
+              <div className="disease-title">
+                <h3>Disease Name</h3>
+              </div>
+            </div>
+          </div>
+          <div className="row">
+            <div class="col-lg-12">
+              <div class="panel panel-default">
+                <div class="panel-heading">
+                  <h3 class="panel-title"><i class="fa fa-bar-chart-o fa-fw"></i> Disease Chart</h3>
+                </div>
+                <div class="panel-body">
+                  <ReactHighcharts config={config.totalCount}/>
+                </div>
+              </div>
+            </div>
           </div>
           <div class="row">
-            <div class="col-lg-3 col-md-6">
+            <div class="col-lg-4 col-md-6">
                 <div class="panel panel-primary">
                     <div class="panel-heading">
                         <div class="row">
                             <div class="col-xs-3">
-                                <i class="fa fa-comments fa-5x"></i>
+                              <FontAwesome
+                                className='fas fa-users fa-4x'
+                                name='users'
+                              />
                             </div>
                             <div class="col-xs-9 text-right">
                                 <div class="huge">{config.averageA}</div>
@@ -214,77 +272,89 @@ class ConnectedCountyDisplay extends Component {
                     </div>
                     <a href="#">
                         <div class="panel-footer">
-                            <span class="pull-left">All</span>
+                            <span class="pull-left">Cases by year</span>
 
                             <div class="clearfix"></div>
                         </div>
                     </a>
                 </div>
             </div>
-            <div class="col-lg-3 col-md-6">
+            <div class="col-lg-4 col-md-6">
                 <div class="panel panel-green">
                     <div class="panel-heading">
                         <div class="row">
                             <div class="col-xs-3">
-                                <i class="fa fa-tasks fa-5x"></i>
+                            <FontAwesome
+                              className='fas fa-mars fa-4x'
+                              name='mars'
+                            />
                             </div>
                             <div class="col-xs-9 text-right">
                                 <div class="huge">{config.averageM}</div>
-                                <div>Average</div>
+                                <div>Male Average</div>
                             </div>
                         </div>
                     </div>
                     <a href="#">
                         <div class="panel-footer">
-                            <span class="pull-left">Male</span>
+                            <span class="pull-left">Cases by year</span>
                             <div class="clearfix"></div>
                         </div>
                     </a>
                 </div>
             </div>
-            <div class="col-lg-3 col-md-6">
-                <div class="panel panel-yellow">
+            <div class="col-lg-4 col-md-6">
+                <div class="panel panel-purple">
                     <div class="panel-heading">
                         <div class="row">
                             <div class="col-xs-3">
-                                <i class="fa fa-shopping-cart fa-5x"></i>
+                            <FontAwesome
+                              className='fas fa-venus fa-4x'
+                              name='venus'
+                            />
                             </div>
                             <div class="col-xs-9 text-right">
                                 <div class="huge">{config.averageF}</div>
-                                <div>Average</div>
+                                <div>Female Average</div>
                             </div>
                         </div>
                     </div>
                     <a href="#">
                         <div class="panel-footer">
-                            <span class="pull-left">Female</span>
+                            <span class="pull-left">Cases by year</span>
                             <div class="clearfix"></div>
                         </div>
                     </a>
                 </div>
             </div>
-            <div class="col-lg-3 col-md-6">
-                <div class="panel panel-red">
-                    <div class="panel-heading">
-                        <div class="row">
-                            <div class="col-xs-3">
-                                <i class="fa fa-support fa-5x"></i>
-                            </div>
-                            <div class="col-xs-9 text-right">
-                                <div class="huge">13</div>
-                                <div>Support Tickets!</div>
-                            </div>
-                        </div>
-                    </div>
-                    <a href="#">
-                        <div class="panel-footer">
-                            <span class="pull-left">View Details</span>
-                            <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
-                            <div class="clearfix"></div>
-                        </div>
-                    </a>
-                </div>
+        </div>
+        <div className="row">
+          <div class="col-lg-5">
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h3 class="panel-title"><FontAwesome
+                  className='fas fa-chart fa-chart-pie"'
+                  name='chart'
+                /> Disease average female vs male</h3>
+              </div>
+              <div class="panel-body">
+                <ReactHighcharts config={config.averages}/>
+              </div>
             </div>
+          </div>
+          <div class="col-lg-7">
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h3 class="panel-title"><FontAwesome
+                  className='fa fa-bar-chart-o fa-fw"'
+                  name='chart'
+                /> Disease Percent chart</h3>
+              </div>
+              <div class="panel-body">
+                <ReactHighcharts config={config.percent}/>
+              </div>
+            </div>
+          </div>
         </div>
         </div>
       }
