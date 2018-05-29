@@ -73,6 +73,8 @@ export const listCounty = (countyId) => {
   return function (dispatch) {
     return getCounty(countyId).then(
       county => dispatch(actionListCounty(county))
+    ).catch(
+      err => dispatch(setError(err))
     )
   }
 }
@@ -82,6 +84,8 @@ export const listDiseases = () => {
   return function (dispatch) {
     return getDiseases().then(
       diseases => dispatch(actionListDiseases(diseases))
+    ).catch(
+      err => dispatch(setError(err))
     )
   }
 }
@@ -93,6 +97,8 @@ export const markAsFavorite = (countyId, searchName, isFavorite, elementsByPage,
       county => dispatch(actionMarkAsFavorite(county))
     ).then(
       () => dispatch(listCounties(searchName, isFavorite, elementsByPage, offset))
+    ).catch(
+      err => dispatch(setError(err))
     )
   }
 }
@@ -104,6 +110,8 @@ export const markAsNonFavorite = (countyId, searchName, isFavorite, elementsByPa
       county => dispatch(actionMarkAsNonFavorite(county))
     ).then (
       () => dispatch(listCounties(searchName, isFavorite, elementsByPage, offset))
+    ).catch(
+      err => dispatch(setError(err))
     )
   }
 }

@@ -21,7 +21,6 @@ export const  getCounties = (searchName, isFavorite, limit, offset) => {
       }
     })
     .catch((err) =>{
-      console.log(err);
       throw new Error("connection failed");
     });
   }
@@ -39,9 +38,8 @@ export const  getCounty = (countyId) => {
         return {};
       }
     })
-    .catch((err) => {
-      console.log(err);
-      return {}
+    .catch((err) =>{
+      throw new Error("connection failed");
     });
 }
 
@@ -61,5 +59,7 @@ export const  updateCounty = (countyId, isFavorite) => {
         return {};
       }
     })
-    .catch((err) => console.log(err));
+    .catch((err) =>{
+      throw new Error("connection failed");
+    });
 }

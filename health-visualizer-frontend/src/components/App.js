@@ -20,7 +20,7 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
-// Main component and the app point of start. It's responsible for displaying the landing or the dashboard
+// Main component and the app point of start. It's responsible for displaying the landing, the dashboard or the error components according to the store state
 class ConnectedApp extends Component {
   constructor(){
     super();

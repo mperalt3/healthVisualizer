@@ -13,5 +13,7 @@ export const  getDiseases = () => {
         return [];
       }
     })
-    .catch((err) => console.log(err));
+    .catch((err) =>{
+      throw new Error("connection failed");
+    });
   }
