@@ -33,7 +33,7 @@ npm install
 npm run seed
 ```
 
-- No you can run the app
+- No you can run the app. By default it will run on port 3000
 ```
 npm start
 ```
@@ -43,10 +43,10 @@ npm start
 ```
 npm install
 ```
-- Run the app
+- Run the app. By default it will run on port 8080
 ```
 npm start
 ```
 
 ## Go to your browser!
-Now you can navigate the information offered by the CDC about the factors and consequences of metabolic syndrome. More information in the readme.md files of each application.
+Now you can go to [http://localhost:8080](http://localhost:8080) and navigate the information offered by the CDC about the factors and consequences of metabolic syndrome. More information in the readme.md files of each application.
