@@ -4,11 +4,13 @@ import '../assets/stylesheets/App.css';
 import CountyDisplay from './countyDisplay';
 import Nav from './nav';
 import Landing from './landing';
+import ErrorContainer from './error';
 import { updateVisibleLanding } from '../actions/index';
 
 const mapStateToProps = state => {
   return {
-    visibleLanding: state.visibleLanding
+    visibleLanding: state.visibleLanding,
+    error: state.error
   };
 };
 
@@ -30,13 +32,20 @@ class ConnectedApp extends Component {
   }
 
   render() {
+    console.log(this.props.error)
     return (
       <div className="App">
-          {this.props.visibleLanding && <Landing />}
-        <div id="wrapper">
-          <Nav/>
-          <CountyDisplay />
-        </div>
+        {!this.props.error &&
+          <div>
+              {this.props.visibleLanding && <Landing />}
+            <div id="wrapper">
+              <Nav/>
+              <CountyDisplay />
+            </div>
+          </div>
+        }
+        {this.props.error && <ErrorContainer />
+        }
       </div>
     );
   }

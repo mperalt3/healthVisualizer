@@ -3,6 +3,7 @@ import { UPDATE_SEARCH_NAME,
           UPDATE_OFFSET,
           UPDATE_VISIBLE_LANDING,
           SET_ELEMENTS_BY_PAGE,
+          SET_ERROR,
           LIST_COUNTIES,
           LIST_COUNTY,
           LIST_DISEASES,
@@ -19,7 +20,8 @@ const initialState = {
   elementsByPage: 1,
   isFavorite: false,
   visibleLanding: true,
-  offset: 0
+  offset: 0,
+  error: false
 };
 
 // App principal reducer
@@ -35,6 +37,8 @@ const rootReducer = (state = initialState, action) => {
       return { ...state, visibleLanding: action.payload };
     case SET_ELEMENTS_BY_PAGE:
       return { ...state, elementsByPage: action.payload };
+    case SET_ERROR:
+      return { ...state, error: action.payload };
     case LIST_COUNTIES:
       return { ...state, counties: action.payload.counties, totalCounties: action.payload.totalCounties};
     case LIST_COUNTY:

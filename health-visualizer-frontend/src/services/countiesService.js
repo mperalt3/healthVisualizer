@@ -20,7 +20,10 @@ export const  getCounties = (searchName, isFavorite, limit, offset) => {
         return [];
       }
     })
-    .catch((err) => console.log(err));
+    .catch((err) =>{
+      console.log(err);
+      throw new Error("connection failed");
+    });
   }
 
 // Consume healVisualizerApi counties show by countyId with statistics
@@ -36,7 +39,10 @@ export const  getCounty = (countyId) => {
         return {};
       }
     })
-    .catch((err) => console.log(err));
+    .catch((err) => {
+      console.log(err);
+      return {}
+    });
 }
 
 // Consume healVisualizerApi counties update by countyId

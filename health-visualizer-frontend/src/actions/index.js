@@ -7,17 +7,19 @@ import {  LIST_DISEASES,
           UPDATE_IS_FAVORITE,
           UPDATE_OFFSET,
           UPDATE_VISIBLE_LANDING,
-          SET_ELEMENTS_BY_PAGE
+          SET_ELEMENTS_BY_PAGE,
+          SET_ERROR
       } from "../constants/actionTypes";
 import { getCounties, getCounty, updateCounty } from "../services/countiesService"
 import { getDiseases } from "../services/diseasesService"
 
-// Update searchName, isFavorite, offset, visibleLanding and elementsByPage in store in order to be available for any component at any time.
+// Update searchName, isFavorite, offset, visibleLanding, error and elementsByPage in store in order to be available for any component at any time.
 export const updateSearchName = (searchName) => ({ type: UPDATE_SEARCH_NAME, payload: searchName });
 export const updateIsFavorite = (isFavorite) => ({ type: UPDATE_IS_FAVORITE, payload: isFavorite });
 export const updateOffset = (offset) => ({ type: UPDATE_OFFSET, payload: offset });
 export const updateVisibleLanding = (visibleLanding) => ({ type: UPDATE_VISIBLE_LANDING, payload: visibleLanding });
 export const setElementsByPage = (elementsByPage) => ({ type: SET_ELEMENTS_BY_PAGE, payload: elementsByPage });
+export const setError = (error) => ({ type: SET_ERROR, payload: error });
 
 // Return a plain object as action for the reducer after async calls. Actions: markAsFavorite, markAsNonFavorite, listDiseases, listCounties and lisCounty
 function actionListCounties(result) {
@@ -60,6 +62,8 @@ export const listCounties = (searchName, isFavorite, limit, offset) => {
   return function (dispatch) {
     return getCounties(searchName, isFavorite, limit, offset).then(
       result => dispatch(actionListCounties(result))
+    ).catch(
+      err => dispatch(setError(err))
     )
   }
 }
