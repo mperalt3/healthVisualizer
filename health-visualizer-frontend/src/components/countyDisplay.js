@@ -1,7 +1,10 @@
-import React, { Component } from "react";
-import { connect } from "react-redux";
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import FontAwesome from 'react-fontawesome';
-import { listDiseases, markAsFavorite, markAsNonFavorite, listCounties } from "../actions/index";
+import { listDiseases, markAsFavorite, markAsNonFavorite } from '../actions/index';
+import { generateCharts } from '../utils/chartsConstructor'
+import DiseaseDisplay from './diseaseDisplay';
+
 
 const mapStateToProps = state => {
   return {
@@ -22,11 +25,15 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
+// Component responsible for displaying the data of the selected county and selected disease
 class ConnectedCountyDisplay extends Component {
   constructor(){
     super();
-    this.state = {};
+    this.state = {
+      currentDiseaseName: "physical inactivity"
+    };
     this.handleFavoriteButtonClick = this.handleFavoriteButtonClick.bind(this);
+    this.handleDiseaseClick = this.handleDiseaseClick.bind(this);
   }
 
   componentDidMount(){
@@ -43,35 +50,94 @@ class ConnectedCountyDisplay extends Component {
     }
   }
 
+  handleDiseaseClick(event){
+    event.preventDefault();
+    this.setState({currentDiseaseName: event.target.id});
+  }
+
   render(){
     const { currentCounty, diseases } = this.props;
+    const { currentDiseaseName } = this.state;
+    let diseasesCharts = {};
+    if(this.props.currentCounty){
+      const { statistics } = this.props.currentCounty;
+      diseases.forEach(function(disease){
+        let diseaseStats = statistics.filter((statistic) => statistic.diseaseId.name === disease.name );
+        diseasesCharts[disease.name] = generateCharts(diseaseStats);
+      });
+    }
+
     return (
-      <div>
+      <div id="page-wrapper">
+      <div className="container-fluid">
+      <div className="row">
+          <div className="col-lg-12">
+              <h1 className="page-header">
+              Dashboard <small>Statistics Overview</small>
+              </h1>
+          </div>
+      </div>
       {currentCounty &&
         <div>
-          <h2>{currentCounty.county.name}</h2>
-          <h3>{currentCounty.county.fipsCode}</h3>
-          {currentCounty.county.isFavorite &&
-            <span><FontAwesome
-            className='fas fa-heart'
-            name='heart'
-          /></span>
-          }
-          <div>
-          <div>
-            <button id="markFavoriteButton" onClick={this.handleFavoriteButtonClick}> Mark as favorite </button>
-            <button id="markNonFavoriteButton" onClick={this.handleFavoriteButtonClick}> Mark as non favorite </button>
+          <div className="row">
+            <div className="col-lg-12">
+              <div className="panel county-pannel">
+                <span className="favorite-pannel">
+                  {currentCounty.county.isFavorite &&
+                    <span >
+                      <FontAwesome
+                        className='fas fa-heart red-heart'
+                        name='heart'
+                        id="markNonFavoriteButton"
+                        onClick={this.handleFavoriteButtonClick}
+                        data-toggle="tooltip"
+                        data-placement="right"
+                        title="Mark as non favorite"
+                      />
+                    </span>
+                  }
+                  {!currentCounty.county.isFavorite &&
+                    <span >
+                      <FontAwesome
+                        className='fas fa-heart gray-heart'
+                        name='heart'
+                        id="markFavoriteButton"
+                        onClick={this.handleFavoriteButtonClick}
+                        data-toggle="tooltip"
+                        data-placement="right"
+                        title="Mark as favorite!"
+                      />
+                    </span>
+                  }
+                </span>
+                <h2>{currentCounty.county.name}</h2>
+                <span className="state-name">{currentCounty.county.stateId.name}</span>
+              </div>
+            </div>
           </div>
-          Diseases
-          {diseases.map(el => (
-            <li key={el._id}>{el.name}</li>
-          ))}
+          <div className="row">
+            <div className="col-lg-12  diseases-nav">
+              <ul className="nav nav-tabs">
+              {diseases.map(el => (
+                <li className="nav-item" key={el._id}>
+                  <a className={`nav-link ${el.name === currentDiseaseName ? 'disease-active' : ''}`} href="/" id={el.name} onClick={this.handleDiseaseClick}>{el.name}</a>
+                </li>
+              ))}
+              </ul>
+            </div>
           </div>
+          <DiseaseDisplay propsDataCharts={diseasesCharts[currentDiseaseName]} diseaseName={currentDiseaseName} />
         </div>
       }
       { !currentCounty &&
-        <h2>Choose a county to see it's health info</h2>
+        <div className="jumbotron">
+          <h1 className="display-4">Choose a USA County</h1>
+          <p className="lead">This site gather information about indicators that affect the methabolic syndrome. These indicators are obesity, diabetes prevalance and physical inactivity by county of the United States.</p>
+          <hr className="my-4"/>
+          <p>Choose the county of your interest to see graphic information of these indicators. </p>
+        </div>
       }
+      </div>
       </div>
     )
   }

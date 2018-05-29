@@ -1,45 +1,52 @@
 # Health Visualizer
 
-This project have two separated app, health-visualizer-api and health-visualizer-frontend. The first is a rest api build in node.js. Allows expose all the data about health from .... health-visualizer-frontend, the second app, is a web portal that allows to navigate between the data of all counties. It's is build in react with redux technology.
+The Health Visualizer consists of two separate applications in backend and frontend. The first is an API REST built in node.js, and the frontend is a Single Page Application built in React.
 
-## Reuirements
+The HealthVisualizer API is open, does not use any type of authetication, therefore, its routes can be accessed by any application. It is designed to expose the data collected from the CDC page on health indicators by county. The original excel and more information can be found here:  [CDC web.](https://www.cdc.gov/diabetes/data/countydata/countydataindicators.html)
 
-- MongoDb
+The HealthVisualizer frontend is designed to feed on that API in order to explore the data graphically. Built on React with the Redux library to maintain its state.
 
-## Instructions to start
+## Prerequisite
 
-Make sure you have mongoDb installed on your pc. After that clone the repo and navigate from differents terminals to each app.  
-### 1. Api
+- **MongoDb**: The API use mongodb as a database to upload the excel information. **Excel** are **currently incorporated** into the API project in the dist/data_sources folder, so **it's not necessary to include them** manually. Make sure you have installed mongo before you start.
+- **npm**: You can use another package manager, but for the purposes of this guide, npm will be used.
+
+## Installation
+
+First, make sure you have mongoDb installed on your pc. After that clone the repo
+
+You need to navigate from differents terminals to each app.  
+### 1. On /health-visualizer-api
 - Make sure mongoDb is up
-```HTML
+```
 sudo service mongod start
 ```
 
 - Install dependencies
-```HTML
+```
 npm install
 ```
-- Make sure mongoDb is up
-```HTML
-sudo service mongod start
-```
 
-- Run the seed. This will load all the data, and may take a few minutes.
-```HTML
+
+- Run the seed. This will load all the data from the excels. Don't worry, it'll make take a few minutes
+```
 npm run seed
 ```
 
-- Run the app
-```HTML
+- No you can run the app
+```
 npm start
 ```
 
-### 2. Frontend
+### 2. On /health-visualizer-frontend
 - Install dependencies
-```HTML
+```
 npm install
 ```
 - Run the app
-```HTML
+```
 npm start
 ```
+
+## Go to your browser!
+Now you can navigate the information offered by the CDC about the factors and consequences of metabolic syndrome. More information in the readme.md files of each application.

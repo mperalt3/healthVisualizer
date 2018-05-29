@@ -1,7 +1,7 @@
-import React, { Component } from "react";
-import { connect } from "react-redux";
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import ReactPaginate from 'react-paginate';
-import { listCounties, updateOffset } from "../actions/index";
+import { listCounties, updateOffset } from '../actions/index';
 
 const mapStateToProps = state => {
   return {
@@ -19,6 +19,7 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
+// Component responsible for making the menu of counties pageable
 class ConnectedPaginator extends Component {
   constructor(){
     super();
@@ -29,7 +30,7 @@ class ConnectedPaginator extends Component {
   }
 
   handlePageClick(data) {
-    const { elementsByPage, isFavorite, searchName, totalCounties } = this.props;
+    const { elementsByPage, isFavorite, searchName } = this.props;
     let offset = elementsByPage * parseInt(data.selected);
     this.props.updateOffset(offset);
     this.props.listCounties(searchName, isFavorite, elementsByPage, offset);
@@ -41,14 +42,13 @@ class ConnectedPaginator extends Component {
 
     return (
       <div>
-      <div>Datos encontrados: {totalCounties ? totalCounties : "nada"}</div>
-      <ReactPaginate previousLabel={"previous"}
-                       nextLabel={"next"}
+      <ReactPaginate previousLabel={"<"}
+                       nextLabel={">"}
                        breakLabel={<a href="">...</a>}
                        breakClassName={"break-me"}
                        pageCount={pageCount}
-                       marginPagesDisplayed={2}
-                       pageRangeDisplayed={5}
+                       marginPagesDisplayed={1}
+                       pageRangeDisplayed={3}
                        onPageChange={this.handlePageClick}
                        containerClassName={"pagination"}
                        subContainerClassName={"pages pagination"}

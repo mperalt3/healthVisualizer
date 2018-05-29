@@ -1,7 +1,7 @@
-import React, { Component } from "react";
-import { connect } from "react-redux";
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import FontAwesome from 'react-fontawesome';
-import { listCounty } from "../actions/index";
+import { listCounty } from '../actions/index';
 
 
 const mapDispatchToProps = dispatch => {
@@ -10,6 +10,7 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
+// Component responsible for rendering an option on the menuNav and updating the selected county
 class ConnectedCountyOption extends Component {
   constructor() {
     super();
@@ -25,11 +26,17 @@ class ConnectedCountyOption extends Component {
   render() {
     const { county } = this.props;
     return (
-      <div className="option" key={county.fipsCode} onClick={this.handleClick} >
-      <span>{county.name}</span> -
-      <span>{county.stateId.name}</span>
+      <div className="option list-group-item" key={county.fipsCode} onClick={this.handleClick} >
+      <span className="option-county">{county.name}</span>
+      <span className="option-map">
+        <FontAwesome
+        className='fal fa-map-marker'
+        name='map-marker'
+      />
+      </span>
+      <span className="option-state">{county.stateId.name}</span>
       {county.isFavorite &&
-        <span><FontAwesome
+        <span className="option-heart"><FontAwesome
         className='fas fa-heart'
         name='heart'
       /></span>

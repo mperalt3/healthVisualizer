@@ -1,6 +1,6 @@
-import React, { Component } from "react";
-import { connect } from "react-redux";
-import { listCounties, updateSearchName } from "../actions/index";
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { listCounties, updateSearchName } from '../actions/index';
 
 const mapDispatchToProps = dispatch => {
   return {
@@ -17,6 +17,7 @@ const mapStateToProps = state => {
   };
 };
 
+// Component responsible for rending and managing the search by county's name bar
 class ConnectedSearch extends Component {
   constructor() {
     super();
@@ -28,7 +29,7 @@ class ConnectedSearch extends Component {
   }
 
   handleChange(event) {
-    this.setState({ searchName: event.target.value })
+    this.setState({ searchName: event.target.value });
     this.props.updateSearchName(event.target.value);
   }
 
@@ -42,19 +43,21 @@ class ConnectedSearch extends Component {
     const { searchName } = this.state;
     return (
       <form onSubmit={this.handleSubmit}>
-        <div className="form-group">
-          <label htmlFor="searchName">County's name</label>
+        <div className="input-group">
           <input
             type="text"
             className="form-control"
             id="searchName"
+            placeholder= "County's name"
             value={searchName}
             onChange={this.handleChange}
           />
+          <div className="input-group-btn">
+            <button className="btn btn-primary" type="submit">
+              <span className="glyphicon glyphicon-search"></span>
+            </button>
+          </div>
         </div>
-        <button type="submit" className="btn btn-success btn-lg">
-          Search
-        </button>
       </form>
     );
   }

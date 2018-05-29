@@ -1,6 +1,7 @@
 import { UPDATE_SEARCH_NAME,
           UPDATE_IS_FAVORITE,
           UPDATE_OFFSET,
+          UPDATE_VISIBLE_LANDING,
           SET_ELEMENTS_BY_PAGE,
           LIST_COUNTIES,
           LIST_COUNTY,
@@ -17,6 +18,7 @@ const initialState = {
   searchName: '',
   elementsByPage: 1,
   isFavorite: false,
+  visibleLanding: true,
   offset: 0
 };
 
@@ -29,6 +31,8 @@ const rootReducer = (state = initialState, action) => {
       return { ...state, isFavorite: action.payload };
     case UPDATE_OFFSET:
       return { ...state, offset: action.payload };
+    case UPDATE_VISIBLE_LANDING:
+      return { ...state, visibleLanding: action.payload };
     case SET_ELEMENTS_BY_PAGE:
       return { ...state, elementsByPage: action.payload };
     case LIST_COUNTIES:

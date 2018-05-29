@@ -1,28 +1,46 @@
 import React, { Component } from 'react';
-import logo from '../assets/images/logo.svg';
+import { connect } from 'react-redux';
 import '../assets/stylesheets/App.css';
-import Menu from "./menu";
-import MenuNav from "./menuNav";
-import Search from "./search";
-import CountyDisplay from "./countyDisplay";
+import CountyDisplay from './countyDisplay';
+import Nav from './nav';
+import Landing from './landing';
+import { updateVisibleLanding } from '../actions/index';
 
-class App extends Component {
+const mapStateToProps = state => {
+  return {
+    visibleLanding: state.visibleLanding
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    updateVisibleLanding: (visibleLanding) => dispatch(updateVisibleLanding(visibleLanding))
+  };
+};
+
+// Main component and the app point of start. It's responsible for displaying the landing or the dashboard
+class ConnectedApp extends Component {
+  constructor(){
+    super();
+    this.state = {};
+  }
+
+  componentDidMount(){
+    this.props.updateVisibleLanding(true);
+  }
+
   render() {
     return (
-      <div className="App container">
-        <div className="row">
-          <div className="col-md-4 col-xs-12">
-            <Search />
-            <MenuNav />
-            <Menu />
-          </div>
-          <div className="col-md-4 col-xs-12">
-            <CountyDisplay />
-          </div>
+      <div className="App">
+          {this.props.visibleLanding && <Landing />}
+        <div id="wrapper">
+          <Nav/>
+          <CountyDisplay />
         </div>
       </div>
     );
   }
 }
 
+const App = connect(mapStateToProps, mapDispatchToProps)(ConnectedApp);
 export default App;

@@ -1,8 +1,8 @@
-import React, { Component } from "react";
-import { connect } from "react-redux";
-import CountyOption from "./countyOption";
-import Paginator from "./paginator";
-import { setElementsByPage, listCounties, updateIsFavorite, updateOffset } from "../actions/index";
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import CountyOption from './countyOption';
+import Paginator from './paginator';
+import { setElementsByPage, listCounties, updateIsFavorite, updateOffset } from '../actions/index';
 
 const mapStateToProps = state => {
   return {
@@ -19,6 +19,7 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
+// Component responsible for rendering all counties as selectable options
 class ConnectedMenu extends Component {
   constructor(){
     super();
@@ -37,11 +38,11 @@ class ConnectedMenu extends Component {
   render(){
     const { counties } = this.props;
     return (
-      <div>
+      <div className="list-group">
       {counties &&
         <div>
         {counties.map(el => (
-          <CountyOption county={el}/>
+          <CountyOption county={el} key={el.fipsCode}/>
         ))}
         <Paginator />
         </div>
