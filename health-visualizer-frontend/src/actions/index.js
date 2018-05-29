@@ -12,7 +12,7 @@ import {  LIST_DISEASES,
 import { getCounties, getCounty, updateCounty } from "../services/countiesService"
 import { getDiseases } from "../services/diseasesService"
 
-// Update searchName, isFavorite, offset, visibleLandingexport const updateOffset = (offset) => ({ type: UPDATE_OFFSET, payload: offset }); and elementsByPage in store in order to be available for any component at any time.
+// Update searchName, isFavorite, offset, visibleLanding and elementsByPage in store in order to be available for any component at any time.
 export const updateSearchName = (searchName) => ({ type: UPDATE_SEARCH_NAME, payload: searchName });
 export const updateIsFavorite = (isFavorite) => ({ type: UPDATE_IS_FAVORITE, payload: isFavorite });
 export const updateOffset = (offset) => ({ type: UPDATE_OFFSET, payload: offset });
@@ -97,7 +97,7 @@ export const markAsFavorite = (countyId, searchName, isFavorite, elementsByPage,
 export const markAsNonFavorite = (countyId, searchName, isFavorite, elementsByPage, offset) => {
   return function (dispatch) {
     return updateCounty(countyId, false).then(
-      county => dispatch(actionMarkAsFavorite(county))
+      county => dispatch(actionMarkAsNonFavorite(county))
     ).then (
       () => dispatch(listCounties(searchName, isFavorite, elementsByPage, offset))
     )

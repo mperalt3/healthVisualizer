@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import logo from '../assets/images/logo.svg';
 import '../assets/stylesheets/App.css';
 import CountyDisplay from './countyDisplay';
 import Nav from './nav';
-import Landing from './landing'
+import Landing from './landing';
 import { updateVisibleLanding } from '../actions/index';
 
 const mapStateToProps = state => {
@@ -19,6 +18,7 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
+// Main component and the app point of start. It's responsible for displaying the landing or the dashboard
 class ConnectedApp extends Component {
   constructor(){
     super();

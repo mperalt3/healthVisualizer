@@ -1,8 +1,7 @@
-import React, { Component } from "react";
-import { connect } from "react-redux";
-import ReactHighcharts from 'react-highcharts';
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import FontAwesome from 'react-fontawesome';
-import { listDiseases, markAsFavorite, markAsNonFavorite, listCounties } from "../actions/index";
+import { listDiseases, markAsFavorite, markAsNonFavorite } from '../actions/index';
 import { generateCharts } from '../utils/chartsConstructor'
 import DiseaseDisplay from './diseaseDisplay';
 
@@ -26,6 +25,7 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
+// Component responsible for displaying the data of the selected county and selected disease
 class ConnectedCountyDisplay extends Component {
   constructor(){
     super();
@@ -80,7 +80,7 @@ class ConnectedCountyDisplay extends Component {
       {currentCounty &&
         <div>
           <div className="row">
-            <div class="col-lg-12">
+            <div className="col-lg-12">
               <div className="panel county-pannel">
                 <span className="favorite-pannel">
                   {currentCounty.county.isFavorite &&
@@ -116,11 +116,11 @@ class ConnectedCountyDisplay extends Component {
             </div>
           </div>
           <div className="row">
-            <div class="col-lg-12  diseases-nav">
-              <ul class="nav nav-tabs">
+            <div className="col-lg-12  diseases-nav">
+              <ul className="nav nav-tabs">
               {diseases.map(el => (
-                <li class="nav-item" key={el._id}>
-                  <a class={`nav-link ${el.name === currentDiseaseName ? 'disease-active' : ''}`} href="#" id={el.name} onClick={this.handleDiseaseClick}>{el.name}</a>
+                <li className="nav-item" key={el._id}>
+                  <a className={`nav-link ${el.name === currentDiseaseName ? 'disease-active' : ''}`} href="/" id={el.name} onClick={this.handleDiseaseClick}>{el.name}</a>
                 </li>
               ))}
               </ul>
@@ -130,10 +130,10 @@ class ConnectedCountyDisplay extends Component {
         </div>
       }
       { !currentCounty &&
-        <div class="jumbotron">
-          <h1 class="display-4">Choose a USA County</h1>
-          <p class="lead">This site gather information about indicators that affect the methabolic syndrome. These indicators are obesity, diabetes prevalance and physical inactivity by county of the United States.</p>
-          <hr class="my-4"/>
+        <div className="jumbotron">
+          <h1 className="display-4">Choose a USA County</h1>
+          <p className="lead">This site gather information about indicators that affect the methabolic syndrome. These indicators are obesity, diabetes prevalance and physical inactivity by county of the United States.</p>
+          <hr className="my-4"/>
           <p>Choose the county of your interest to see graphic information of these indicators. </p>
         </div>
       }

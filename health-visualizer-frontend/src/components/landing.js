@@ -1,8 +1,8 @@
-import React, { Component } from "react";
-import { connect } from "react-redux";
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import FontAwesome from 'react-fontawesome';
-import { DirectLink, Element , Events, animateScroll as scroll, scrollSpy, scroller } from 'react-scroll'
-import { updateVisibleLanding } from "../actions/index";
+import { Element, Events, animateScroll as scroll, scroller } from 'react-scroll'
+import { updateVisibleLanding } from '../actions/index';
 
 const mapDispatchToProps = dispatch => {
   return {
@@ -10,6 +10,7 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
+// Component that display the introduction messages to the user
 class ConnectedLanding extends Component {
   constructor(){
     super();
@@ -30,7 +31,7 @@ class ConnectedLanding extends Component {
 
   handleClick(event){
     event.preventDefault();
-    if (event.target.id == "learn more"){
+    if (event.target.id === "learn more"){
       this.scrollToAbout();
     }else{
       this.props.updateVisibleLanding(false);
@@ -68,8 +69,8 @@ class ConnectedLanding extends Component {
           <p> You will compare information from year to year, gender by gender, or even select
             what data seems more important for others to view with the "mark as a favorite" option </p>
           <div>
-            <a href="" className="btn btn-info btn-lg landing-link" id="getting started" onClick={this.handleClick} >Getting started</a>
-            <a href="" className="btn btn-info btn-lg landing-link" id="learn more" onClick={this.handleClick}>Learn more</a>
+            <a href="/" className="btn btn-info btn-lg landing-link" id="getting started" onClick={this.handleClick} >Getting started</a>
+            <a href="/" className="btn btn-info btn-lg landing-link" id="learn more" onClick={this.handleClick}>Learn more</a>
           </div>
         </div>
         <div className="landing-section" id="about">

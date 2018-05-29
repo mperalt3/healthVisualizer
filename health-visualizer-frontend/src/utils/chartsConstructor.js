@@ -1,5 +1,4 @@
 // Module to construct data for charts froms any disease statistics
-import React, { Component } from "react";
 import { colorSerieA, colorSerieF, colorSerieM } from "../constants/seriesColors"
 
 // Take an array of statistics and construct the data elements for charts

@@ -1,6 +1,6 @@
-import React, { Component } from "react";
-import { connect } from "react-redux";
-import { listCounties, updateIsFavorite } from "../actions/index";
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { listCounties, updateIsFavorite } from '../actions/index';
 
 const mapDispatchToProps = dispatch => {
   return {
@@ -17,6 +17,7 @@ const mapStateToProps = state => {
   };
 };
 
+// Component responsible for rendering a nav-bar between all kinds of counties or only the favorites
 class ConnectedMenuNav extends Component {
   constructor() {
     super();
@@ -29,7 +30,7 @@ class ConnectedMenuNav extends Component {
   handleClickOption(event) {
     event.preventDefault();
     const { elementsByPage, searchName } = this.props;
-    const value = event.target.id == "favorites";
+    const value = event.target.id === "favorites";
     this.setState({ isFavorite: value });
     this.props.updateIsFavorite(value);
     this.props.listCounties(searchName, value, elementsByPage, 0);
@@ -40,10 +41,10 @@ class ConnectedMenuNav extends Component {
     return (
       <ul className="nav nav-tabs">
         <li className="nav-item">
-          <a id="all" class={`nav-link ${!isFavorite ? 'menuNav-active' : ''}`} href="#" onClick={this.handleClickOption}>All</a>
+          <a id="all" className={`nav-link ${!isFavorite ? 'menuNav-active' : ''}`} href="/" onClick={this.handleClickOption}>All</a>
         </li>
         <li className="nav-item">
-          <a id="favorites" class={`nav-link ${isFavorite ? 'menuNav-active' : ''}`} href="#" onClick={this.handleClickOption}>Favorites</a>
+          <a id="favorites" className={`nav-link ${isFavorite ? 'menuNav-active' : ''}`} href="/" onClick={this.handleClickOption}>Favorites</a>
         </li>
       </ul>
     );

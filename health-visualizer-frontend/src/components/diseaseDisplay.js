@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component } from 'react';
 import ReactHighcharts from 'react-highcharts';
 import FontAwesome from 'react-fontawesome';
 
@@ -11,6 +11,7 @@ let dataCharts ={
   averageF: 0
 }
 
+// Component responsible for rendering all charts and data related to a county and a specific disease
 class DiseaseDisplay extends Component {
   constructor(){
     super();
@@ -29,126 +30,126 @@ class DiseaseDisplay extends Component {
     return (
       <div>
           <div className="row">
-            <div class="col-lg-12">
+            <div className="col-lg-12">
               <div className="disease-title">
                 <h3>{diseaseName}</h3>
               </div>
             </div>
           </div>
           <div className="row">
-            <div class="col-lg-12">
-              <div class="panel panel-default">
-                <div class="panel-heading">
-                  <h3 class="panel-title"><i class="fa fa-bar-chart-o fa-fw"></i>Total Cases by year</h3>
+            <div className="col-lg-12">
+              <div className="panel panel-default">
+                <div className="panel-heading">
+                  <h3 className="panel-title"><i className="fa fa-bar-chart-o fa-fw"></i>Total Cases by Year</h3>
                 </div>
-                <div class="panel-body">
+                <div className="panel-body">
                   <ReactHighcharts config={dataCharts.totalCountChart}/>
                 </div>
               </div>
             </div>
           </div>
-          <div class="row">
-            <div class="col-lg-4 col-md-6">
-                <div class="panel panel-primary">
-                    <div class="panel-heading">
-                        <div class="row">
-                            <div class="col-xs-3">
+          <div className="row">
+            <div className="col-lg-4 col-md-6">
+                <div className="panel panel-primary">
+                    <div className="panel-heading">
+                        <div className="row">
+                            <div className="col-xs-3">
                               <FontAwesome
                                 className='fas fa-users fa-4x'
                                 name='users'
                               />
                             </div>
-                            <div class="col-xs-9 text-right">
-                                <div class="huge">{dataCharts.averageA}</div>
+                            <div className="col-xs-9 text-right">
+                                <div className="huge">{dataCharts.averageA}</div>
                                 <div>Cases by year</div>
                             </div>
                         </div>
                     </div>
-                    <a href="#" onClick={this.handleClick}>
-                        <div class="panel-footer">
-                            <span class="pull-left">Total average</span>
+                    <a href="/" onClick={this.handleClick}>
+                        <div className="panel-footer">
+                            <span className="pull-left">Total Average</span>
 
-                            <div class="clearfix"></div>
+                            <div className="clearfix"></div>
                         </div>
                     </a>
                 </div>
             </div>
-            <div class="col-lg-4 col-md-6">
-                <div class="panel panel-green">
-                    <div class="panel-heading">
-                        <div class="row">
-                            <div class="col-xs-3">
+            <div className="col-lg-4 col-md-6">
+                <div className="panel panel-green">
+                    <div className="panel-heading">
+                        <div className="row">
+                            <div className="col-xs-3">
                             <FontAwesome
                               className='fas fa-mars fa-4x'
                               name='mars'
                             />
                             </div>
-                            <div class="col-xs-9 text-right">
-                                <div class="huge">{isNaN(dataCharts.averageM) ? "No data available" : dataCharts.averageM}</div>
+                            <div className="col-xs-9 text-right">
+                                <div className="huge">{isNaN(dataCharts.averageM) ? "No data available" : dataCharts.averageM}</div>
                                 <div>Cases by year</div>
                             </div>
                         </div>
                     </div>
-                    <a href="#" onClick={this.handleClick}>
-                        <div class="panel-footer">
-                            <span class="pull-left">Male average</span>
-                            <div class="clearfix"></div>
+                    <a href="/" onClick={this.handleClick}>
+                        <div className="panel-footer">
+                            <span className="pull-left">Male Average</span>
+                            <div className="clearfix"></div>
                         </div>
                     </a>
                 </div>
             </div>
-            <div class="col-lg-4 col-md-6">
-                <div class="panel panel-purple">
-                    <div class="panel-heading">
-                        <div class="row">
-                            <div class="col-xs-3">
+            <div className="col-lg-4 col-md-6">
+                <div className="panel panel-purple">
+                    <div className="panel-heading">
+                        <div className="row">
+                            <div className="col-xs-3">
                             <FontAwesome
                               className='fas fa-venus fa-4x'
                               name='venus'
                             />
                             </div>
-                            <div class="col-xs-9 text-right">
-                                <div class="huge">{isNaN(dataCharts.averageF) ? "No data available" : dataCharts.averageF}</div>
+                            <div className="col-xs-9 text-right">
+                                <div className="huge">{isNaN(dataCharts.averageF) ? "No data available" : dataCharts.averageF}</div>
                                 <div>Cases by year</div>
                             </div>
                         </div>
                     </div>
-                    <a href="#" onClick={this.handleClick}>
-                        <div class="panel-footer">
-                            <span class="pull-left">Female average</span>
-                            <div class="clearfix"></div>
+                    <a href="/" onClick={this.handleClick}>
+                        <div className="panel-footer">
+                            <span className="pull-left">Female Average</span>
+                            <div className="clearfix"></div>
                         </div>
                     </a>
                 </div>
             </div>
         </div>
         <div className="row">
-          <div class="col-lg-5">
-            <div class="panel panel-default">
-              <div class="panel-heading">
-                <h3 class="panel-title"><i class="fa fa-bar-chart-o fa-fw"></i> Female vs Male percentage of cases</h3>
+          <div className="col-lg-5">
+            <div className="panel panel-default">
+              <div className="panel-heading">
+                <h3 className="panel-title"><i className="fa fa-bar-chart-o fa-fw"></i> Female vs Male: Percentage of Cases</h3>
               </div>
               {isNaN(dataCharts.averageM) &&
-              <div class="panel-body">
+              <div className="panel-body">
                 No data available
               </div>
               }
               {!isNaN(dataCharts.averageM) &&
-              <div class="panel-body">
+              <div className="panel-body">
                 <ReactHighcharts config={dataCharts.averagePercentChart}/>
               </div>
               }
             </div>
           </div>
-          <div class="col-lg-7">
-            <div class="panel panel-default">
-              <div class="panel-heading">
-                <h3 class="panel-title"><FontAwesome
+          <div className="col-lg-7">
+            <div className="panel panel-default">
+              <div className="panel-heading">
+                <h3 className="panel-title"><FontAwesome
                   className='fa fa-bar-chart-o fa-fw"'
                   name='chart'
-                /> Percentage by year</h3>
+                /> Percentage by Year</h3>
               </div>
-              <div class="panel-body">
+              <div className="panel-body">
                 <ReactHighcharts config={dataCharts.percentChart}/>
               </div>
             </div>

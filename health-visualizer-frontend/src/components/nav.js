@@ -1,10 +1,9 @@
-import React, { Component } from "react";
-import { connect } from "react-redux";
-import FontAwesome from 'react-fontawesome';
-import Search from "./search";
-import MenuNav from "./menuNav";
-import Menu from "./menu";
-import { updateVisibleLanding } from "../actions/index";
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import Search from './search';
+import MenuNav from './menuNav';
+import Menu from './menu';
+import { updateVisibleLanding } from '../actions/index';
 
 const mapDispatchToProps = dispatch => {
   return {
@@ -12,11 +11,17 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
+// Component responsible for rendering the main navigation and the side navigation
 class ConnectedNav extends Component {
   constructor(){
     super();
     this.state = {};
     this.handleClickAbout = this.handleClickAbout.bind(this);
+    this.handleClick = this.handleClick.bind(this);
+  }
+
+  handleClick(event){
+    event.preventDefault();
   }
 
   handleClickAbout(event){
@@ -26,8 +31,7 @@ class ConnectedNav extends Component {
 
   render(){
     return (
-
-      <nav className="navbar navbar-inverse navbar-fixed-top" role="navigation">
+      <nav className="navbar navbar-inverse navbar-fixed-top">
 
           <div className="navbar-header">
               <button type="button" className="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
@@ -36,12 +40,12 @@ class ConnectedNav extends Component {
                   <span className="icon-bar"></span>
                   <span className="icon-bar"></span>
               </button>
-              <a className="navbar-brand" href="index.html">Health Visualizer</a>
+              <a className="navbar-brand" href="/">Health Visualizer</a>
           </div>
 
           <ul className="nav navbar-right top-nav">
               <li className="dropdown">
-                  <a href="#" className="dropdown-toggle" data-toggle="dropdown" onClick={this.handleClickAbout}><i className="fa fa-question-circle"></i> About </a>
+                  <a href="/" className="dropdown-toggle" data-toggle="dropdown" onClick={this.handleClickAbout}><i className="fa fa-question-circle"></i> About </a>
               </li>
               <li className="dropdown">
                   <a href="https://www.cdc.gov/diabetes/data/countydata/countydataindicators.html" className="dropdown-toggle" data-toggle="tooltip"
@@ -53,7 +57,7 @@ class ConnectedNav extends Component {
           <div className="collapse navbar-collapse navbar-ex1-collapse">
               <ul className="nav navbar-nav side-nav">
                   <li className="active">
-                      <a href="index.html"><i class="fa fa-fw fa-dashboard"></i> Dashboard</a>
+                      <a href="/" onClick={this.handleClick}><i className="fa fa-fw fa-dashboard"></i> Dashboard</a>
                   </li>
                   <MenuNav />
                   <Search />

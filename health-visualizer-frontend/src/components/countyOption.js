@@ -1,7 +1,7 @@
-import React, { Component } from "react";
-import { connect } from "react-redux";
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import FontAwesome from 'react-fontawesome';
-import { listCounty } from "../actions/index";
+import { listCounty } from '../actions/index';
 
 
 const mapDispatchToProps = dispatch => {
@@ -10,6 +10,7 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
+// Component responsible for rendering an option on the menuNav and updating the selected county
 class ConnectedCountyOption extends Component {
   constructor() {
     super();

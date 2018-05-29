@@ -1,7 +1,8 @@
 /*!
- * Start Bootstrap - SB Admin (http://startbootstrap.com/)
- * Copyright 2013-2016 Start Bootstrap
- * Licensed under MIT (https://github.com/BlackrockDigital/startbootstrap/blob/gh-pages/LICENSE)
+ * The base for the css template is:
+ *  Start Bootstrap - SB Admin (http://startbootstrap.com/)
+ *  Copyright 2013-2016 Start Bootstrap
+ *  Licensed under MIT (https://github.com/BlackrockDigital/startbootstrap/blob/gh-pages/LICENSE)
  */
 
 /* Global Styles */
@@ -210,6 +211,7 @@ ul.alert-dropdown {
     border-top-left-radius: 0px;
     border-top-right-radius: 0px;
 }
+
 /* Landing */
 
 .landing{
@@ -276,13 +278,15 @@ ul.alert-dropdown {
   height: 30px;
   position: fixed;
   bottom: 10px;
-  right: 10px; }
+  right: 10px;
+}
 
-  .up-arrow .fa.fa-arrow-up {
-    padding: 6px 7px;
-    font-size: 17px;
-    color: #ddd;
-    cursor: pointer; }
+.up-arrow .fa.fa-arrow-up {
+  padding: 6px 7px;
+  font-size: 17px;
+  color: #ddd;
+  cursor: pointer;
+}
 
 #welcome{
   background-color: #2a3f54;
@@ -297,17 +301,21 @@ ul.alert-dropdown {
   background-color: #1abb9c;
   color: #fff;
 }
+
 /* County pannel*/
+
 .county-pannel{
   background-color: #f5f5f5;
   padding: 10px;
 }
+
 .county-pannel>h2{
   font-size: 50px;
   font-variant-caps: small-caps;
   color: #31708f;
   font-weight: 600;
 }
+
 .state-name{
   font-size: 25px;
   font-variant-caps: all-small-caps;
@@ -316,34 +324,46 @@ ul.alert-dropdown {
   padding-left: 20px;
   font-style: italic;
 }
+
 .favorite-pannel{
   float: right;
   cursor: pointer;
   margin-right: 10px;
 }
+
 .red-heart{
   color: #e84b39;
   font-size:2.5em;
 }
+
 .red-heart:hover{
   color: #999;
 }
+
 .gray-heart{
   color: #ccc;
   font-size:2.5em;
 }
+
 .gray-heart:hover{
   color: #e84b3982;
 }
+
+.diseases-nav>.nav-tabs>li{
+  font-variant: all-small-caps;
+}
+
 .diseases-nav>.nav-tabs>li>a:hover {
     border-color: #316e8f #316e8f #ddd;
 }
+
 .diseases-nav>.nav>li>a:focus,
 .diseases-nav>.nav>li>a:hover {
     text-decoration: none;
     background-color: #316e8f;
     color: #fff;
 }
+
 .disease-active{
   text-decoration: none;
   background-color: #316e8f;

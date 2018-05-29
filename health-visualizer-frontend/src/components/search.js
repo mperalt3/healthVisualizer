@@ -1,6 +1,6 @@
-import React, { Component } from "react";
-import { connect } from "react-redux";
-import { listCounties, updateSearchName } from "../actions/index";
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { listCounties, updateSearchName } from '../actions/index';
 
 const mapDispatchToProps = dispatch => {
   return {
@@ -17,6 +17,7 @@ const mapStateToProps = state => {
   };
 };
 
+// Component responsible for rending and managing the search by county's name bar
 class ConnectedSearch extends Component {
   constructor() {
     super();
@@ -28,7 +29,7 @@ class ConnectedSearch extends Component {
   }
 
   handleChange(event) {
-    this.setState({ searchName: event.target.value })
+    this.setState({ searchName: event.target.value });
     this.props.updateSearchName(event.target.value);
   }
 
