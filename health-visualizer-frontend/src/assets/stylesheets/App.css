@@ -441,3 +441,19 @@ ul.alert-dropdown {
   text-align-last: center;
   font-variant-caps: petite-caps;
 }
+
+/* Error Layout */
+.error{
+  text-align: center;
+}
+
+.error>h1{
+  color: #f9c029;
+  font-weight: 600;
+  font-variant-caps: all-small-caps;
+}
+
+.error>p{
+  color: #2f70ad;
+  font-weight: 500;
+}
