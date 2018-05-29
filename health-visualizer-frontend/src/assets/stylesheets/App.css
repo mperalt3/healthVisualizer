@@ -1,0 +1,459 @@
+/*!
+ * The base for the css template is:
+ *  Start Bootstrap - SB Admin (http://startbootstrap.com/)
+ *  Copyright 2013-2016 Start Bootstrap
+ *  Licensed under MIT (https://github.com/BlackrockDigital/startbootstrap/blob/gh-pages/LICENSE)
+ */
+
+/* Global Styles */
+
+body {
+    margin-top: 100px;
+    background-color: #fff;
+}
+
+@media(min-width:768px) {
+    body {
+        margin-top: 50px;
+    }
+}
+
+#wrapper {
+    padding-left: 0;
+}
+
+#page-wrapper {
+    width: 100%;
+    padding: 0;
+    background-color: #fff;
+}
+
+.huge {
+    font-size: 50px;
+    line-height: normal;
+}
+
+.navbar-inverse {
+    background-color: #2a3f54;
+  }
+
+.navbar-brand>a{
+  color: #fff;
+}
+
+.navbar-inverse .navbar-nav>.active>a,
+.navbar-inverse .navbar-nav>.active>a:focus,
+.navbar-inverse .navbar-nav>.active>a:hover {
+    color: #fff;
+    background-color: #316e8f;
+}
+
+@media(min-width:768px) {
+    #wrapper {
+        padding-left: 350px;
+    }
+
+    #page-wrapper {
+        padding: 10px;
+    }
+}
+
+/* Top Navigation */
+
+.top-nav {
+    padding: 0 15px;
+}
+
+.top-nav>li {
+    display: inline-block;
+    float: left;
+}
+
+.top-nav>li>a {
+    padding-top: 15px;
+    padding-bottom: 15px;
+    line-height: 20px;
+    color: #999;
+}
+
+.top-nav>li>a:hover,
+.top-nav>li>a:focus,
+.top-nav>.open>a,
+.top-nav>.open>a:hover,
+.top-nav>.open>a:focus {
+    color: #fff;
+    background-color: #2a3f54;
+}
+
+.top-nav>.open>.dropdown-menu {
+    float: left;
+    position: absolute;
+    margin-top: 0;
+    border: 1px solid rgba(0,0,0,.15);
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    background-color: #fff;
+    -webkit-box-shadow: 0 6px 12px rgba(0,0,0,.175);
+    box-shadow: 0 6px 12px rgba(0,0,0,.175);
+}
+
+.top-nav>.open>.dropdown-menu>li>a {
+    white-space: normal;
+}
+
+ul.message-dropdown {
+    padding: 0;
+    max-height: 250px;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+li.message-preview {
+    width: 275px;
+    border-bottom: 1px solid rgba(0,0,0,.15);
+}
+
+li.message-preview>a {
+    padding-top: 15px;
+    padding-bottom: 15px;
+}
+
+li.message-footer {
+    margin: 5px 0;
+}
+
+ul.alert-dropdown {
+    width: 200px;
+}
+
+/* Side Navigation */
+
+@media(min-width:768px) {
+    .side-nav {
+        position: fixed;
+        top: 51px;
+        left: 350px;
+        width: 350px;
+        margin-left: -350px;
+        border: none;
+        border-radius: 0;
+        overflow-y: auto;
+        background-color: #2a3f54;;
+        bottom: 0;
+        overflow-x: hidden;
+        padding-bottom: 40px;
+    }
+
+    .side-nav>li>a {
+        width: 350px;
+    }
+
+    .side-nav li a:hover,
+    .side-nav li a:focus {
+        outline: none;
+
+    }
+}
+
+.side-nav>li>ul {
+    padding: 0;
+}
+
+.side-nav>li>ul>li>a {
+    display: block;
+    padding: 10px 15px 10px 38px;
+    text-decoration: none;
+    color: #999;
+}
+
+.side-nav>li>ul>li>a:hover {
+    color: #fff;
+}
+
+.menuNav-active{
+  text-decoration: none;
+  background-color: #eee;
+}
+
+.option {
+  cursor: pointer;
+  background-color: #f5f5f5;
+}
+
+.option:hover {
+  background-color: #c5c7cb;
+}
+
+.option-county{
+  font-variant: all-small-caps;
+  font-weight: 600;
+  color: #777;
+  font-size: large;
+}
+
+.option-state{
+  font-variant: all-small-caps;
+  color: #999;
+  padding: 5px;
+}
+
+.option-map{
+  padding: 5px;
+  color: #999;
+}
+
+.option-heart{
+  float: right;
+  color: #e84b39;
+}
+
+.list-group-item:first-child {
+    border-top-left-radius: 0px;
+    border-top-right-radius: 0px;
+}
+
+/* Landing */
+
+.landing{
+  background-color: white;
+  position: absolute;
+  z-index: 10000;
+  width: 100%;
+  height: 100%;
+}
+
+.landing-section{
+  height: 600px;
+  text-align: center;
+  padding-top: 200px;
+}
+
+.landing-section>h1{
+  font-size: 3.5em;
+  font-weight: 400;
+  line-height: 1.2;
+}
+
+.landing-section>h2{
+  font-size: 2.2em;
+  font-weight: 600;
+}
+
+
+.landing-section>p{
+  font-size: 1.25em;
+  font-weight: 400;
+}
+
+.landing-link{
+  background-color: #1abb9c;
+  border-color: #1abb9c;
+  margin-right: 10px;
+}
+
+.landing-link:hover,
+.landing-link:active,
+.landing-link:focus{
+  background-color: #508595;
+  border-color: #508595;
+}
+
+.landing-external-link{
+  background-color: #F7F7F7;
+  border-color: #F7F7F7;
+  color: #584f4f;
+}
+
+.landing-external-link:hover{
+  background-color: #ccc;
+  border-color: #ccc;
+}
+
+.up-arrow {
+  cursor: pointer;
+  background-color: #2a3f545c;
+  color: #FFF;
+  border-radius: 25px;
+  width: 30px;
+  height: 30px;
+  position: fixed;
+  bottom: 10px;
+  right: 10px;
+}
+
+.up-arrow .fa.fa-arrow-up {
+  padding: 6px 7px;
+  font-size: 17px;
+  color: #ddd;
+  cursor: pointer;
+}
+
+#welcome{
+  background-color: #2a3f54;
+  color: #fff
+}
+
+#about{
+  background-color: #f5f5f5;
+}
+
+#source{
+  background-color: #1abb9c;
+  color: #fff;
+}
+
+/* County pannel*/
+
+.county-pannel{
+  background-color: #f5f5f5;
+  padding: 10px;
+}
+
+.county-pannel>h2{
+  font-size: 50px;
+  font-variant-caps: small-caps;
+  color: #31708f;
+  font-weight: 600;
+}
+
+.state-name{
+  font-size: 25px;
+  font-variant-caps: all-small-caps;
+  font-weight: 400;
+  color: #767676;
+  padding-left: 20px;
+  font-style: italic;
+}
+
+.favorite-pannel{
+  float: right;
+  cursor: pointer;
+  margin-right: 10px;
+}
+
+.red-heart{
+  color: #e84b39;
+  font-size:2.5em;
+}
+
+.red-heart:hover{
+  color: #999;
+}
+
+.gray-heart{
+  color: #ccc;
+  font-size:2.5em;
+}
+
+.gray-heart:hover{
+  color: #e84b3982;
+}
+
+.diseases-nav>.nav-tabs>li{
+  font-variant: all-small-caps;
+}
+
+.diseases-nav>.nav-tabs>li>a:hover {
+    border-color: #316e8f #316e8f #ddd;
+}
+
+.diseases-nav>.nav>li>a:focus,
+.diseases-nav>.nav>li>a:hover {
+    text-decoration: none;
+    background-color: #316e8f;
+    color: #fff;
+}
+
+.disease-active{
+  text-decoration: none;
+  background-color: #316e8f;
+  color: #fff;
+}
+
+/* Flot Chart Containers */
+
+.flot-chart {
+    display: block;
+    height: 400px;
+}
+
+.flot-chart-content {
+    width: 100%;
+    height: 100%;
+}
+
+/* Custom Colored Panels */
+
+.huge {
+    font-size: 40px;
+}
+
+.panel-primary{
+  border-color: ##3199dc;
+}
+
+.panel-primary > .panel-heading {
+  border-color: ##3199dc;
+  color: #fff;
+  background-color: #3199dc;
+}
+
+.panel-green {
+    border-color: #1abb9c;
+}
+
+.panel-green > .panel-heading {
+    border-color: #1abb9c;
+    color: #fff;
+    background-color: #1abb9c;
+}
+
+.panel-green > a {
+    color: #5cb85c;
+}
+
+.panel-green > a:hover {
+    color: #3d8b3d;
+}
+
+.panel-purple {
+    border-color: #9b59b6;
+}
+
+.panel-purple > .panel-heading {
+    border-color: #9b59b6;
+    color: #fff;
+    background-color: #9b59b6;
+}
+
+.panel-purple > a {
+    color: #9b59b6;
+}
+
+.panel-purple > a:hover {
+    color: #df8a13;
+}
+
+.disease-title{
+  background-color: #316f8f;
+  color: #fff;
+  padding: 2px;
+  text-align-last: center;
+  font-variant-caps: petite-caps;
+}
+
+/* Error Layout */
+.error{
+  text-align: center;
+}
+
+.error>h1{
+  color: #f9c029;
+  font-weight: 600;
+  font-variant-caps: all-small-caps;
+}
+
+.error>p{
+  color: #2f70ad;
+  font-weight: 500;
+}
